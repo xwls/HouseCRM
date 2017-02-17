@@ -12,15 +12,15 @@
 <head>
     <%@ include file="/WEB-INF/pages/header.jsp" %>
     <title>客户房屋信息关系管理系统</title>
-    <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-    <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
 </head>
 <body>
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
-        <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">H-ui.admin</a>
-            <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> <span
-                    class="logo navbar-slogan f-l mr-10 hidden-xs">v3.0</span> <a aria-hidden="false"
+        <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs" href="<%=request.getContextPath()%>/index.jsp">客户管理系统</a>
+            <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="<%=request.getContextPath()%>/index.jsp">客户管理系统</a> <span
+                    class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span> <a aria-hidden="false"
                                                                                   class="nav-toggle Hui-iconfont visible-xs"
                                                                                   href="javascript:;">&#xe667;</a>
             <nav class="nav navbar-nav">
@@ -78,7 +78,7 @@
             <dt><i class="Hui-iconfont">&#xe616;</i> 客户相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="customer-list" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
+                    <li><a data-href="customer/list" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
                     <li><a data-href="article-list.html" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
                     <li><a data-href="article-list.html" data-title="客户关怀" href="javascript:void(0)">客户关怀</a></li>
                     <li><a data-href="article-list.html" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>

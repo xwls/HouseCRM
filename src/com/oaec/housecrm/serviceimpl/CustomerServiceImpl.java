@@ -18,8 +18,20 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDao customerDao;
 
     @Override
-    public List<Map<String, Object>> query() {
+    public List<Map<String, Object>> queryAllUsed() {
         System.out.println("CustomerServiceImpl.query");
-        return customerDao.query();
+        return customerDao.queryAllUsed();
+    }
+
+    @Override
+    public List<String> queryTypes() {
+        List<String> types = customerDao.queryTypes();
+        return types;
+    }
+
+    @Override
+    public Map<String, Object> queryById(int id) {
+        Map<String, Object> customer = customerDao.queryById(id);
+        return customer;
     }
 }
