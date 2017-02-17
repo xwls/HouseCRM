@@ -10,4 +10,6 @@ public interface CustomerService {
     List<Map<String,Object>> queryAllUsed();
     List<String> queryTypes();
     Map<String,Object> queryById(int id);
+    List<String> queryConditions();
+    List<String> querySources();
 }

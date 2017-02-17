@@ -34,4 +34,16 @@ public class CustomerServiceImpl implements CustomerService {
         Map<String, Object> customer = customerDao.queryById(id);
         return customer;
     }
+
+    @Override
+    public List<String> queryConditions() {
+        List<String> conditions = customerDao.queryConditions();
+        return conditions;
+    }
+
+    @Override
+    public List<String> querySources() {
+        List<String> sources = customerDao.querySources();
+        return sources;
+    }
 }

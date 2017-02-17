@@ -14,12 +14,47 @@
 <head>
     <%--<jsp:include page="header.jsp"/>--%>
     <%@include file="header.jsp" %>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/lib/icheck/icheck.css" />
-    <script type="text/javascript" src="<%=request.getContextPath()%>/lib/icheck/jquery.icheck.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/lib/iCheck/1.0.2/skins/all.css"/>
     <title>客户列表</title>
     <style type="text/css">
-        .modal-body input{
+        .modal-body input {
             margin: 5px;
+            width: 22%;
+        }
+
+        .modal-body label {
+            display: inline-block;
+            width: 50px;
+            text-align: right;
+        }
+
+        .modal .lb-sex {
+            width: 40px;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        .modal hr {
+            margin-top: 6px;
+            height: 1px;
+            border: none;
+            border-top: 1px solid #dddddd;
+        }
+
+        .modal .input-2 {
+            width: 38%;
+        }
+
+        .modal .input-3 {
+            width: 17%;
+        }
+
+        .modal .input-4 {
+            width: 60%;
+        }
+
+        .modal #customer_info {
+            margin-bottom: 0px;
         }
     </style>
 </head>
@@ -50,7 +85,7 @@
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-            class="btn btn-primary radius" data-title="添加资讯" data-href="article-add.html" onclick="Hui_admin_tab(this)"
+            class="btn btn-primary radius" data-title="添加客户" onclick="showDetail('add',0)"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加客户</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.customers)}</strong> 条</span></div>
     <div class="mt-20">
@@ -75,7 +110,8 @@
                 <tr class="text-c">
                     <td><input type="checkbox" value="" name=""></td>
                     <td>${customer.customer_id}</td>
-                    <td class="text-l"><u style="cursor:pointer" class="text-primary" onClick="showDetail(${customer.customer_id})"
+                    <td class="text-l"><u style="cursor:pointer" class="text-primary"
+                                          onClick="showDetail('name',${customer.customer_id})"
                                           title="详细信息">${customer.customer_name}</u></td>
                     <td>${customer.customer_sex}</td>
                     <td>${customer.condition_name}</td>
@@ -85,7 +121,7 @@
                     <td>${customer.customer_mobile}</td>
                     <td><a href="mailto:${customer.customer_email}">${customer.customer_email}</a></td>
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                                  onClick="article_edit('资讯编辑','article-add.html','${customer.customer_id}')"
+                                                  onClick="showDetail('edit',${customer.customer_id})"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
@@ -97,7 +133,8 @@
             </tbody>
         </table>
     </div>
-    <div id="modal-detail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="modal-detail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content radius">
                 <div class="modal-header">
@@ -105,20 +142,78 @@
                     <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
                 </div>
                 <div class="modal-body skin-minimal">
-                    <label for="customer_name">姓名：</label><input id="customer_name" type="text" class=" input-text radius" placeholder="客户姓名">
-                    <div class="radio-box"><input type="radio" id="radio-male" name="demo-radio1"> <label for="radio-male">男</label></div>
-                    <div class="radio-box"><input type="radio" id="radio-female" name="demo-radio1"> <label for="radio-female">女</label></div><br>
-                    <label for="condition_name">身份：</label><input type="text" id="condition_name" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">来源：</label><input type="text" id="source_name" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">销售：</label><input type="text" id="user_name" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">类型：</label><input type="text" id="type_name" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">电话：</label><input type="text" id="customer_mobile" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">邮箱：</label><input type="text" id="customer_email" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">QQ：</label><input type="text" id="customer_qq" class=" input-text radius" placeholder="客户姓名">
-                    <label for="condition_name">地址：</label><input type="text" id="customer_address" class=" input-text radius" placeholder="客户姓名">
+                    <div id="customer_info" class="Huialert Huialert-info">信息状态提示</div>
+                    <form id="customer_form" name="customer_form" method="post" action="#">
+                        <label for="customer_name">姓名：</label><input id="customer_name" type="text"
+                                                                     class=" input-text radius" placeholder="客户姓名">
+                        <div style="display: inline-block"><label for="">性别：</label>
+                            <input id="male" type="radio" name="sex"><label class="lb-sex" for="male">男</label>
+                            <input id="female" type="radio" name="sex"><label class="lb-sex" for="female">女</label>
+                        </div>
+                        <br>
+                        <label>身份：</label>
+                        <span class="select-box inline">
+                    <select id="customer_condition" name="" class="select">
+                        <option value="0">客户身份</option>
+                        <s:iterator value="#request.conditions" var="condition">
+                            <option value=${condition}>${condition}</option>
+                        </s:iterator>
+                    </select>
+                    </span>
+                        <label>类型：</label>
+                        <span class="select-box inline">
+                    <select id="customer_type" name="" class="select">
+                        <option value="0">客户类型</option>
+                        <s:iterator value="#request.types" var="type">
+                            <option value=${type}>${type}</option>
+                        </s:iterator>
+                    </select>
+                    </span>
+                        <label>来源：</label>
+                        <span class="select-box inline">
+                    <select id="customer_source" name="" class="select">
+                        <option value="0">客户来源</option>
+                        <s:iterator value="#request.sources" var="source">
+                            <option value=${source}>${source}</option>
+                        </s:iterator>
+                    </select>
+                    </span>
+                        <hr>
+                        <label for="customer_tel">手机：</label><input type="text" id="customer_tel"
+                                                                    class=" input-text radius" placeholder="手机">
+                        <label for="customer_mobile">电话：</label><input type="text" id="customer_mobile"
+                                                                       class=" input-text radius" placeholder="电话">
+                        <label for="customer_qq">QQ：</label><input type="text" id="customer_qq"
+                                                                   class=" input-text radius" placeholder="QQ">
+                        <label for="customer_msn">MSN：</label><input type="text" id="customer_msn"
+                                                                     class=" input-text radius" placeholder="MSN">
+                        <label for="birth_day">生日：</label><input type="text" id="birth_day"
+                                                                 onfocus="WdatePicker({ maxDate:'%y-%M-%d' })"
+                                                                 class="input-text Wdate radius" placeholder="生日">
+                        <label for="customer_job">职业：</label><input type="text" id="customer_job"
+                                                                    class=" input-text radius" placeholder="职业">
+                        <label for="customer_email">邮箱：</label><input type="text" id="customer_email"
+                                                                      class="input-2 input-text radius"
+                                                                      placeholder="邮箱">
+                        <label for="customer_blog">博客：</label><input type="text" id="customer_blog"
+                                                                     class="input-2 input-text radius" placeholder="博客">
+                        <label for="customer_company">公司：</label><input type="text" id="customer_company"
+                                                                        class="input-2 input-text radius"
+                                                                        placeholder="公司">
+                        <label for="customer_address">地址：</label><input type="text" id="customer_address"
+                                                                        class="input-2 input-text radius"
+                                                                        placeholder="地址">
+                        <hr>
+                        <label for="user_name">销售：</label><input type="text" id="user_name"
+                                                                 class="input-3 input-text radius" placeholder="销售">
+                        <label for="customer_remark">标记：</label><input type="text" id="customer_remark"
+                                                                       class="input-4 input-text radius"
+                                                                       placeholder="客户姓名">
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-dismiss="modal">确定</button>
+                    <button id="btn-submit" class="btn btn-primary">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>
         </div>
@@ -133,6 +228,7 @@
 <script type="text/javascript"
         src="<%=request.getContextPath()%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/lib/iCheck/1.0.2/icheck.min.js"></script>
 <script type="text/javascript">
     $('.table-sort').dataTable({
         "aaSorting": [[1, "desc"]],//默认第几个排序
@@ -143,19 +239,76 @@
         ]
     });
 
-    /* Modal打开之前执行*/
+
     $(function () {
-        $("#modal-detail").on("show.bs.modal",function () {
+        //启动iCheck
+        $(("[type='radio']")).iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_square-blue'
+        });
+        /* Modal打开之前执行*/
+        $("#modal-detail").on("show.bs.modal", function () {
 
         });
     })
 
-    function showDetail(customer_id) {
-        $.getJSON("${pageContext.request.contextPath}/customer/detail?id="+customer_id,function (result) {
+    function getCustomerDetail(customer_id) {
+        $.getJSON("${pageContext.request.contextPath}/customer/detail?id=" + customer_id, function (result) {
 //            $.Huimodalalert(result,2000);
             console.log(result);
-            $("#modal-detail").modal("show");
+            if (result.customer_sex == '男') {
+                $("#male").iCheck('check');
+            } else {
+                $("#female").iCheck('check');
+            }
+            $("#customer_condition").val(result.condition_name);
+            $("#customer_type").val(result.type_name);
+            $("#customer_name").val(result.customer_name);
+            $("#customer_source").val(result.source_name);
+            $("#user_name").val(result.user_name);
+            $("#customer_mobile").val(result.customer_mobile);
+            $("#customer_email").val(result.customer_email);
+            $("#customer_qq").val(result.customer_qq);
+            $("#customer_address").val(result.customer_address);
+            $("#customer_remark").val(result.customer_remark);
+            $("#customer_job").val(result.customer_job);
+            $("#customer_blog").val(result.customer_blog);
+            $("#customer_tel").val(result.customer_tel);
+            $("#customer_msn").val(result.customer_msn);
+            $("#birth_day").val(result.birth_day);
+            $("#customer_company").val(result.customer_company);
+            console.log($("#customer_info").text());
+            $("#customer_info").text("客户由\"" + result.customer_addman + "\"在\"" + result.customer_addtime + "\"添加，由\"" + result.change_man + "\"在\"" + result.customer_changtime + "\"修改！");
+
         });
+    }
+
+    function showDetail(action,customer_id) {
+        console.log(action+"--"+customer_id)
+        if(action == 'add'){
+            $("#customer_info").hide();
+            $("#btn-submit").show();
+            $('#male, #female').iCheck('enable');
+            $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
+            $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
+            $('input,select,textarea',$('form[name="customer_form"]')).val("");
+        }else if(action == 'name'){
+            getCustomerDetail(customer_id);
+            $("#customer_info").show();
+            $("#btn-submit").hide();
+            $('#male, #female').iCheck('disable');
+            $('select',$('form[name="customer_form"]')).attr('disabled','disabled');
+            $('input,textarea',$('form[name="customer_form"]')).attr('readonly',true);
+            $("#birth_day").attr('disabled','disabled');
+        }else if(action == 'edit'){
+            getCustomerDetail(customer_id);
+            $("#customer_info").show();
+            $("#btn-submit").show();
+            $('#male, #female').iCheck('enable');
+            $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
+            $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
+        }
+        $("#modal-detail").modal("show");
     }
 
     /*资讯-添加*/

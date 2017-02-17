@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Kevin on 2017/2/16.
@@ -38,14 +39,31 @@ public class CustomerAction extends ActionSupport{
         System.out.println("CustomerAction.queryAllUsed");
         List<Map<String, Object>> customers = customerService.queryAllUsed();
         List<String> types = customerService.queryTypes();
+        List<String> conditions = customerService.queryConditions();
+        List<String> sources = customerService.querySources();
         HttpServletRequest request = ServletActionContext.getRequest();
         request.setAttribute("customers",customers);
         request.setAttribute("types",types);
+        request.setAttribute("conditions",conditions);
+        request.setAttribute("sources",sources);
         return "success";
     }
 
     public void detail(){
         Map<String, Object> customer = customerService.queryById(id);
+        Set<Map.Entry<String, Object>> entries = customer.entrySet();
+        for (Map.Entry<String,Object> entry : entries){
+            entry.setValue(entry.getValue().toString().trim());
+            String key = entry.getKey();
+            if(key.equals("birth_day")){
+                String value = entry.getValue().toString().substring(0, 10);
+                entry.setValue(value);
+            }
+            if(key.equals("customer_addtime") || key.equals("customer_changtime")){
+                String value = entry.getValue().toString().substring(0, 19);
+                entry.setValue(value);
+            }
+        }
         String json = JSON.toJSONString(customer);
         try {
             HttpServletResponse response = ServletActionContext.getResponse();
@@ -56,7 +74,7 @@ public class CustomerAction extends ActionSupport{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(customer);
+        System.out.println(json);
     }
 
 }

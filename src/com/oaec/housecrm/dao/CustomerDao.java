@@ -14,10 +14,22 @@ public interface CustomerDao {
     List<Map<String,Object>> queryAllUsed();
 
     /**
-     * 查询当前所有的客户类型
+     * 查询当前所有的Type
      * @return
      */
     List<String> queryTypes();
+
+    /**
+     * 查询所有客户的Condition
+     * @return
+     */
+    List<String> queryConditions();
+
+    /**
+     * 查询所有客户的Source
+     * @return
+     */
+    List<String> querySources();
 
     Map<String,Object> queryById(int id);
 }
