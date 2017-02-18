@@ -27,15 +27,15 @@
 
 1. 禁止表单中的所有表单元素编辑
 
-```javascript
-$('select,input,textarea',$('form[name="customer_form"]')).attr('disabled','disabled');
-```
+    ```javascript
+    $('select,input,textarea',$('form[name="customer_form"]')).attr('disabled','disabled');
+    ```
 
 2. 恢复表单元素可编辑
 
-```javascript
-$('select,input,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
-```
+    ```javascript
+    $('select,input,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
+    ```
 
 ### 使用iCheck美化单选框
 
@@ -43,27 +43,27 @@ $('select,input,textarea',$('form[name="customer_form"]')).removeAttr('disabled'
 
 1. 引入所需的文件
 
-```html
-<link rel="stylesheet" type="text/css" href="XXX/iCheck/1.0.2/skins/all.css"/>
-<script type="text/javascript" src="XXX/iCheck/1.0.2/icheck.min.js"></script>
-```
+    ```html
+    <link rel="stylesheet" type="text/css" href="XXX/iCheck/1.0.2/skins/all.css"/>
+    <script type="text/javascript" src="XXX/iCheck/1.0.2/icheck.min.js"></script>
+    ```
 
 2. 编写input标签
 
-```html
-<input id="male" type="radio" name="sex"><label for="male">男</label>
-<input id="female" type="radio" name="sex"><label for="female">女</label>
-```
+    ```html
+    <input id="male" type="radio" name="sex"><label for="male">男</label>
+    <input id="female" type="radio" name="sex"><label for="female">女</label>
+    ```
 
 3. 启用ICheck
 
-```javascript
-//启动iCheck
-$(("[type='radio']")).iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass: 'iradio_square-blue'
-});
-```
+    ```javascript
+    //启动iCheck
+    $(("[type='radio']")).iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_square-blue'
+    });
+    ```
 
 ## 2月16日
 
