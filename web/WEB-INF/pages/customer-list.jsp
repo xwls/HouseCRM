@@ -56,6 +56,17 @@
         .modal #customer_info {
             margin-bottom: 0px;
         }
+
+        .valError{
+            border:solid 1px #ee5f5b ;
+            border-color: rgba(238, 101, 95, 0.8);
+            box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(246, 101, 95, 0.6)
+        }
+        .valSuccess{
+            border:solid 1px #5eb95e ;
+            border-color: rgba(108, 203, 108, 0.8);
+            box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(123, 224, 123, 0.6)
+        }
     </style>
 </head>
 <body>
@@ -69,8 +80,8 @@
         <span class="select-box inline">
 		<select name="" class="select">
 			<option value="0">客户类型</option>
-            <s:iterator value="#request.types" var="type" status="status">
-                <option value=${status.count}>${type}</option>
+            <s:iterator value="#request.types" var="type" >
+                <option value=${type.type_id}>${type.type_name}</option>
             </s:iterator>
 		</select>
 		</span> 日期范围：
@@ -147,8 +158,8 @@
                         <label for="customer_name">姓名：</label><input id="customer_name" type="text"
                                                                      class=" input-text radius" placeholder="客户姓名">
                         <div style="display: inline-block"><label for="">性别：</label>
-                            <input id="male" type="radio" name="sex"><label class="lb-sex" for="male">男</label>
-                            <input id="female" type="radio" name="sex"><label class="lb-sex" for="female">女</label>
+                            <input id="male" value="male" type="radio" name="sex"><label class="lb-sex" for="male">男</label>
+                            <input id="female" value="female" type="radio" name="sex"><label class="lb-sex" for="female">女</label>
                         </div>
                         <br>
                         <label>身份：</label>
@@ -156,7 +167,7 @@
                     <select id="customer_condition" name="" class="select">
                         <option value="0">客户身份</option>
                         <s:iterator value="#request.conditions" var="condition">
-                            <option value=${condition}>${condition}</option>
+                            <option value=${condition.condition_id}>${condition.condition_name}</option>
                         </s:iterator>
                     </select>
                     </span>
@@ -165,7 +176,7 @@
                     <select id="customer_type" name="" class="select">
                         <option value="0">客户类型</option>
                         <s:iterator value="#request.types" var="type">
-                            <option value=${type}>${type}</option>
+                            <option value=${type.type_id}>${type.type_name}</option>
                         </s:iterator>
                     </select>
                     </span>
@@ -174,14 +185,14 @@
                     <select id="customer_source" name="" class="select">
                         <option value="0">客户来源</option>
                         <s:iterator value="#request.sources" var="source">
-                            <option value=${source}>${source}</option>
+                            <option value=${source.source_id}>${source.source_name}</option>
                         </s:iterator>
                     </select>
                     </span>
                         <hr>
-                        <label for="customer_tel">手机：</label><input type="text" id="customer_tel"
+                        <label for="customer_tel">手机：</label><input type="text" id="customer_tel" name="customer_tel"
                                                                     class=" input-text radius" placeholder="手机">
-                        <label for="customer_mobile">电话：</label><input type="text" id="customer_mobile"
+                        <label for="customer_mobile">电话：</label><input type="text" id="customer_mobile" name="customer_mobile"
                                                                        class=" input-text radius" placeholder="电话">
                         <label for="customer_qq">QQ：</label><input type="text" id="customer_qq"
                                                                    class=" input-text radius" placeholder="QQ">
@@ -208,11 +219,12 @@
                                                                  class="input-3 input-text radius" placeholder="销售">
                         <label for="customer_remark">标记：</label><input type="text" id="customer_remark"
                                                                        class="input-4 input-text radius"
-                                                                       placeholder="客户姓名">
+                                                                       placeholder="标记">
+                        <div class="errorInfo" ></div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-submit" class="btn btn-primary">确定</button>
+                    <button id="btn-submit" onclick="customer_add()" class="btn btn-primary">确定</button>
                     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>
@@ -230,6 +242,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/lib/iCheck/1.0.2/icheck.min.js"></script>
 <script type="text/javascript">
+
     $('.table-sort').dataTable({
         "aaSorting": [[1, "desc"]],//默认第几个排序
         "bStateSave": true,//状态保存
@@ -239,8 +252,45 @@
         ]
     });
 
+    function validate(){
+        return $("#customer_form").validate({
+            rules:{
+                customer_tel:{
+                    required:true,
+                    minlength:3,
+                    maxlength:6
+                },
+                customer_mobile:{
+                    required:true,
+                    digits:true
+                },
+                onsubmit:true,// 是否在提交是验证
+                onfocusout:true,// 是否在获取焦点时验证
+                onkeyup :false,// 是否在敲击键盘时验证
+            },
+            messages: {
+                customer_tel: {
+                    required: "必填",
+                    minlength:"最小3",
+                    maxlength:"最大6"
+                },
+                customer_mobile: {
+                    required: "必填",
+                    digits:"只能输数字"
+                }
+            },
+            errorPlacement: function(error, element){
+                console.log(error)
+                error.appendTo($(".errorInfo"));
+            }
+        });
+    }
 
     $(function () {
+
+        //表单验证
+        validate();
+
         //启动iCheck
         $(("[type='radio']")).iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
@@ -250,6 +300,15 @@
         $("#modal-detail").on("show.bs.modal", function () {
 
         });
+        $("#customer_tel").bind("input propertychange",function () {
+//            var value = $("#customer_tel").val();
+//            if(value.length != 5){
+//                $("#customer_tel").removeClass('input-text')
+//                $("#customer_tel").addClass('valError')
+//            }else{
+//                $("#customer_tel").addClass('valSuccess')
+//            }
+        })
     })
 
     function getCustomerDetail(customer_id) {
@@ -261,10 +320,10 @@
             } else {
                 $("#female").iCheck('check');
             }
-            $("#customer_condition").val(result.condition_name);
-            $("#customer_type").val(result.type_name);
+            $("#customer_condition").val(result.condition_id);
+            $("#customer_type").val(result.type_id);
             $("#customer_name").val(result.customer_name);
-            $("#customer_source").val(result.source_name);
+            $("#customer_source").val(result.source_id);
             $("#user_name").val(result.user_name);
             $("#customer_mobile").val(result.customer_mobile);
             $("#customer_email").val(result.customer_email);
@@ -289,6 +348,7 @@
             $("#customer_info").hide();
             $("#btn-submit").show();
             $('#male, #female').iCheck('enable');
+            $('#male').iCheck('check');
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
             $('input,select,textarea',$('form[name="customer_form"]')).val("");
@@ -309,6 +369,18 @@
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
         }
         $("#modal-detail").modal("show");
+    }
+    
+    function customer_add() {
+        var json = {
+            "customer_name":$("#customer_name").val(),
+            "customer_sex":$('#male').is(':checked')?'男':'女',
+            "customer_tel":$("#customer_tel").val(),
+            "customer_mobile":$("#customer_mobile").val(),
+            "customer_qq":$("#customer_qq").val()
+        }
+        console.log(json)
+        layer.alert(JSON.stringify(json));
     }
 
     /*资讯-添加*/

@@ -24,8 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<String> queryTypes() {
-        List<String> types = customerDao.queryTypes();
+    public List<Map<String,Object>> queryTypes() {
+        List<Map<String,Object>> types = customerDao.queryTypes();
         return types;
     }
 
@@ -36,14 +36,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<String> queryConditions() {
-        List<String> conditions = customerDao.queryConditions();
+    public List<Map<String,Object>> queryConditions() {
+        List<Map<String,Object>> conditions = customerDao.queryConditions();
         return conditions;
     }
 
     @Override
-    public List<String> querySources() {
-        List<String> sources = customerDao.querySources();
+    public List<Map<String,Object>> querySources() {
+        List<Map<String,Object>> sources = customerDao.querySources();
         return sources;
     }
 }

@@ -17,19 +17,19 @@ public interface CustomerDao {
      * 查询当前所有的Type
      * @return
      */
-    List<String> queryTypes();
+    List<Map<String,Object>> queryTypes();
 
     /**
      * 查询所有客户的Condition
      * @return
      */
-    List<String> queryConditions();
+    List<Map<String,Object>> queryConditions();
 
     /**
      * 查询所有客户的Source
      * @return
      */
-    List<String> querySources();
+    List<Map<String,Object>> querySources();
 
     Map<String,Object> queryById(int id);
 }

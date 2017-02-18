@@ -1,5 +1,22 @@
 # HouseCRM
 
+## 2月18日
+
+### Spring配置事务不生效
+
+Spring配置事务不生效，产生的原因是MySQL存储引擎没有使用支持事务的`InnoDB`，而是使用了不支持事务的`MyISAM`，修改方式很简单，如下：
+
+找到MySQL安装目录，打开`my.ini`文件，修改`default-storage-engine`属性，修改之后，保存并重启MySQL服务
+
+```properties
+#使用支持事务的InnoDB引擎
+default-storage-engine=InnoDB
+```
+
+### 表单数据验证
+
+使用`jquery.validate.js`进行表单的数据验证
+
 ## 2月17日
 
 ### 整合Struts2，去除之前的Servlet

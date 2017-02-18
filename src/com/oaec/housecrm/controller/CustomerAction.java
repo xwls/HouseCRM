@@ -38,9 +38,9 @@ public class CustomerAction extends ActionSupport{
     public String queryAllUsed(){
         System.out.println("CustomerAction.queryAllUsed");
         List<Map<String, Object>> customers = customerService.queryAllUsed();
-        List<String> types = customerService.queryTypes();
-        List<String> conditions = customerService.queryConditions();
-        List<String> sources = customerService.querySources();
+        List<Map<String,Object>> types = customerService.queryTypes();
+        List<Map<String,Object>> conditions = customerService.queryConditions();
+        List<Map<String,Object>> sources = customerService.querySources();
         HttpServletRequest request = ServletActionContext.getRequest();
         request.setAttribute("customers",customers);
         request.setAttribute("types",types);
@@ -53,6 +53,9 @@ public class CustomerAction extends ActionSupport{
         Map<String, Object> customer = customerService.queryById(id);
         Set<Map.Entry<String, Object>> entries = customer.entrySet();
         for (Map.Entry<String,Object> entry : entries){
+            if (entry.getValue() == null){
+                entry.setValue("");
+            }
             entry.setValue(entry.getValue().toString().trim());
             String key = entry.getKey();
             if(key.equals("birth_day")){

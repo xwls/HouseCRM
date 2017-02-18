@@ -8,8 +8,8 @@ import java.util.Map;
  */
 public interface CustomerService {
     List<Map<String,Object>> queryAllUsed();
-    List<String> queryTypes();
+    List<Map<String,Object>> queryTypes();
     Map<String,Object> queryById(int id);
-    List<String> queryConditions();
-    List<String> querySources();
+    List<Map<String,Object>> queryConditions();
+    List<Map<String,Object>> querySources();
 }
