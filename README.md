@@ -13,6 +13,21 @@ Spring配置事务不生效，产生的原因是MySQL存储引擎没有使用支
 default-storage-engine=InnoDB
 ```
 
+学到的两条sql：
+
+1. 查看当前版本的MySQL是否支持`InnoDB`存储引擎
+    
+    ```sql
+    SHOW ENGINES;
+    ```
+    
+2. 查看当前默认的存储引擎
+
+    ```sql
+    SHOW VARIABLES LIKE '%storage_engine%';
+    ```
+
+
 ### 表单数据验证
 
 使用`jquery.validate.js`进行表单的数据验证

@@ -78,7 +78,7 @@
             <dt><i class="Hui-iconfont">&#xe616;</i> 客户相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="customer/list" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
+                    <li><a data-href="customer/list.action" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
                     <li><a data-href="article-list.html" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
                     <li><a data-href="article-list.html" data-title="客户关怀" href="javascript:void(0)">客户关怀</a></li>
                     <li><a data-href="article-list.html" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
@@ -178,7 +178,7 @@
     <div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
         <div class="Hui-tabNav-wp">
             <ul id="min_title_list" class="acrossTab cl">
-                <li class="active"><span title="我的桌面" data-href="welcome">我的桌面</span><em></em></li>
+                <li class="active"><span title="我的桌面" data-href="welcome.action">我的桌面</span><em></em></li>
             </ul>
         </div>
         <div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S"
@@ -189,7 +189,7 @@
     <div id="iframe_box" class="Hui-article">
         <div class="show_iframe">
             <div style="display:none" class="loading"></div>
-            <iframe scrolling="yes" frameborder="0" src="welcome"></iframe>
+            <iframe scrolling="yes" frameborder="0" src="welcome.action"></iframe>
         </div>
     </div>
 </section>
