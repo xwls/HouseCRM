@@ -8,6 +8,20 @@
     <constant name="struts.objectFactory" value="spring"/>
     <constant name="struts.action.excludePattern" value="/static/.*?" />
 
+    <!--<package name="myDefault" extends="struts-default" abstract="true">-->
+        <!--<interceptors>-->
+            <!--<interceptor name="loginValidate" class="com.oaec.housecrm.interceptor.LoginInterceptor"/>-->
+            <!--<interceptor-stack name="myStack">-->
+                <!--<interceptor-ref name="loginValidate"/>-->
+                <!--<interceptor-ref name="defaultStack"/>-->
+            <!--</interceptor-stack>-->
+        <!--</interceptors>-->
+        <!--<default-interceptor-ref name="myStack"/>-->
+        <!--<global-results>-->
+            <!--<result name="login">/WEB-INF/pages/login.jsp</result>-->
+        <!--</global-results>-->
+    <!--</package>-->
+
     <package name="welcome" namespace="/" extends="struts-default">
         <action name="welcome">
             <result >/WEB-INF/pages/welcome.jsp</result>
@@ -20,6 +34,12 @@
         </action>
         <action name="detail" class="customerAction" method="detail"/>
 
+    </package>
+
+    <package name="user" namespace="/user" extends="struts-default">
+        <action name="toLogin">
+            <result>/WEB-INF/pages/login.jsp</result>
+        </action>
     </package>
 
 </struts>

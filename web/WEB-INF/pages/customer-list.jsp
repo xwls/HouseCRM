@@ -155,7 +155,7 @@
                 <div class="modal-body skin-minimal">
                     <div id="customer_info" class="Huialert Huialert-info">信息状态提示</div>
                     <form id="customer_form" name="customer_form" method="post" action="#">
-                        <label for="customer_name">姓名：</label><input id="customer_name" type="text"
+                        <label for="customer_name">姓名：</label><input id="customer_name" type="text" name="customer_name"
                                                                      class=" input-text radius" placeholder="客户姓名">
                         <div style="display: inline-block"><label for="">性别：</label>
                             <input id="male" value="male" type="radio" name="sex"><label class="lb-sex" for="male">男</label>
@@ -164,7 +164,7 @@
                         <br>
                         <label>身份：</label>
                         <span class="select-box inline">
-                    <select id="customer_condition" name="" class="select">
+                    <select id="customer_condition" name="customer_condition" class="select">
                         <option value="0">客户身份</option>
                         <s:iterator value="#request.conditions" var="condition">
                             <option value=${condition.condition_id}>${condition.condition_name}</option>
@@ -173,7 +173,7 @@
                     </span>
                         <label>类型：</label>
                         <span class="select-box inline">
-                    <select id="customer_type" name="" class="select">
+                    <select id="customer_type" name="customer_type" class="select">
                         <option value="0">客户类型</option>
                         <s:iterator value="#request.types" var="type">
                             <option value=${type.type_id}>${type.type_name}</option>
@@ -182,7 +182,7 @@
                     </span>
                         <label>来源：</label>
                         <span class="select-box inline">
-                    <select id="customer_source" name="" class="select">
+                    <select id="customer_source" name="customer_source" class="select">
                         <option value="0">客户来源</option>
                         <s:iterator value="#request.sources" var="source">
                             <option value=${source.source_id}>${source.source_name}</option>
@@ -194,30 +194,30 @@
                                                                     class=" input-text radius" placeholder="手机">
                         <label for="customer_mobile">电话：</label><input type="text" id="customer_mobile" name="customer_mobile"
                                                                        class=" input-text radius" placeholder="电话">
-                        <label for="customer_qq">QQ：</label><input type="text" id="customer_qq"
+                        <label for="customer_qq">QQ：</label><input type="text" id="customer_qq" name="customer_qq"
                                                                    class=" input-text radius" placeholder="QQ">
-                        <label for="customer_msn">MSN：</label><input type="text" id="customer_msn"
+                        <label for="customer_msn">MSN：</label><input type="text" id="customer_msn" name="customer_msn"
                                                                      class=" input-text radius" placeholder="MSN">
-                        <label for="birth_day">生日：</label><input type="text" id="birth_day"
+                        <label for="birth_day">生日：</label><input type="text" id="birth_day" name="birth_day"
                                                                  onfocus="WdatePicker({ maxDate:'%y-%M-%d' })"
                                                                  class="input-text Wdate radius" placeholder="生日">
-                        <label for="customer_job">职业：</label><input type="text" id="customer_job"
+                        <label for="customer_job">职业：</label><input type="text" id="customer_job" name="customer_job"
                                                                     class=" input-text radius" placeholder="职业">
-                        <label for="customer_email">邮箱：</label><input type="text" id="customer_email"
+                        <label for="customer_email">邮箱：</label><input type="text" id="customer_email" name="customer_email"
                                                                       class="input-2 input-text radius"
                                                                       placeholder="邮箱">
-                        <label for="customer_blog">博客：</label><input type="text" id="customer_blog"
+                        <label for="customer_blog">博客：</label><input type="text" id="customer_blog" name="customer_blog"
                                                                      class="input-2 input-text radius" placeholder="博客">
-                        <label for="customer_company">公司：</label><input type="text" id="customer_company"
+                        <label for="customer_company">公司：</label><input type="text" id="customer_company" name="customer_company"
                                                                         class="input-2 input-text radius"
                                                                         placeholder="公司">
-                        <label for="customer_address">地址：</label><input type="text" id="customer_address"
+                        <label for="customer_address">地址：</label><input type="text" id="customer_address" name="customer_address"
                                                                         class="input-2 input-text radius"
                                                                         placeholder="地址">
                         <hr>
-                        <label for="user_name">销售：</label><input type="text" id="user_name"
+                        <label for="user_name">销售：</label><input type="text" id="user_name" name="user_name"
                                                                  class="input-3 input-text radius" placeholder="销售">
-                        <label for="customer_remark">标记：</label><input type="text" id="customer_remark"
+                        <label for="customer_remark">标记：</label><input type="text" id="customer_remark" name="customer_remark"
                                                                        class="input-4 input-text radius"
                                                                        placeholder="标记">
                         <div class="errorInfo" ></div>
@@ -244,45 +244,82 @@
 <script type="text/javascript">
 
     $('.table-sort').dataTable({
-        "aaSorting": [[1, "desc"]],//默认第几个排序
+        //"aaSorting": [[1, "desc"]],//默认第几个排序
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 8]}// 不参与排序的列
+            {"orderable": false, "aTargets": [0, 10]}// 不参与排序的列
         ]
     });
+
+    $.validator.addMethod("checkQQ",function(value,element,params){
+        var checkQQ = /^[1-9][0-9]{4,19}$/;
+        return this.optional(element)||(checkQQ.test(value));
+    },"*请输入正确的QQ号码！");
+
+    $.validator.addMethod("checkTel", function(value, element) {
+        var length = value.length;
+        var tel = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+        return this.optional(element) || (length == 11 && tel.test(value));
+    }, "请正确填写您的手机号码");
 
     function validate(){
         return $("#customer_form").validate({
             rules:{
+                customer_name:{
+                    required:true,
+                    minlength:2,
+                    maxlength:4,
+                },
                 customer_tel:{
                     required:true,
-                    minlength:3,
-                    maxlength:6
+                    minlength:11,
+                    maxlength:11,
+                    checkTel:true
                 },
                 customer_mobile:{
                     required:true,
                     digits:true
                 },
+                customer_email:{
+                    email:true
+                },
+                customer_qq :{
+                    required:true,
+                    checkQQ:true
+                },
                 onsubmit:true,// 是否在提交是验证
                 onfocusout:true,// 是否在获取焦点时验证
-                onkeyup :false,// 是否在敲击键盘时验证
+                onkeyup :true,// 是否在敲击键盘时验证
             },
             messages: {
+                customer_name:{
+                    required:"必填",
+                    minlength:"至少2",
+                    maxlength:"最多4",
+                },
                 customer_tel: {
                     required: "必填",
-                    minlength:"最小3",
-                    maxlength:"最大6"
+                    minlength:"手机号不正确",
+                    maxlength:"手机号不正确",
+                    checkTel:"手机号不正确"
                 },
                 customer_mobile: {
                     required: "必填",
                     digits:"只能输数字"
+                },customer_email:{
+                    email:"邮箱格式不正确"
+                },customer_qq :{
+                    requred:"请输入QQ号",
+                    checkQQ:"QQ输入有误"
                 }
             },
             errorPlacement: function(error, element){
-                console.log(error)
-                error.appendTo($(".errorInfo"));
+                console.log(error[0].innerHTML)
+//                error.appendTo($(".errorInfo"));
+                $(".errorInfo").text(error[0].innerHTML);
             }
+
         });
     }
 
@@ -375,6 +412,8 @@
         var json = {
             "customer_name":$("#customer_name").val(),
             "customer_sex":$('#male').is(':checked')?'男':'女',
+            "condition_id":$("#customer_condition").val(),
+            "source_id":$("#customer_source").val(),
             "customer_tel":$("#customer_tel").val(),
             "customer_mobile":$("#customer_mobile").val(),
             "customer_qq":$("#customer_qq").val()
