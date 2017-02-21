@@ -13,7 +13,7 @@ public class LoginInterceptor extends AbstractInterceptor {
     @Override
     public String intercept(ActionInvocation actionInvocation) throws Exception {
         Map<String, Object> session = ActionContext.getContext().getSession();
-        Object user = session.get("user");
+        Object user = session.get("userInfo");
         if (user == null) {
             return "login";
         }else{

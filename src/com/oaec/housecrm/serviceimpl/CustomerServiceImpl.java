@@ -19,7 +19,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Map<String, Object>> queryAllUsed() {
-        System.out.println("CustomerServiceImpl.query");
         return customerDao.queryAllUsed();
     }
 
@@ -45,5 +44,10 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Map<String,Object>> querySources() {
         List<Map<String,Object>> sources = customerDao.querySources();
         return sources;
+    }
+
+    @Override
+    public int add(Map<String, Object> map) {
+        return customerDao.add(map);
     }
 }

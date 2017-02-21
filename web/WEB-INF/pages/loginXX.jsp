@@ -14,13 +14,20 @@
     <title>后台登录 - 客户房屋信息关系管理系统</title>
     <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+    <style type="text/css">
+        .header h1{
+            line-height: 20px;
+            color: white;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
 <input type="hidden" id="TenantId" name="TenantId" value="" />
-<div class="header"></div>
+<div class="header"><h1>客户关系管理系统后台登录</h1></div>
 <div class="loginWraper">
     <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="index.html" method="post">
+        <form class="form form-horizontal" action="user/login.action" method="post">
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                 <div class="formControls col-xs-8">
@@ -56,16 +63,5 @@
 </div>
 <div class="footer">Copyright 你的公司名称 by H-ui.admin v3.0</div>
 <%@ include file="footer.jsp"%>
-<!--此乃百度统计代码，请自行删除-->
-<!-- <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
-  var s = document.getElementsByTagName("script")[0];
-  s.parentNode.insertBefore(hm, s);
-})();
-</script> -->
-<!--/此乃百度统计代码，请自行删除
 </body>
 </html>

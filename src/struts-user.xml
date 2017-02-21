@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="user" namespace="/user" extends="myDefault">
+        <action name="toLogin">
+            <result>login.jsp</result>
+        </action>
+        <action name="login" class="com.oaec.housecrm.controller.UserController" method="login">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="redirect">../index.jsp</result>
+            <result name="error" type="redirectAction">toLogin</result>
+        </action>
+        <action name="logout" class="com.oaec.housecrm.controller.UserController" method="logout">
+            <result name="success" type="redirect">/login.jsp</result>
+        </action>
+    </package>
+</struts>

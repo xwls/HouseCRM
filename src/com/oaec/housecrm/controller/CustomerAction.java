@@ -1,7 +1,9 @@
 package com.oaec.housecrm.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.oaec.housecrm.service.CustomerService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
@@ -12,9 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Kevin on 2017/2/16.
@@ -35,8 +35,11 @@ public class CustomerAction extends ActionSupport{
         this.id = id;
     }
 
+    /**
+     * 查询所有的有效客户
+     * @return
+     */
     public String queryAllUsed(){
-        System.out.println("CustomerAction.queryAllUsed");
         List<Map<String, Object>> customers = customerService.queryAllUsed();
         List<Map<String,Object>> types = customerService.queryTypes();
         List<Map<String,Object>> conditions = customerService.queryConditions();
@@ -49,6 +52,10 @@ public class CustomerAction extends ActionSupport{
         return "success";
     }
 
+    /**
+     * Ajax查询客户详细信息
+     * 返回JSON
+     */
     public void detail(){
         Map<String, Object> customer = customerService.queryById(id);
         Set<Map.Entry<String, Object>> entries = customer.entrySet();
@@ -77,7 +84,51 @@ public class CustomerAction extends ActionSupport{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(json);
+//        System.out.println(json);
+    }
+
+    /**
+     * 添加新客户
+     * @return
+     */
+    public void add(){
+        HttpServletResponse response = ServletActionContext.getResponse();
+        ActionContext actionContext = ActionContext.getContext();
+        Map<String, Object> parameters = actionContext.getParameters();
+        //由于获取到的参数都是String数组类型，需要将数组取出第0个，才是我们需要的参数
+        Set<String> keySet = parameters.keySet();
+        for (String s : keySet) {
+            Object o = parameters.get(s);
+            if (o instanceof String[]){
+                String[] strs = (String[]) o;
+                parameters.put(s,strs[0]);
+            }
+        }
+        //获取session中用户的信息
+        Map<String, Object> session = actionContext.getSession();
+        Object o = session.get("userInfo");
+        if (o instanceof Map){
+            Map<String,Object> userInfo = (Map<String, Object>) o;
+            parameters.put("user_id",userInfo.get("user_id"));
+            parameters.put("customer_addman",userInfo.get("user_name"));
+        }
+        System.out.println(parameters);
+//        int add = customerService.add(parameters);
+        int add = 1;
+        response.setCharacterEncoding("utf-8");
+        JSONObject json = new JSONObject();
+        if(add > 0){
+            json.put("success",true);
+        }else{
+            json.put("success",false);
+        }
+        try {
+            PrintWriter writer = response.getWriter();
+            writer.write(json.toJSONString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

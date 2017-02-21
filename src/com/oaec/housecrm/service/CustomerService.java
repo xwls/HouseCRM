@@ -12,4 +12,5 @@ public interface CustomerService {
     Map<String,Object> queryById(int id);
     List<Map<String,Object>> queryConditions();
     List<Map<String,Object>> querySources();
+    int add(Map<String,Object> map);
 }

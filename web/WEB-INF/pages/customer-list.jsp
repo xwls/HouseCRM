@@ -50,22 +50,11 @@
         }
 
         .modal .input-4 {
-            width: 60%;
+            width: 88%;
         }
 
         .modal #customer_info {
             margin-bottom: 0px;
-        }
-
-        .valError{
-            border:solid 1px #ee5f5b ;
-            border-color: rgba(238, 101, 95, 0.8);
-            box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(246, 101, 95, 0.6)
-        }
-        .valSuccess{
-            border:solid 1px #5eb95e ;
-            border-color: rgba(108, 203, 108, 0.8);
-            box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 8px rgba(123, 224, 123, 0.6)
         }
     </style>
 </head>
@@ -158,14 +147,14 @@
                         <label for="customer_name">姓名：</label><input id="customer_name" type="text" name="customer_name"
                                                                      class=" input-text radius" placeholder="客户姓名">
                         <div style="display: inline-block"><label for="">性别：</label>
-                            <input id="male" value="male" type="radio" name="sex"><label class="lb-sex" for="male">男</label>
-                            <input id="female" value="female" type="radio" name="sex"><label class="lb-sex" for="female">女</label>
+                            <input id="male" value="male" type="radio" name="customer_sex"><label class="lb-sex" for="male">男</label>
+                            <input id="female" value="female" type="radio" name="customer_sex"><label class="lb-sex" for="female">女</label>
                         </div>
                         <br>
                         <label>身份：</label>
                         <span class="select-box inline">
-                    <select id="customer_condition" name="customer_condition" class="select">
-                        <option value="0">客户身份</option>
+                    <select id="condition_id" name="condition_id" class="select">
+                        <option value="0">客户状态</option>
                         <s:iterator value="#request.conditions" var="condition">
                             <option value=${condition.condition_id}>${condition.condition_name}</option>
                         </s:iterator>
@@ -173,7 +162,7 @@
                     </span>
                         <label>类型：</label>
                         <span class="select-box inline">
-                    <select id="customer_type" name="customer_type" class="select">
+                    <select id="type_id" name="type_id" class="select">
                         <option value="0">客户类型</option>
                         <s:iterator value="#request.types" var="type">
                             <option value=${type.type_id}>${type.type_name}</option>
@@ -182,7 +171,7 @@
                     </span>
                         <label>来源：</label>
                         <span class="select-box inline">
-                    <select id="customer_source" name="customer_source" class="select">
+                    <select id="source_id" name="source_id" class="select">
                         <option value="0">客户来源</option>
                         <s:iterator value="#request.sources" var="source">
                             <option value=${source.source_id}>${source.source_name}</option>
@@ -215,8 +204,6 @@
                                                                         class="input-2 input-text radius"
                                                                         placeholder="地址">
                         <hr>
-                        <label for="user_name">销售：</label><input type="text" id="user_name" name="user_name"
-                                                                 class="input-3 input-text radius" placeholder="销售">
                         <label for="customer_remark">标记：</label><input type="text" id="customer_remark" name="customer_remark"
                                                                        class="input-4 input-text radius"
                                                                        placeholder="标记">
@@ -271,7 +258,16 @@
                     minlength:2,
                     maxlength:4,
                 },
-                customer_tel:{
+                condition_id:{
+                    required:true,
+                    range:[1,${fn:length(requestScope.conditions)}]
+                },type_id:{
+                    required:true,
+                    range:[1,${fn:length(requestScope.types)}]
+                },source_id:{
+                    required:true,
+                    range:[1,${fn:length(requestScope.sources)}]
+                },customer_tel:{
                     required:true,
                     minlength:11,
                     maxlength:11,
@@ -298,6 +294,16 @@
                     minlength:"至少2",
                     maxlength:"最多4",
                 },
+                condition_id:{
+                    required:"必填",
+                    range:"选择不正确"
+                },type_id:{
+                    required:"必填",
+                    range:"选择不正确"
+                },source_id:{
+                    required:"必填",
+                    range:"选择不正确"
+                },
                 customer_tel: {
                     required: "必填",
                     minlength:"手机号不正确",
@@ -317,7 +323,7 @@
             errorPlacement: function(error, element){
                 console.log(error[0].innerHTML)
 //                error.appendTo($(".errorInfo"));
-                $(".errorInfo").text(error[0].innerHTML);
+//                $(".errorInfo").text(error[0].innerHTML);
             }
 
         });
@@ -337,19 +343,10 @@
         $("#modal-detail").on("show.bs.modal", function () {
 
         });
-        $("#customer_tel").bind("input propertychange",function () {
-//            var value = $("#customer_tel").val();
-//            if(value.length != 5){
-//                $("#customer_tel").removeClass('input-text')
-//                $("#customer_tel").addClass('valError')
-//            }else{
-//                $("#customer_tel").addClass('valSuccess')
-//            }
-        })
     })
 
     function getCustomerDetail(customer_id) {
-        $.getJSON("${pageContext.request.contextPath}/customer/detail?id=" + customer_id, function (result) {
+        $.getJSON("${pageContext.request.contextPath}/customer/detail.action?id=" + customer_id, function (result) {
 //            $.Huimodalalert(result,2000);
             console.log(result);
             if (result.customer_sex == '男') {
@@ -357,10 +354,10 @@
             } else {
                 $("#female").iCheck('check');
             }
-            $("#customer_condition").val(result.condition_id);
-            $("#customer_type").val(result.type_id);
+            $("#condition_id").val(result.condition_id);
+            $("#type_id").val(result.type_id);
             $("#customer_name").val(result.customer_name);
-            $("#customer_source").val(result.source_id);
+            $("#source_id").val(result.source_id);
             $("#user_name").val(result.user_name);
             $("#customer_mobile").val(result.customer_mobile);
             $("#customer_email").val(result.customer_email);
@@ -379,9 +376,37 @@
         });
     }
 
+    function customer_add() {
+
+        var sex = $('#male').is(':checked')?'男':'女';
+        $("input[name='customer_sex']").val(sex);
+        var form = $("#customer_form").serialize();
+        console.log(form)
+        $.post("${pageContext.request.contextPath}/customer/add",form,function (result) {
+            layer.msg(result,{icon: 1, time: 1000})
+        })
+
+        //------------------
+
+        <%--var flag = validate();--%>
+        <%--if(!flag.form()){--%>
+            <%--layer.msg('数据格式有误，请修改后再试',{icon: 2})--%>
+            <%--return;--%>
+        <%--}else{--%>
+            <%--var sex = $('#male').is(':checked')?'男':'女';--%>
+            <%--$("input[name='customer_sex']").val(sex);--%>
+            <%--var form = $("#customer_form").serialize();--%>
+            <%--console.log(form)--%>
+            <%--$.post("${pageContext.request.contextPath}/customer/add",form,function (result) {--%>
+                <%--layer.msg(result,{icon: 1, time: 1000})--%>
+            <%--})--%>
+        <%--}--%>
+    }
+
     function showDetail(action,customer_id) {
         console.log(action+"--"+customer_id)
         if(action == 'add'){
+            $(".modal-title").text("添加新客户");
             $("#customer_info").hide();
             $("#btn-submit").show();
             $('#male, #female').iCheck('enable');
@@ -391,6 +416,7 @@
             $('input,select,textarea',$('form[name="customer_form"]')).val("");
         }else if(action == 'name'){
             getCustomerDetail(customer_id);
+            $(".modal-title").text("客户详细信息");
             $("#customer_info").show();
             $("#btn-submit").hide();
             $('#male, #female').iCheck('disable');
@@ -399,6 +425,7 @@
             $("#birth_day").attr('disabled','disabled');
         }else if(action == 'edit'){
             getCustomerDetail(customer_id);
+            $(".modal-title").text("修改客户信息");
             $("#customer_info").show();
             $("#btn-submit").show();
             $('#male, #female').iCheck('enable');
@@ -406,20 +433,6 @@
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
         }
         $("#modal-detail").modal("show");
-    }
-    
-    function customer_add() {
-        var json = {
-            "customer_name":$("#customer_name").val(),
-            "customer_sex":$('#male').is(':checked')?'男':'女',
-            "condition_id":$("#customer_condition").val(),
-            "source_id":$("#customer_source").val(),
-            "customer_tel":$("#customer_tel").val(),
-            "customer_mobile":$("#customer_mobile").val(),
-            "customer_qq":$("#customer_qq").val()
-        }
-        console.log(json)
-        layer.alert(JSON.stringify(json));
     }
 
     /*资讯-添加*/

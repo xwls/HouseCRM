@@ -6,6 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+    String localName = request.getLocalName();
+    String localAddr = request.getLocalAddr();
+    String remoteHost = request.getRemoteHost();
+    String remoteAddr = request.getRemoteAddr();
+    String serverName = request.getServerName();
+    System.out.println(localName+"--"+localAddr+"--"+remoteAddr+"--"+remoteHost+"--"+serverName);
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -14,7 +23,7 @@
 </head>
 <body>
 <div class="page-container">
-    <p class="f-20 text-success">欢迎使用H-ui.admin <span class="f-14">v3.0</span>后台模版！</p>
+    <p class="f-20 text-success">欢迎您：<s:property value="#session.userInfo.user_name"/> </p>
     <p>登录次数：18 </p>
     <p>上次登录IP：222.35.131.79.1  上次登录时间：2014-6-14 11:19:55</p>
     <table class="table table-border table-bordered table-bg">
@@ -83,11 +92,11 @@
         <tbody>
         <tr>
             <th width="30%">服务器计算机名</th>
-            <td><span id="lbServerName">http://127.0.0.1/</span></td>
+            <td><span id="lbServerName"><%=localName%></span></td>
         </tr>
         <tr>
             <td>服务器IP地址</td>
-            <td>192.168.1.1</td>
+            <td><%=localAddr%></td>
         </tr>
         <tr>
             <td>服务器域名</td>

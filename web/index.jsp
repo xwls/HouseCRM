@@ -6,11 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
-    <%@ include file="/WEB-INF/pages/header.jsp" %>
+    <%@ include file="WEB-INF/pages/header.jsp" %>
+    <%
+        Object userInfo = session.getAttribute("userInfo");
+        if (userInfo == null) {
+            response.sendRedirect("login.jsp");
+        }
+    %>
     <title>客户房屋信息关系管理系统</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -42,13 +49,12 @@
             </nav>
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
-                    <li>超级管理员</li>
-                    <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A">admin <i class="Hui-iconfont">
+                    <li><s:property value="#session.userInfo.role_name"/></li>
+                    <li class="dropDown dropDown_hover"><a href="#" class="dropDown_A"><s:property value="#session.userInfo.user_name"/> <%--${sessionScope.userInfo.user_name}--%> <i class="Hui-iconfont">
                         &#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="#">个人信息</a></li>
-                            <li><a href="#">切换账户</a></li>
-                            <li><a href="#">退出</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/logout.action">退出</a></li>
                         </ul>
                     </li>
                     <li id="Hui-msg"><a href="#" title="消息"><%--<span class="badge badge-danger">1</span>--%><i

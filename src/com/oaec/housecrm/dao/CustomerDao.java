@@ -31,5 +31,17 @@ public interface CustomerDao {
      */
     List<Map<String,Object>> querySources();
 
+    /**
+     * 根据客户ID查询客户信息
+     * @param id
+     * @return
+     */
     Map<String,Object> queryById(int id);
+
+    /**
+     * 添加新客户
+     * @param map
+     * @return
+     */
+    int add(Map<String,Object> map);
 }
