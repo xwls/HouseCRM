@@ -70,4 +70,11 @@ public class CustomerDaoImpl implements CustomerDao {
                 , map.get("birth_day"), new Date(), map.get("customer_addman"), null, null, map.get("customer_company"));
         return update;
     }
+
+    @Override
+    public int update(Map<String, Object> map) {
+        String sql = "UPDATE customer_info SET condition_id = ?, source_id = ?, user_id = ?, type_id = ?, customer_name = ?, customer_sex = ?, customer_mobile = ?, customer_qq = ?, customer_address = ?, customer_email = ?, customer_remark = ?, customer_job = ?, customer_blog = ?, customer_tel = ?, customer_msn = ?, birth_day = ?, customer_changtime = ?, change_man=?, customer_company = ? WHERE customer_id = ?";
+        int update = jdbcTemplate.update(sql,map.get("condition_id"),map.get("source_id"),map.get("user_id"),map.get("type_id"),map.get("customer_name"),map.get("customer_sex"),map.get("customer_mobile"),map.get("customer_qq"),map.get("customer_address"),map.get("customer_email"),map.get("customer_remark"),map.get("customer_job"),map.get("customer_blog"),map.get("customer_tel"),map.get("customer_msn"),map.get("birth_day"),new Date(),map.get("change_man"),map.get("customer_company"),map.get("customer_id"));
+        return update;
+    }
 }

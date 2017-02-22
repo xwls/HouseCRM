@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<!--_meta 作为公共模版分离出去-->
+<!--_meta 作为公共模版分离出去 -->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -21,6 +21,11 @@
     <title>客户房屋信息关系管理系统</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <script type="text/javascript">
+        function logout() {
+            window.location.replace("${pageContext.request.contextPath}/user/logout.action")
+        }
+    </script>
 </head>
 <body>
 <header class="navbar-wrapper">
@@ -54,7 +59,7 @@
                         &#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="#">个人信息</a></li>
-                            <li><a href="${pageContext.request.contextPath}/user/logout.action">退出</a></li>
+                            <li><a href="javascript:void(0)" onclick="logout()">退出</a></li>
                         </ul>
                     </li>
                     <li id="Hui-msg"><a href="#" title="消息"><%--<span class="badge badge-danger">1</span>--%><i

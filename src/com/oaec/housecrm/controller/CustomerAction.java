@@ -91,7 +91,7 @@ public class CustomerAction extends ActionSupport{
      * 添加新客户
      * @return
      */
-    public void add(){
+    public void update(){
         HttpServletResponse response = ServletActionContext.getResponse();
         ActionContext actionContext = ActionContext.getContext();
         Map<String, Object> parameters = actionContext.getParameters();
@@ -113,11 +113,17 @@ public class CustomerAction extends ActionSupport{
             parameters.put("customer_addman",userInfo.get("user_name"));
         }
         System.out.println(parameters);
-//        int add = customerService.add(parameters);
-        int add = 1;
+        int result = -1;
+        Object customer_id = parameters.get("customer_id");
+        if(customer_id != null && !"".equals(customer_id)){
+            result = customerService.update(parameters);
+        }else{
+            result = customerService.add(parameters);
+        }
+//        int add = 1;
         response.setCharacterEncoding("utf-8");
         JSONObject json = new JSONObject();
-        if(add > 0){
+        if(result > 0){
             json.put("success",true);
         }else{
             json.put("success",false);

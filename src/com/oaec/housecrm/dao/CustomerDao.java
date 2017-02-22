@@ -44,4 +44,11 @@ public interface CustomerDao {
      * @return
      */
     int add(Map<String,Object> map);
+
+    /**
+     * 修改客户信息
+     * @param map
+     * @return
+     */
+    int update(Map<String,Object> map);
 }

@@ -50,4 +50,9 @@ public class CustomerServiceImpl implements CustomerService {
     public int add(Map<String, Object> map) {
         return customerDao.add(map);
     }
+
+    @Override
+    public int update(Map<String, Object> map) {
+        return customerDao.update(map);
+    }
 }

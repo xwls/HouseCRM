@@ -12,7 +12,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <%--<jsp:include page="header.jsp"/>--%>
     <%@include file="header.jsp" %>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/lib/iCheck/1.0.2/skins/all.css"/>
     <title>客户列表</title>
@@ -144,6 +143,7 @@
                 <div class="modal-body skin-minimal">
                     <div id="customer_info" class="Huialert Huialert-info">信息状态提示</div>
                     <form id="customer_form" name="customer_form" method="post" action="#">
+                        <input type="hidden" id="customer_id" name="customer_id">
                         <label for="customer_name">姓名：</label><input id="customer_name" type="text" name="customer_name"
                                                                      class=" input-text radius" placeholder="客户姓名">
                         <div style="display: inline-block"><label for="">性别：</label>
@@ -211,7 +211,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-submit" onclick="customer_add()" class="btn btn-primary">确定</button>
+                    <button id="btn-submit" onclick="customer_submit()" class="btn btn-primary">确定</button>
                     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>
@@ -354,6 +354,7 @@
             } else {
                 $("#female").iCheck('check');
             }
+            $("#customer_id").val(result.customer_id);
             $("#condition_id").val(result.condition_id);
             $("#type_id").val(result.type_id);
             $("#customer_name").val(result.customer_name);
@@ -376,32 +377,27 @@
         });
     }
 
-    function customer_add() {
-
-        var sex = $('#male').is(':checked')?'男':'女';
-        $("input[name='customer_sex']").val(sex);
-        var form = $("#customer_form").serialize();
-        console.log(form)
-        $.post("${pageContext.request.contextPath}/customer/add",form,function (result) {
-            layer.msg(result,{icon: 1, time: 1000})
-        })
-
-        //------------------
-
-        <%--var flag = validate();--%>
-        <%--if(!flag.form()){--%>
-            <%--layer.msg('数据格式有误，请修改后再试',{icon: 2})--%>
-            <%--return;--%>
-        <%--}else{--%>
-            <%--var sex = $('#male').is(':checked')?'男':'女';--%>
-            <%--$("input[name='customer_sex']").val(sex);--%>
-            <%--var form = $("#customer_form").serialize();--%>
-            <%--console.log(form)--%>
-            <%--$.post("${pageContext.request.contextPath}/customer/add",form,function (result) {--%>
-                <%--layer.msg(result,{icon: 1, time: 1000})--%>
-            <%--})--%>
-        <%--}--%>
+    //添加新客户
+    function customer_submit() {
+        var flag = validate();
+        if(!flag.form()){
+            layer.msg('数据格式有误，请修改后再试',{icon: 2})
+            return;
+        }else{
+            var sex = $('#male').is(':checked')?'男':'女';
+            $("input[name='customer_sex']").val(sex);
+            var form = $("#customer_form").serialize();
+            $.post("${pageContext.request.contextPath}/customer/update.action",form,function (result) {
+                layer.msg(result,{icon: 1, time: 1000})
+                location.reload()
+            })
+        }
     }
+
+//    //修改客户信息
+//    function customer_edit() {
+//        layer.msg("Edit",{icon: 1, time: 1000})
+//    }
 
     function showDetail(action,customer_id) {
         console.log(action+"--"+customer_id)
@@ -435,24 +431,7 @@
         $("#modal-detail").modal("show");
     }
 
-    /*资讯-添加*/
-    function article_add(title, url, w, h) {
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
-    /*资讯-编辑*/
-    function article_edit(title, url, id, w, h) {
-        var index = layer.open({
-            type: 2,
-            title: title,
-            content: url
-        });
-        layer.full(index);
-    }
+
     /*资讯-删除*/
     function article_del(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
