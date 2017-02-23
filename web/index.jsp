@@ -86,8 +86,8 @@
     <input runat="server" id="divScrollValue" type="hidden" value=""/>
     <div class="menu_dropdown bk_2">
         <dl id="menu-article">
-            <dt><i class="Hui-iconfont">&#xe616;</i> 客户相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
+            <dt class="selected"><i class="Hui-iconfont">&#xe616;</i> 客户相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dd style="display: block;">
                 <ul>
                     <li><a data-href="customer/list.action" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
                     <li><a data-href="article-list.html" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
@@ -100,58 +100,35 @@
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-picture">
-            <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dl id="menu-user">
+            <dt><i class="Hui-iconfont">&#xe613;</i> 员工相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
+                    <li><a data-href="picture-list.html" data-title="员工信息" href="javascript:void(0)">员工信息</a></li>
+                    <li><a data-href="picture-list.html" data-title="房屋信息" href="javascript:void(0)">房屋信息</a></li>
+                    <li><a data-href="picture-list.html" data-title="房屋类型" href="javascript:void(0)">房屋类型</a></li>
+                    <li><a data-href="picture-list.html" data-title="部门信息" href="javascript:void(0)">部门信息</a></li>
+                    <li><a data-href="picture-list.html" data-title="公   告" href="javascript:void(0)">公   告</a></li>
                 </ul>
             </dd>
         </dl>
-        <dl id="menu-product">
-            <dt><i class="Hui-iconfont">&#xe620;</i> 产品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dl id="menu-email">
+            <dt><i class="Hui-iconfont">&#xe620;</i> 邮件相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
-                    <li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-                    <li><a data-href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-comments">
-            <dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a>
-                    </li>
-                    <li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
-                </ul>
-            </dd>
-        </dl>
-        <dl id="menu-member">
-            <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-            <dd>
-                <ul>
-                    <li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
-                    <li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
-                    <li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-                    <li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
-                    <li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a>
-                    </li>
-                    <li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a>
-                    </li>
-                    <li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a>
-                    </li>
+                    <li><a data-href="product-brand.html" data-title="写邮件" href="javascript:void(0)">写邮件</a></li>
+                    <li><a data-href="product-category.html" data-title="发邮件" href="javascript:void(0)">发邮件</a></li>
+                    <li><a data-href="product-list.html" data-title="草稿箱" href="javascript:void(0)">草稿箱</a></li>
                 </ul>
             </dd>
         </dl>
         <dl id="menu-admin">
-            <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-                    <li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-                    <li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+                    <li><a data-href="admin-role.html" data-title="添加员工" href="javascript:void(0)">添加员工</a></li>
+                    <li><a data-href="admin-permission.html" data-title="添加部门" href="javascript:void(0)">添加部门</a></li>
+                    <li><a data-href="admin-list.html" data-title="添加角色" href="javascript:void(0)">添加角色</a></li>
                 </ul>
             </dd>
         </dl>
@@ -189,7 +166,7 @@
     <div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
         <div class="Hui-tabNav-wp">
             <ul id="min_title_list" class="acrossTab cl">
-                <li class="active"><span title="我的桌面" data-href="welcome.action">我的桌面</span><em></em></li>
+                <li class="active"><span title="主页" data-href="welcome.action">主页</span><em></em></li>
             </ul>
         </div>
         <div class="Hui-tabNav-more btn-group"><a id="js-tabNav-prev" class="btn radius btn-default size-S"

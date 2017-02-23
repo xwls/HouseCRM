@@ -70,8 +70,10 @@ public class CustomerAction extends ActionSupport{
                 entry.setValue(value);
             }
             if(key.equals("customer_addtime") || key.equals("customer_changtime")){
-                String value = entry.getValue().toString().substring(0, 19);
-                entry.setValue(value);
+                String value = entry.getValue().toString();
+                if(value != null && !"".equals(value)){
+                    entry.setValue(value.substring(0, 19));
+                }
             }
         }
         String json = JSON.toJSONString(customer);

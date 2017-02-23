@@ -55,6 +55,9 @@
         .modal #customer_info {
             margin-bottom: 0px;
         }
+        .inline{
+            display: inline;
+        }
     </style>
 </head>
 <body>
@@ -65,20 +68,26 @@
 <div class="page-container">
     <div class="text-c">
         <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
+        <span>选择查询方式：</span>
         <span class="select-box inline">
-		<select name="" class="select">
-			<option value="0">客户类型</option>
-            <s:iterator value="#request.types" var="type" >
-                <option value=${type.type_id}>${type.type_name}</option>
-            </s:iterator>
+		<select id="queryBy" name="queryBy" class="select">
+			<option value="queryByName">客户姓名</option>
+			<option value="queryByCondition">客户状态</option>
+			<option value="queryBySource">客户来源</option>
+			<option value="queryByType">客户类型</option>
+			<option value="queryByUser">所属员工</option>
+			<option value="queryByCompany">客户公司</option>
+			<option value="queryByDate">日期范围</option>
 		</select>
-		</span> 日期范围：
-        <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
-               class="input-text Wdate" style="width:120px;">
-        -
-        <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
-               class="input-text Wdate" style="width:120px;">
-        <input type="text" name="" id="" placeholder=" 姓名" style="width:250px" class="input-text">
+		</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <div id="addTime" class="inline" style="display: none;">
+            <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin"
+                   class="input-text Wdate" style="width:120px;">
+            -
+            <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax"
+                   class="input-text Wdate" style="width:120px;">
+        </div>
+        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 姓名" style="width:200px" class="input-text">
         <button name="" id="search" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
@@ -95,9 +104,9 @@
                 <th width="50">ID</th>
                 <th width="70">姓名</th>
                 <th width="50">性别</th>
-                <th width="80">身份</th>
+                <th width="80">状态</th>
                 <th width="70">来源</th>
-                <th width="70">销售人员</th>
+                <th width="70">所属员工</th>
                 <th width="60">类型</th>
                 <th width="100">手机</th>
                 <th width="160">邮箱</th>
@@ -151,7 +160,7 @@
                             <input id="female" value="female" type="radio" name="customer_sex"><label class="lb-sex" for="female">女</label>
                         </div>
                         <br>
-                        <label>身份：</label>
+                        <label>状态：</label>
                         <span class="select-box inline">
                     <select id="condition_id" name="condition_id" class="select">
                         <option value="0">客户状态</option>
@@ -179,10 +188,10 @@
                     </select>
                     </span>
                         <hr>
-                        <label for="customer_tel">手机：</label><input type="text" id="customer_tel" name="customer_tel"
-                                                                    class=" input-text radius" placeholder="手机">
-                        <label for="customer_mobile">电话：</label><input type="text" id="customer_mobile" name="customer_mobile"
-                                                                       class=" input-text radius" placeholder="电话">
+                        <label for="customer_tel">电话：</label><input type="text" id="customer_tel" name="customer_tel"
+                                                                    class=" input-text radius" placeholder="电话">
+                        <label for="customer_mobile">手机：</label><input type="text" id="customer_mobile" name="customer_mobile"
+                                                                       class=" input-text radius" placeholder="手机">
                         <label for="customer_qq">QQ：</label><input type="text" id="customer_qq" name="customer_qq"
                                                                    class=" input-text radius" placeholder="QQ">
                         <label for="customer_msn">MSN：</label><input type="text" id="customer_msn" name="customer_msn"
@@ -269,13 +278,13 @@
                     range:[1,${fn:length(requestScope.sources)}]
                 },customer_tel:{
                     required:true,
-                    minlength:11,
-                    maxlength:11,
-                    checkTel:true
+                    digits:true
                 },
                 customer_mobile:{
                     required:true,
-                    digits:true
+                    minlength:11,
+                    maxlength:11,
+                    checkTel:true
                 },
                 customer_email:{
                     email:true
@@ -306,13 +315,13 @@
                 },
                 customer_tel: {
                     required: "必填",
-                    minlength:"手机号不正确",
-                    maxlength:"手机号不正确",
-                    checkTel:"手机号不正确"
+                    digits:"只能输数字"
                 },
                 customer_mobile: {
                     required: "必填",
-                    digits:"只能输数字"
+                    minlength:"手机号不正确",
+                    maxlength:"手机号不正确",
+                    checkTel:"手机号不正确"
                 },customer_email:{
                     email:"邮箱格式不正确"
                 },customer_qq :{
@@ -343,9 +352,34 @@
         $("#modal-detail").on("show.bs.modal", function () {
 
         });
+
+        //查询条件
+        $("#queryBy").change(function () {
+            var queryBy = $("#queryBy").val();
+            $("#queryBy-input").show();
+            $("#addTime").hide();
+            if(queryBy == "queryByName"){
+                $("#queryBy-input").attr('placeholder',' 姓名');
+            }else if(queryBy == "queryByCondition"){
+                $("#queryBy-input").attr('placeholder',' 状态');
+            }else if(queryBy == "queryBySource"){
+                $("#queryBy-input").attr('placeholder',' 来源');
+            }else if(queryBy == "queryByType"){
+                $("#queryBy-input").attr('placeholder',' 类型');
+            }else if(queryBy == "queryByUser"){
+                $("#queryBy-input").attr('placeholder',' 所属员工');
+            }else if(queryBy == "queryByCompany"){
+                $("#queryBy-input").attr('placeholder',' 客户公司');
+            }else if(queryBy == "queryByDate"){
+                $("#queryBy-input").hide();
+                $("#addTime").show();
+            }
+            layer.msg(queryBy)
+        })
     })
 
     function getCustomerDetail(customer_id) {
+        layer.load();
         $.getJSON("${pageContext.request.contextPath}/customer/detail.action?id=" + customer_id, function (result) {
 //            $.Huimodalalert(result,2000);
             console.log(result);
@@ -373,7 +407,7 @@
             $("#customer_company").val(result.customer_company);
             console.log($("#customer_info").text());
             $("#customer_info").text("客户由\"" + result.customer_addman + "\"在\"" + result.customer_addtime + "\"添加，由\"" + result.change_man + "\"在\"" + result.customer_changtime + "\"修改！");
-
+            layer.closeAll('loading');
         });
     }
 
@@ -401,6 +435,8 @@
 
     function showDetail(action,customer_id) {
         console.log(action+"--"+customer_id)
+        $('input,select,textarea',$('form[name="customer_form"]')).val("");
+        $("#modal-detail").modal("show");
         if(action == 'add'){
             $(".modal-title").text("添加新客户");
             $("#customer_info").hide();
@@ -409,7 +445,6 @@
             $('#male').iCheck('check');
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
-            $('input,select,textarea',$('form[name="customer_form"]')).val("");
         }else if(action == 'name'){
             getCustomerDetail(customer_id);
             $(".modal-title").text("客户详细信息");
@@ -428,7 +463,6 @@
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('disabled');
             $('input,select,textarea',$('form[name="customer_form"]')).removeAttr('readonly');
         }
-        $("#modal-detail").modal("show");
     }
 
 
