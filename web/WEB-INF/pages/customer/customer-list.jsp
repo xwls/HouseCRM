@@ -12,7 +12,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <%@include file="header.jsp" %>
+    <%@include file="../header.jsp" %>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/lib/iCheck/1.0.2/skins/all.css"/>
     <title>客户列表</title>
     <style type="text/css">
@@ -228,7 +228,7 @@
     </div>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->

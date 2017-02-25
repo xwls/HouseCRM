@@ -8,10 +8,10 @@ import java.util.Map;
  */
 public interface CustomerDao {
     /**
-     * 查询所有已经启用的客户
+     * 查询所有已分配的客户
      * @return
      */
-    List<Map<String,Object>> queryAllUsed();
+    List<Map<String,Object>> queryAllUsed(boolean isAllocation);
 
     /**
      * 查询当前所有的Type

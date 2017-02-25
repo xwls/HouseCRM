@@ -18,8 +18,13 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDao customerDao;
 
     @Override
-    public List<Map<String, Object>> queryAllUsed() {
-        return customerDao.queryAllUsed();
+    public List<Map<String, Object>> queryAllUsed(boolean isAllocation) {
+        return customerDao.queryAllUsed(isAllocation);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryAllNotAllocation() {
+        return null;
     }
 
     @Override

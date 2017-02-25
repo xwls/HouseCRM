@@ -6,7 +6,6 @@ import com.oaec.housecrm.service.CustomerService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -40,7 +39,7 @@ public class CustomerAction extends ActionSupport{
      * @return
      */
     public String queryAllUsed(){
-        List<Map<String, Object>> customers = customerService.queryAllUsed();
+        List<Map<String, Object>> customers = customerService.queryAllUsed(true);
         List<Map<String,Object>> types = customerService.queryTypes();
         List<Map<String,Object>> conditions = customerService.queryConditions();
         List<Map<String,Object>> sources = customerService.querySources();
@@ -50,6 +49,17 @@ public class CustomerAction extends ActionSupport{
         request.setAttribute("conditions",conditions);
         request.setAttribute("sources",sources);
         return "success";
+    }
+
+    /**
+     * 所有未分配的
+     * @return
+     */
+    public String queryAllNotAllocation(){
+        List<Map<String, Object>> customers = customerService.queryAllUsed(false);
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("customers",customers);
+        return SUCCESS;
     }
 
     /**
@@ -90,7 +100,7 @@ public class CustomerAction extends ActionSupport{
     }
 
     /**
-     * 添加新客户
+     * 添加修改客户信息
      * @return
      */
     public void update(){

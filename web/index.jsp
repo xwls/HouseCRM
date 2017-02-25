@@ -90,7 +90,7 @@
             <dd style="display: block;">
                 <ul>
                     <li><a data-href="customer/list.action" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
-                    <li><a data-href="article-list.html" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
+                    <li><a data-href="customer/allocation.action" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
                     <li><a data-href="article-list.html" data-title="客户关怀" href="javascript:void(0)">客户关怀</a></li>
                     <li><a data-href="article-list.html" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
                     <li><a data-href="article-list.html" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>

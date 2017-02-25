@@ -7,9 +7,12 @@
 <struts>
     <package name="customer" namespace="/customer" extends="myDefault">
         <action name="list" class="customerAction" method="queryAllUsed">
-            <result name="success">/WEB-INF/pages/customer-list.jsp</result>
+            <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
         <action name="detail" class="customerAction" method="detail"/>
         <action name="update" class="customerAction" method="update"/>
+        <action name="allocation" class="customerAction" method="queryAllNotAllocation">
+            <result name="success">/WEB-INF/pages/customer/customer-allocation.jsp</result>
+        </action>
     </package>
 </struts>

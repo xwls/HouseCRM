@@ -19,8 +19,16 @@ public class CustomerDaoImpl implements CustomerDao {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Map<String, Object>> queryAllUsed() {
-        String sql = "SELECT customer_info.customer_id, customer_info.customer_name, customer_info.customer_sex, customer_condition.condition_name, customer_source.source_name, user_info.user_name, customer_type.type_name, customer_info.customer_mobile, customer_info.customer_email FROM customer_info LEFT JOIN customer_condition ON (customer_info.condition_id = customer_condition.condition_id) LEFT JOIN customer_source ON customer_info.source_id = customer_source.source_id LEFT JOIN user_info ON customer_info.user_id = user_info.user_id LEFT JOIN customer_type ON customer_info.type_id = customer_type.type_id WHERE customer_info.is_used != 0 ORDER BY customer_info.customer_id";
+    public List<Map<String, Object>> queryAllUsed(boolean isAllocation) {
+        String str = isAllocation ? "IS NOT NULL" : "IS NULL";
+        String sql = "SELECT customer_info.customer_id, customer_info.customer_name, customer_info.customer_sex, " +
+                "customer_condition.condition_name, customer_source.source_name, user_info.user_name, " +
+                "customer_type.type_name,customer_info.customer_addtime, customer_info.customer_mobile, customer_info.customer_email FROM " +
+                "customer_info LEFT JOIN customer_condition ON (customer_info.condition_id = " +
+                "customer_condition.condition_id) LEFT JOIN customer_source ON customer_info.source_id = " +
+                "customer_source.source_id LEFT JOIN user_info ON customer_info.user_id = user_info.user_id LEFT JOIN " +
+                "customer_type ON customer_info.type_id = customer_type.type_id WHERE customer_info.is_used != 0 AND  " +
+                "user_info.user_name "+str+" ORDER BY customer_info.customer_id";
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
         return maps;
     }
@@ -62,7 +70,7 @@ public class CustomerDaoImpl implements CustomerDao {
                 "customer_changtime, change_man, customer_company, is_used) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
         int update = jdbcTemplate.update(sql,
-                map.get("condition_id"), map.get("source_id"), map.get("user_id"), map.get("type_id"),
+                map.get("condition_id"), map.get("source_id"), null, map.get("type_id"),
                 map.get("customer_name"), map.get("customer_sex"), map.get("customer_mobile"), map.get("customer_qq"),
                 map.get("customer_address"), map.get("customer_email")
                 , map.get("customer_remark"), map.get("customer_job"), map.get("customer_blog"), map.get("customer_tel"),
@@ -73,8 +81,8 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public int update(Map<String, Object> map) {
-        String sql = "UPDATE customer_info SET condition_id = ?, source_id = ?, user_id = ?, type_id = ?, customer_name = ?, customer_sex = ?, customer_mobile = ?, customer_qq = ?, customer_address = ?, customer_email = ?, customer_remark = ?, customer_job = ?, customer_blog = ?, customer_tel = ?, customer_msn = ?, birth_day = ?, customer_changtime = ?, change_man=?, customer_company = ? WHERE customer_id = ?";
-        int update = jdbcTemplate.update(sql,map.get("condition_id"),map.get("source_id"),map.get("user_id"),map.get("type_id"),map.get("customer_name"),map.get("customer_sex"),map.get("customer_mobile"),map.get("customer_qq"),map.get("customer_address"),map.get("customer_email"),map.get("customer_remark"),map.get("customer_job"),map.get("customer_blog"),map.get("customer_tel"),map.get("customer_msn"),map.get("birth_day"),new Date(),map.get("change_man"),map.get("customer_company"),map.get("customer_id"));
+        String sql = "UPDATE customer_info SET condition_id = ?, source_id = ?, type_id = ?, customer_name = ?, customer_sex = ?, customer_mobile = ?, customer_qq = ?, customer_address = ?, customer_email = ?, customer_remark = ?, customer_job = ?, customer_blog = ?, customer_tel = ?, customer_msn = ?, birth_day = ?, customer_changtime = ?, change_man=?, customer_company = ? WHERE customer_id = ?";
+        int update = jdbcTemplate.update(sql,map.get("condition_id"),map.get("source_id"),map.get("type_id"),map.get("customer_name"),map.get("customer_sex"),map.get("customer_mobile"),map.get("customer_qq"),map.get("customer_address"),map.get("customer_email"),map.get("customer_remark"),map.get("customer_job"),map.get("customer_blog"),map.get("customer_tel"),map.get("customer_msn"),map.get("birth_day"),new Date(),map.get("change_man"),map.get("customer_company"),map.get("customer_id"));
         return update;
     }
 }

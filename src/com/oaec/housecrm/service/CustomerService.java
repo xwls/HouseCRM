@@ -8,11 +8,17 @@ import java.util.Map;
  */
 public interface CustomerService {
     /**
-     * 查询所有有效客户
+     * 查询所有已分配的客户
      *
      * @return
      */
-    List<Map<String, Object>> queryAllUsed();
+    List<Map<String, Object>> queryAllUsed(boolean isAllocation);
+
+    /**
+     * 查询所有未分配的客户
+     * @return
+     */
+    List<Map<String, Object>> queryAllNotAllocation();
 
     /**
      * 查询所有客户Type
