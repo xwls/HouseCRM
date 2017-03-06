@@ -57,7 +57,7 @@
                 <td>${customer.customer_mobile}</td>
                 <td><a href="mailto:${customer.customer_email}">${customer.customer_email}</a></td>
                 <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                              onClick="showDetail('edit',${customer.customer_id})"
+                                              onClick="allocation(${customer.customer_id})"
                                               href="javascript:;" title="分配"><i class="Hui-iconfont">
                     &#xe634;</i></a> <a
                         style="text-decoration:none" class="ml-5"
@@ -71,9 +71,7 @@
 </div>
 </div>
 <jsp:include page="../footer.jsp"/>
-<%
-    String path = request.getContextPath();
-%>
+
 <script type="text/javascript"
         src="<%=path%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<%=path%>/lib/laypage/1.2/laypage.js"></script>
@@ -87,6 +85,9 @@
             {"orderable": false, "aTargets": [0, 10]}// 不参与排序的列
         ]
     });
+    function allocation(customer_id) {
+        layer_show("客户分配","<%=path%>/customer/allocation-dialog.action?ids="+customer_id,"600","400")
+    }
 </script>
 </body>
 </html>

@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Kevin on 2017/2/16.
@@ -84,5 +82,44 @@ public class CustomerDaoImpl implements CustomerDao {
         String sql = "UPDATE customer_info SET condition_id = ?, source_id = ?, type_id = ?, customer_name = ?, customer_sex = ?, customer_mobile = ?, customer_qq = ?, customer_address = ?, customer_email = ?, customer_remark = ?, customer_job = ?, customer_blog = ?, customer_tel = ?, customer_msn = ?, birth_day = ?, customer_changtime = ?, change_man=?, customer_company = ? WHERE customer_id = ?";
         int update = jdbcTemplate.update(sql,map.get("condition_id"),map.get("source_id"),map.get("type_id"),map.get("customer_name"),map.get("customer_sex"),map.get("customer_mobile"),map.get("customer_qq"),map.get("customer_address"),map.get("customer_email"),map.get("customer_remark"),map.get("customer_job"),map.get("customer_blog"),map.get("customer_tel"),map.get("customer_msn"),map.get("birth_day"),new Date(),map.get("change_man"),map.get("customer_company"),map.get("customer_id"));
         return update;
+    }
+
+    @Override
+    public List<Map<String, Object>> query(Map<String, Object> map) {
+        StringBuilder sb = new StringBuilder("SELECT customer_info.customer_id, customer_info.customer_name, customer_info.customer_sex, customer_condition.condition_name, customer_source.source_name, user_info.user_name, customer_type.type_name,customer_info.customer_addtime, customer_info.customer_mobile, customer_info.customer_email FROM customer_info LEFT JOIN customer_condition ON (customer_info.condition_id = customer_condition.condition_id) LEFT JOIN customer_source ON customer_info.source_id = customer_source.source_id LEFT JOIN user_info ON customer_info.user_id = user_info.user_id LEFT JOIN customer_type ON customer_info.type_id = customer_type.type_id WHERE customer_info.is_used != 0 AND user_info.user_name IS NOT NULL");
+        Set<String> keySet = map.keySet();
+        List<String> params = new ArrayList<String>();
+        for (String s : keySet) {
+            String value = map.get(s).toString();
+            if(value != null && !"".equals(value)){
+//                String str = "";
+//                if (s.equals("customer_name")){
+//                    str = " LIKE ";
+//                    value = "%"+value+"%";
+//                }else {
+//                    str = " = ";
+//                }
+                sb.append(" AND "+s+" LIKE ? ");
+                value = "%"+value+"%";
+                params.add(value);
+            }
+        }
+        sb.append(" ORDER BY customer_info.customer_id");
+        System.out.println(sb.toString());
+        System.out.println(params.toArray());
+        List<Map<String, Object>> customers = jdbcTemplate.queryForList(sb.toString(), params.toArray());
+        return customers;
+    }
+
+    @Override
+    public List<Map<String, Object>> queryNameById(String[] ids) {
+        StringBuilder sb = new StringBuilder("SELECT customer_name FROM customer_info WHERE customer_id IN (");
+        for (String id : ids) {
+            sb.append("?,");
+        }
+        String sql = sb.substring(0,sb.length()-1);
+        sql += ")";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, ids);
+        return maps;
     }
 }

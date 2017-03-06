@@ -2,6 +2,7 @@ package com.oaec.housecrm.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by Kevin on 2017/2/16.
@@ -51,4 +52,8 @@ public interface CustomerDao {
      * @return
      */
     int update(Map<String,Object> map);
+
+    List<Map<String,Object>> query(Map<String,Object> map);
+
+    List<Map<String,Object>> queryNameById(String[] ids);
 }

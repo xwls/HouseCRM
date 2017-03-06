@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Kevin on 2017/2/16.
@@ -108,14 +112,7 @@ public class CustomerAction extends ActionSupport{
         ActionContext actionContext = ActionContext.getContext();
         Map<String, Object> parameters = actionContext.getParameters();
         //由于获取到的参数都是String数组类型，需要将数组取出第0个，才是我们需要的参数
-        Set<String> keySet = parameters.keySet();
-        for (String s : keySet) {
-            Object o = parameters.get(s);
-            if (o instanceof String[]){
-                String[] strs = (String[]) o;
-                parameters.put(s,strs[0]);
-            }
-        }
+        convert(parameters);
         //获取session中用户的信息
         Map<String, Object> session = actionContext.getSession();
         Object o = session.get("userInfo");
@@ -146,6 +143,51 @@ public class CustomerAction extends ActionSupport{
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public String allocation(){
+        Map<String, Object> parameters = ActionContext.getContext().getParameters();
+        Object obj = parameters.get("ids");
+        if (obj instanceof String[]){
+            String[] ids = (String[]) obj;
+            System.out.println(Arrays.toString(ids));
+            List<Map<String, Object>> maps = customerService.queryNameById(ids);
+            System.out.println(maps);
+        }
+        return SUCCESS;
+    }
+
+    public String search(){
+        Map<String, Object> parameters = ActionContext.getContext().getParameters();
+        convert(parameters);
+        System.out.println(parameters);
+        List<Map<String, Object>> customers = customerService.query(parameters);
+        List<Map<String,Object>> types = customerService.queryTypes();
+        List<Map<String,Object>> conditions = customerService.queryConditions();
+        List<Map<String,Object>> sources = customerService.querySources();
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("customers",customers);
+        request.setAttribute("types",types);
+        request.setAttribute("conditions",conditions);
+        request.setAttribute("sources",sources);
+        return SUCCESS;
+    }
+
+    private void convert(Map<String,Object> parameters){
+        Set<String> keySet = parameters.keySet();
+        for (String s : keySet) {
+            Object o = parameters.get(s);
+            if (o instanceof String []){
+                String[] strs = (String[]) o;
+                String value = strs[0];
+                try {
+                    value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                parameters.put(s,value);
+            }
         }
     }
 

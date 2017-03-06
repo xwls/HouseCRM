@@ -60,4 +60,14 @@ public class CustomerServiceImpl implements CustomerService {
     public int update(Map<String, Object> map) {
         return customerDao.update(map);
     }
+
+    @Override
+    public List<Map<String, Object>> query(Map<String, Object> map) {
+        return customerDao.query(map);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryNameById(String[] ids) {
+        return customerDao.queryNameById(ids);
+    }
 }

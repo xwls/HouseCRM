@@ -14,5 +14,11 @@
         <action name="allocation" class="customerAction" method="queryAllNotAllocation">
             <result name="success">/WEB-INF/pages/customer/customer-allocation.jsp</result>
         </action>
+        <action name="allocation-dialog" class="customerAction" method="allocation">
+            <result name="success">/WEB-INF/pages/customer/customer-allocation-dialog.jsp</result>
+        </action>
+        <action name="search" class="customerAction" method="search">
+            <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
+        </action>
     </package>
 </struts>

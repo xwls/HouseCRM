@@ -13,7 +13,7 @@
 <html>
 <head>
     <%@include file="../header.jsp" %>
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/lib/iCheck/1.0.2/skins/all.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=path%>/lib/iCheck/1.0.2/skins/all.css"/>
     <title>客户列表</title>
     <style type="text/css">
         .modal-body input {
@@ -71,13 +71,13 @@
         <span>选择查询方式：</span>
         <span class="select-box inline">
 		<select id="queryBy" name="queryBy" class="select">
-			<option value="queryByName">客户姓名</option>
-			<option value="queryByCondition">客户状态</option>
-			<option value="queryBySource">客户来源</option>
-			<option value="queryByType">客户类型</option>
-			<option value="queryByUser">所属员工</option>
-			<option value="queryByCompany">客户公司</option>
-			<option value="queryByDate">日期范围</option>
+			<option value="customer_name">客户姓名</option>
+			<option value="user_name">所属员工</option>
+			<option value="customer_company">客户公司</option>
+			<%--<option value="condition_name">客户状态</option>--%>
+			<%--<option value="source_name">客户来源</option>--%>
+			<%--<option value="type_name">客户类型</option>--%>
+			<%--<option value="queryByDate">日期范围</option>--%>
 		</select>
 		</span>&nbsp;&nbsp;&nbsp;&nbsp;
         <div id="addTime" class="inline" style="display: none;">
@@ -88,7 +88,7 @@
                    class="input-text Wdate" style="width:120px;">
         </div>
         <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 姓名" style="width:200px" class="input-text">
-        <button name="" id="search" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
+        <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
@@ -144,7 +144,7 @@
     <div id="modal-detail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content radius">
+            <div class="modal-content radius" style="width: 610px;">
                 <div class="modal-header">
                     <h3 class="modal-title">客户详细信息</h3>
                     <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
@@ -232,11 +232,11 @@
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="<%=request.getContextPath()%>/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="<%=path%>/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript"
-        src="<%=request.getContextPath()%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/lib/iCheck/1.0.2/icheck.min.js"></script>
+        src="<%=path%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<%=path%>/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="<%=path%>/lib/iCheck/1.0.2/icheck.min.js"></script>
 <script type="text/javascript">
 
     $('.table-sort').dataTable({
@@ -358,29 +358,35 @@
             var queryBy = $("#queryBy").val();
             $("#queryBy-input").show();
             $("#addTime").hide();
-            if(queryBy == "queryByName"){
+            if(queryBy == "customer_name"){
                 $("#queryBy-input").attr('placeholder',' 姓名');
-            }else if(queryBy == "queryByCondition"){
+            }else if(queryBy == "condition_name"){
                 $("#queryBy-input").attr('placeholder',' 状态');
-            }else if(queryBy == "queryBySource"){
+            }else if(queryBy == "source_name"){
                 $("#queryBy-input").attr('placeholder',' 来源');
-            }else if(queryBy == "queryByType"){
+            }else if(queryBy == "type_name"){
                 $("#queryBy-input").attr('placeholder',' 类型');
-            }else if(queryBy == "queryByUser"){
+            }else if(queryBy == "user_name"){
                 $("#queryBy-input").attr('placeholder',' 所属员工');
-            }else if(queryBy == "queryByCompany"){
+            }else if(queryBy == "customer_company"){
                 $("#queryBy-input").attr('placeholder',' 客户公司');
             }else if(queryBy == "queryByDate"){
                 $("#queryBy-input").hide();
                 $("#addTime").show();
             }
-            layer.msg(queryBy)
         })
     })
 
+    function search() {
+        var key = $("#queryBy").val();
+        var value = $("#queryBy-input").val();
+        var url = "<%=path%>/customer/search.action?"+key+"="+value;
+        window.location.replace(url);
+    }
+
     function getCustomerDetail(customer_id) {
         layer.load();
-        $.getJSON("${pageContext.request.contextPath}/customer/detail.action?id=" + customer_id, function (result) {
+        $.getJSON("<%=path%>/customer/detail.action?id=" + customer_id, function (result) {
 //            $.Huimodalalert(result,2000);
             console.log(result);
             if (result.customer_sex == '男') {
@@ -421,7 +427,7 @@
             var sex = $('#male').is(':checked')?'男':'女';
             $("input[name='customer_sex']").val(sex);
             var form = $("#customer_form").serialize();
-            $.post("${pageContext.request.contextPath}/customer/update.action",form,function (result) {
+            $.post("<%=path%>/customer/update.action",form,function (result) {
                 layer.msg(result,{icon: 1, time: 1000})
                 location.reload()
             })
