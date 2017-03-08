@@ -10,13 +10,16 @@
         <action name="toLogin">
             <result>login.jsp</result>
         </action>
-        <action name="login" class="com.oaec.housecrm.controller.UserController" method="login">
+        <action name="login" class="userController" method="login">
             <interceptor-ref name="defaultStack"/>
             <result name="success" type="redirect">../index.jsp</result>
             <result name="error" type="redirectAction">toLogin</result>
         </action>
-        <action name="logout" class="com.oaec.housecrm.controller.UserController" method="logout">
+        <action name="logout" class="userController" method="logout">
             <result name="success" type="redirect">/login.jsp</result>
+        </action>
+        <action name="list" class="userController" method="list">
+            <result name="success">/WEB-INF/pages/user/list.jsp</result>
         </action>
     </package>
 </struts>

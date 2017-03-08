@@ -92,9 +92,9 @@
                     <li><a data-href="customer/list.action" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
                     <li><a data-href="customer/allocation.action" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
                     <li><a data-href="article-list.html" data-title="客户关怀" href="javascript:void(0)">客户关怀</a></li>
-                    <li><a data-href="article-list.html" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
-                    <li><a data-href="article-list.html" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>
-                    <li><a data-href="article-list.html" data-title="客户来源" href="javascript:void(0)">客户来源</a></li>
+                    <li><a data-href="customer/type.action" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
+                    <li><a data-href="customer/condition.action" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>
+                    <li><a data-href="customer/source.action" data-title="客户来源" href="javascript:void(0)">客户来源</a></li>
                     <li><a data-href="article-list.html" data-title="联系记录" href="javascript:void(0)">联系记录</a></li>
                     <li><a data-href="article-list.html" data-title="联系人" href="javascript:void(0)">联系人</a></li>
                 </ul>
@@ -104,7 +104,7 @@
             <dt><i class="Hui-iconfont">&#xe613;</i> 员工相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="picture-list.html" data-title="员工信息" href="javascript:void(0)">员工信息</a></li>
+                    <li><a data-href="user/list.action" data-title="员工信息" href="javascript:void(0)">员工信息</a></li>
                     <li><a data-href="picture-list.html" data-title="房屋信息" href="javascript:void(0)">房屋信息</a></li>
                     <li><a data-href="picture-list.html" data-title="房屋类型" href="javascript:void(0)">房屋类型</a></li>
                     <li><a data-href="picture-list.html" data-title="部门信息" href="javascript:void(0)">部门信息</a></li>
