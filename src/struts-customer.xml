@@ -6,19 +6,28 @@
 
 <struts>
     <package name="customer" namespace="/customer" extends="myDefault">
-        <action name="list" class="customerAction" method="queryAllUsed">
+        <action name="list" class="customerController" method="queryAllUsed">
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
-        <action name="detail" class="customerAction" method="detail"/>
-        <action name="update" class="customerAction" method="update"/>
-        <action name="allocation" class="customerAction" method="queryAllNotAllocation">
+        <action name="detail" class="customerController" method="detail"/>
+        <action name="update" class="customerController" method="update"/>
+        <action name="allocation" class="customerController" method="queryAllNotAllocation">
             <result name="success">/WEB-INF/pages/customer/customer-allocation.jsp</result>
         </action>
-        <action name="allocation-dialog" class="customerAction" method="allocation">
+        <action name="allocation-dialog" class="customerController" method="allocation">
             <result name="success">/WEB-INF/pages/customer/customer-allocation-dialog.jsp</result>
         </action>
-        <action name="search" class="customerAction" method="search">
+        <action name="search" class="customerController" method="search">
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
+        </action>
+        <action name="type" class="customerController" method="type">
+            <result name="success">/WEB-INF/pages/customer/type.jsp</result>
+        </action>
+        <action name="source" class="customerController" method="source">
+            <result name="success">/WEB-INF/pages/customer/source.jsp</result>
+        </action>
+        <action name="condition" class="customerController" method="condition">
+            <result name="success">/WEB-INF/pages/customer/condition.jsp</result>
         </action>
     </package>
 </struts>

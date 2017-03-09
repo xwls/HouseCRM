@@ -48,4 +48,8 @@ public class UserController extends ActionSupport {
         return SUCCESS;
     }
 
+    public String list(){
+        return SUCCESS;
+    }
+
 }

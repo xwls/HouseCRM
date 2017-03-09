@@ -24,7 +24,7 @@ import java.util.Set;
  * Created by Kevin on 2017/2/16.
  */
 @Controller
-public class CustomerAction extends ActionSupport{
+public class CustomerController extends ActionSupport{
 
     @Autowired
     private CustomerService customerService;
@@ -115,6 +115,7 @@ public class CustomerAction extends ActionSupport{
         HttpServletResponse response = ServletActionContext.getResponse();
         ActionContext actionContext = ActionContext.getContext();
         Map<String, Object> parameters = actionContext.getParameters();
+        System.out.println(parameters);
         //由于获取到的参数都是String数组类型，需要将数组取出第0个，才是我们需要的参数
         convert(parameters);
         //获取session中用户的信息
@@ -189,14 +190,30 @@ public class CustomerAction extends ActionSupport{
             if (o instanceof String []){
                 String[] strs = (String[]) o;
                 String value = strs[0];
-                try {
-                    value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                System.out.println(value);
+//                try {
+//                    value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
                 parameters.put(s,value);
             }
         }
     }
+
+    public String type(){
+        return SUCCESS;
+    }
+
+    public String source(){
+        return SUCCESS;
+    }
+
+    public String condition(){
+        return SUCCESS;
+    }
+
+
+
 
 }
