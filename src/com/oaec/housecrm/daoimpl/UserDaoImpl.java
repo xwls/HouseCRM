@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,5 +30,12 @@ public class UserDaoImpl implements UserDao {
         }
         System.out.println("UserDaoImpl.queryByNumAndPw : "+map);
         return map;
+    }
+
+    @Override
+    public List<Map<String, Object>> queryAllUsed() {
+        String sql = "SELECT * FROM user_info WHERE is_used != 0";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+        return maps;
     }
 }

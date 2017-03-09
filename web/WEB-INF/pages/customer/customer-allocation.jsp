@@ -19,10 +19,9 @@
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-<div class="cl pd-5 bg-1 bk-gray"><span class="l"><a href="javascript:;" onclick="datadel()"
-                                                           class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-        class="btn btn-primary radius" data-title="添加客户" onclick="showDetail('add',0)"
-        href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加客户</a></span> <span
+<div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
+        class="btn btn-primary radius" data-title="分配所选" onclick=""
+        href="javascript:;"><i class="Hui-iconfont">&#xe634;</i> 分配所选</a></span> <span
         class="r">共有数据：<strong>${fn:length(requestScope.customers)}</strong> 条</span></div>
 <div class="mt-20">
     <table class="table table-border table-bordered table-bg table-hover table-sort">

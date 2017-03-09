@@ -3,6 +3,7 @@ package com.oaec.housecrm.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oaec.housecrm.service.CustomerService;
+import com.oaec.housecrm.service.UserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
@@ -27,6 +28,9 @@ public class CustomerAction extends ActionSupport{
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private UserService userService;
 
     private int id;
 
@@ -154,6 +158,10 @@ public class CustomerAction extends ActionSupport{
             System.out.println(Arrays.toString(ids));
             List<Map<String, Object>> maps = customerService.queryNameById(ids);
             System.out.println(maps);
+            List<Map<String, Object>> users = userService.queryAllUsed();
+            HttpServletRequest request = ServletActionContext.getRequest();
+            request.setAttribute("customers",maps);
+            request.setAttribute("users",users);
         }
         return SUCCESS;
     }

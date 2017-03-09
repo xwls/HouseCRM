@@ -1,5 +1,6 @@
 package com.oaec.housecrm.dao;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,4 +8,5 @@ import java.util.Map;
  */
 public interface UserDao {
     Map<String,Object> queryByNumAndPw(String num, String pw);
+    List<Map<String, Object>> queryAllUsed();
 }

@@ -113,7 +113,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Map<String, Object>> queryNameById(String[] ids) {
-        StringBuilder sb = new StringBuilder("SELECT customer_name FROM customer_info WHERE customer_id IN (");
+        StringBuilder sb = new StringBuilder("SELECT customer_id,customer_name FROM customer_info WHERE customer_id IN (");
         for (String id : ids) {
             sb.append("?,");
         }

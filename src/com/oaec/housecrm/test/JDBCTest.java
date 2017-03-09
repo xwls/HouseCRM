@@ -30,27 +30,7 @@ public class JDBCTest {
     }
     @Test
     public void test2(){
-Scanner input = new Scanner(System.in);
-System.out.println("1.查询");
-System.out.println("2.取款");
-System.out.println("3.转账");
-System.out.println("--------");
-System.out.println("选择你的操作");
-int choose = input.nextInt();
-switch(choose){
-    case 1:
-        System.out.println("你选择的是查询");
-        break;
-    case 2:
-        System.out.println("你选择的是取款");
-        break;
-    case 3:
-        System.out.println("你选择的是转账");
-        break;
-    default:
-        System.out.println("输入有误");
-    break;
-}
+
     }
 
 

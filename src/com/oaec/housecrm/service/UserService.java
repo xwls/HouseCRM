@@ -1,5 +1,6 @@
 package com.oaec.housecrm.service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,4 +8,5 @@ import java.util.Map;
  */
 public interface UserService {
     Map<String,Object> login(String userName,String password);
+    List<Map<String, Object>> queryAllUsed();
 }
