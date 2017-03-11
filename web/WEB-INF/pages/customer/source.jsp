@@ -27,16 +27,8 @@
 <div class="page-container">
     <div class="text-c">
         <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span>选择查询方式：</span>
-        <span class="select-box inline">
-		<select id="queryBy" name="queryBy" class="select">
-			<option value="customer_name">客户姓名</option>
-			<option value="user_name">所属员工</option>
-			<option value="customer_company">客户公司</option>
-		</select>
-		</span>&nbsp;&nbsp;&nbsp;&nbsp;
-
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 姓名" style="width:200px" class="input-text">
+        <span>输入客户来源：</span>
+        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 客户来源" style="width:200px" class="input-text">
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
@@ -56,7 +48,20 @@
             </tr>
             </thead>
             <tbody>
-
+            <c:forEach items="${requestScope.sources}" var="source">
+                <tr class="text-c">
+                    <td><input type="checkbox" value="" name=""></td>
+                    <td>${source.source_id}</td>
+                    <td>${source.source_name}</td>
+                    <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
+                                                  onClick=""
+                                                  href="javascript:;" title="编辑"><i class="Hui-iconfont">
+                        &#xe6df;</i></a> <a
+                            style="text-decoration:none" class="ml-5"
+                            onClick=""
+                            href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+            </c:forEach>
 
             </tbody>
         </table>

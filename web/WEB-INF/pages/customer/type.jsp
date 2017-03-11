@@ -26,17 +26,10 @@
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
-        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span>选择查询方式：</span>
-        <span class="select-box inline">
-		<select id="queryBy" name="queryBy" class="select">
-			<option value="customer_name">客户姓名</option>
-			<option value="user_name">所属员工</option>
-			<option value="customer_company">客户公司</option>
-		</select>
-		</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>&nbsp;&nbsp;&nbsp;
+        <span>输入客户类型：</span>
 
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 姓名" style="width:200px" class="input-text">
+        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 客户类型" style="width:200px" class="input-text">
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
@@ -44,7 +37,7 @@
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
             class="btn btn-primary radius" data-title="添加类型" onclick=""
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加类型</a></span> <span
-            class="r">共有数据：<strong>12</strong> 条</span></div>
+            class="r">共有数据：<strong>${fn:length(requestScope.types)}</strong> 条</span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -52,11 +45,24 @@
                 <th width="25"><input type="checkbox" name="" value=""></th>
                 <th width="50">ID</th>
                 <th width="70">类型名称</th>
-                <th width="80">操作</th>
+                <th width="50">操作</th>
             </tr>
             </thead>
             <tbody>
-
+            <c:forEach items="${requestScope.types}" var="type">
+                <tr class="text-c">
+                    <td><input type="checkbox" value="" name=""></td>
+                    <td>${type.type_id}</td>
+                    <td>${type.type_name}</td>
+                    <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
+                                                  onClick="edit(${type.type_id})"
+                                                  href="javascript:;" title="编辑"><i class="Hui-iconfont">
+                        &#xe6df;</i></a> <a
+                            style="text-decoration:none" class="ml-5"
+                            onClick=""
+                            href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+            </c:forEach>
 
             </tbody>
         </table>
@@ -85,7 +91,12 @@
     });
 
 
-
+    function edit(type_id) {
+        layer.prompt(function(val, index){
+            layer.msg('得到了'+val);
+            layer.close(index);
+        });
+    }
 
 
     $(function () {

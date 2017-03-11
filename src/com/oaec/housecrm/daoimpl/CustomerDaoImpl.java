@@ -10,6 +10,7 @@ import java.util.*;
 /**
  * Created by Kevin on 2017/2/16.
  */
+@SuppressWarnings("ALL")
 @Repository("customerDao")
 public class CustomerDaoImpl implements CustomerDao {
 
@@ -33,21 +34,24 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public List<Map<String, Object>> queryTypes() {
-        String sql = "SELECT DISTINCT customer_type.type_id,customer_type.type_name FROM customer_info RIGHT JOIN customer_type ON customer_info.type_id = customer_type.type_id;";
+//        String sql = "SELECT DISTINCT customer_type.type_id,customer_type.type_name FROM customer_info RIGHT JOIN customer_type ON customer_info.type_id = customer_type.type_id;";
+        String sql = "select *  from customer_type  where is_used=1";
         List<Map<String, Object>> types = jdbcTemplate.queryForList(sql);
         return types;
     }
 
     @Override
     public List<Map<String, Object>> queryConditions() {
-        String sql = "SELECT DISTINCT customer_condition.condition_id,customer_condition.condition_name FROM customer_info RIGHT JOIN customer_condition ON customer_condition.condition_id = customer_info.condition_id";
+//        String sql = "SELECT DISTINCT customer_condition.condition_id,customer_condition.condition_name FROM customer_info RIGHT JOIN customer_condition ON customer_condition.condition_id = customer_info.condition_id";
+        String sql = "select *  from customer_condition  where is_used=1";
         List<Map<String, Object>> conditions = jdbcTemplate.queryForList(sql);
         return conditions;
     }
 
     @Override
     public List<Map<String, Object>> querySources() {
-        String sql = "SELECT DISTINCT customer_source.source_id,customer_source.source_name FROM customer_info RIGHT JOIN customer_source ON customer_info.source_id = customer_source.source_id";
+//        String sql = "SELECT DISTINCT customer_source.source_id,customer_source.source_name FROM customer_info RIGHT JOIN customer_source ON customer_info.source_id = customer_source.source_id";
+        String sql = "select *  from customer_source  where is_used=1";
         List<Map<String, Object>> sources = jdbcTemplate.queryForList(sql);
         return sources;
     }

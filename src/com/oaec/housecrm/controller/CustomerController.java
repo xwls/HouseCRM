@@ -202,14 +202,23 @@ public class CustomerController extends ActionSupport{
     }
 
     public String type(){
+        List<Map<String, Object>> types = customerService.queryTypes();
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("types",types);
         return SUCCESS;
     }
 
     public String source(){
+        List<Map<String, Object>> sources = customerService.querySources();
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("sources",sources);
         return SUCCESS;
     }
 
     public String condition(){
+        List<Map<String, Object>> conditions = customerService.queryConditions();
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("conditions",conditions);
         return SUCCESS;
     }
 

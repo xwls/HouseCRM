@@ -27,16 +27,9 @@
 <div class="page-container">
     <div class="text-c">
         <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span>选择查询方式：</span>
-        <span class="select-box inline">
-		<select id="queryBy" name="queryBy" class="select">
-			<option value="customer_name">客户姓名</option>
-			<option value="user_name">所属员工</option>
-			<option value="customer_company">客户公司</option>
-		</select>
-		</span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span>输入客户状态：</span>
 
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 姓名" style="width:200px" class="input-text">
+        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 客户状态" style="width:200px" class="input-text">
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
@@ -44,7 +37,7 @@
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
             class="btn btn-primary radius" data-title="添加状态" onclick=""
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加状态</a></span> <span
-            class="r">共有数据：<strong>12</strong> 条</span></div>
+            class="r">共有数据：<strong>${fn:length(requestScope.conditions)}</strong> 条</span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -57,7 +50,21 @@
             </tr>
             </thead>
             <tbody>
-
+            <c:forEach items="${requestScope.conditions}" var="condition">
+                <tr class="text-c">
+                    <td><input type="checkbox" value="" name=""></td>
+                    <td>${condition.condition_id}</td>
+                    <td>${condition.condition_name}</td>
+                    <td>${condition.condition_explain}</td>
+                    <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
+                                                  onClick=""
+                                                  href="javascript:;" title="编辑"><i class="Hui-iconfont">
+                        &#xe6df;</i></a> <a
+                            style="text-decoration:none" class="ml-5"
+                            onClick=""
+                            href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+            </c:forEach>
 
             </tbody>
         </table>
