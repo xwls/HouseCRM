@@ -5,7 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <package name="customer" namespace="/customer" extends="myDefault">
+    <package name="info" namespace="/customer-info" extends="myDefault">
         <action name="list" class="customerController" method="queryAllUsed">
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
@@ -20,14 +20,19 @@
         <action name="search" class="customerController" method="search">
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
-        <action name="type" class="customerController" method="type">
-            <result name="success">/WEB-INF/pages/customer/type.jsp</result>
-        </action>
         <action name="source" class="customerController" method="source">
             <result name="success">/WEB-INF/pages/customer/source.jsp</result>
         </action>
         <action name="condition" class="customerController" method="condition">
             <result name="success">/WEB-INF/pages/customer/condition.jsp</result>
         </action>
+    </package>
+    <package name="type" namespace="/customer-type" extends="myDefault">
+        <action name="list" class="customerTypeController" method="queryAll">
+            <result name="success">/WEB-INF/pages/customer/type.jsp</result>
+        </action>
+        <action name="update" class="customerTypeController" method="update"/>
+        <action name="delete" class="customerTypeController" method="delete"/>
+        <action name="add" class="customerTypeController" method="add"/>
     </package>
 </struts>

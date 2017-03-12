@@ -3,7 +3,9 @@ package com.oaec.housecrm.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oaec.housecrm.service.CustomerService;
+import com.oaec.housecrm.service.CustomerTypeService;
 import com.oaec.housecrm.service.UserService;
+import com.oaec.housecrm.util.ParameterUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,9 @@ public class CustomerController extends ActionSupport{
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private CustomerTypeService customerTypeService;
 
     @Autowired
     private UserService userService;
@@ -48,7 +52,7 @@ public class CustomerController extends ActionSupport{
      */
     public String queryAllUsed(){
         List<Map<String, Object>> customers = customerService.queryAllUsed(true);
-        List<Map<String,Object>> types = customerService.queryTypes();
+        List<Map<String,Object>> types = customerTypeService.queryAll();
         List<Map<String,Object>> conditions = customerService.queryConditions();
         List<Map<String,Object>> sources = customerService.querySources();
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -117,7 +121,7 @@ public class CustomerController extends ActionSupport{
         Map<String, Object> parameters = actionContext.getParameters();
         System.out.println(parameters);
         //由于获取到的参数都是String数组类型，需要将数组取出第0个，才是我们需要的参数
-        convert(parameters);
+        ParameterUtil.convert(parameters);
         //获取session中用户的信息
         Map<String, Object> session = actionContext.getSession();
         Object o = session.get("userInfo");
@@ -169,10 +173,10 @@ public class CustomerController extends ActionSupport{
 
     public String search(){
         Map<String, Object> parameters = ActionContext.getContext().getParameters();
-        convert(parameters);
+        ParameterUtil.convert(parameters);
         System.out.println(parameters);
         List<Map<String, Object>> customers = customerService.query(parameters);
-        List<Map<String,Object>> types = customerService.queryTypes();
+        List<Map<String,Object>> types = customerTypeService.queryAll();
         List<Map<String,Object>> conditions = customerService.queryConditions();
         List<Map<String,Object>> sources = customerService.querySources();
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -183,30 +187,14 @@ public class CustomerController extends ActionSupport{
         return SUCCESS;
     }
 
-    private void convert(Map<String,Object> parameters){
-        Set<String> keySet = parameters.keySet();
-        for (String s : keySet) {
-            Object o = parameters.get(s);
-            if (o instanceof String []){
-                String[] strs = (String[]) o;
-                String value = strs[0];
-                System.out.println(value);
-//                try {
-//                    value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
-                parameters.put(s,value);
-            }
-        }
-    }
 
-    public String type(){
-        List<Map<String, Object>> types = customerService.queryTypes();
-        HttpServletRequest request = ServletActionContext.getRequest();
-        request.setAttribute("types",types);
-        return SUCCESS;
-    }
+
+//    public String type(){
+//        List<Map<String, Object>> types = customerTypeService.queryAll();
+//        HttpServletRequest request = ServletActionContext.getRequest();
+//        request.setAttribute("types",types);
+//        return SUCCESS;
+//    }
 
     public String source(){
         List<Map<String, Object>> sources = customerService.querySources();

@@ -27,11 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    @Override
-    public List<Map<String,Object>> queryTypes() {
-        List<Map<String,Object>> types = customerDao.queryTypes();
-        return types;
-    }
+
 
     @Override
     public Map<String, Object> queryById(int id) {

@@ -15,12 +15,6 @@ public interface CustomerDao {
     List<Map<String,Object>> queryAllUsed(boolean isAllocation);
 
     /**
-     * 查询当前所有的Type
-     * @return
-     */
-    List<Map<String,Object>> queryTypes();
-
-    /**
      * 查询所有客户的Condition
      * @return
      */
@@ -56,4 +50,6 @@ public interface CustomerDao {
     List<Map<String,Object>> query(Map<String,Object> map);
 
     List<Map<String,Object>> queryNameById(String[] ids);
+
+
 }

@@ -32,13 +32,7 @@ public class CustomerDaoImpl implements CustomerDao {
         return maps;
     }
 
-    @Override
-    public List<Map<String, Object>> queryTypes() {
-//        String sql = "SELECT DISTINCT customer_type.type_id,customer_type.type_name FROM customer_info RIGHT JOIN customer_type ON customer_info.type_id = customer_type.type_id;";
-        String sql = "select *  from customer_type  where is_used=1";
-        List<Map<String, Object>> types = jdbcTemplate.queryForList(sql);
-        return types;
-    }
+
 
     @Override
     public List<Map<String, Object>> queryConditions() {
@@ -126,4 +120,6 @@ public class CustomerDaoImpl implements CustomerDao {
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, ids);
         return maps;
     }
+
+
 }

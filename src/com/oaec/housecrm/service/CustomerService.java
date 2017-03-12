@@ -20,12 +20,7 @@ public interface CustomerService {
      */
     List<Map<String, Object>> queryAllNotAllocation();
 
-    /**
-     * 查询所有客户Type
-     *
-     * @return
-     */
-    List<Map<String, Object>> queryTypes();
+
 
     /**
      * 根据ID查询客户详细信息

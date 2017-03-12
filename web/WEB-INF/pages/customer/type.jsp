@@ -33,9 +33,9 @@
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="dataDel()"
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-            class="btn btn-primary radius" data-title="添加类型" onclick=""
+            class="btn btn-primary radius" data-title="添加类型" onclick="add()"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加类型</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.types)}</strong> 条</span></div>
     <div class="mt-20">
@@ -51,15 +51,15 @@
             <tbody>
             <c:forEach items="${requestScope.types}" var="type">
                 <tr class="text-c">
-                    <td><input type="checkbox" value="" name=""></td>
+                    <td><input type="checkbox" value="${type.type_id}" name="type_id"></td>
                     <td>${type.type_id}</td>
                     <td>${type.type_name}</td>
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                                  onClick="edit(${type.type_id})"
+                                                  onClick="edit(${type.type_id},'${type.type_name}')"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
-                            onClick=""
+                            onClick="del(${type.type_id},'${type.type_name}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
@@ -91,20 +91,77 @@
     });
 
 
-    function edit(type_id) {
-        layer.prompt(function(val, index){
-            layer.msg('得到了'+val);
+    function edit(type_id,type_name) {
+        //formType：输入框类型，支持0（文本）默认1（密码）2（多行文本）
+        layer.prompt({title: '修改类型名称',value:type_name, formType: 0},function(val, index){
+            if(type_name == val){
+                layer.msg('内容未修改');
+            }else{
+                $.getJSON('<%=path%>/customer-type/update.action?type_id='+type_id+'&type_name='+val,function (result) {
+//                    console.log(result)
+                    if (result.success == true){
+                        layer.msg('修改成功');
+                        refresh();
+                    }else{
+                        layer.msg('修改失败');
+                    }
+                })
+
+            }
+//            layer.msg('得到了'+val);
             layer.close(index);
         });
     }
+
+
 
 
     $(function () {
 
     })
 
-    function search() {
+    function refresh() {
+        window.location.replace('<%=path%>/customer-type/list.action');
+    }
 
+    function del(type_id,type_name) {
+        layer.confirm('删除类型\"'+type_name+'\"？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.getJSON('<%=path%>/customer-type/delete.action?type_id='+type_id,function (result) {
+                if (result.success == true) {
+                    layer.msg('删除成功', {icon: 1});
+                    refresh();
+                }else{
+                    layer.msg('删除成功', {icon: 2});
+                }
+            })
+        });
+    }
+    
+    function dataDel() {
+
+        var cbox = $("input[name='type_id']");
+//        console.log(cbox);
+        $(cbox).each(function () {
+            console.log(this)
+        })
+    }
+
+    function add() {
+        layer.prompt({title: '添加新类型', formType: 0},function(val, index){
+            $.getJSON('<%=path%>/customer-type/add.action?type_name='+val,function (result) {
+//                    console.log(result)
+                if (result.success == true){
+                    layer.msg('添加成功');
+                    refresh();
+                }else{
+                    layer.msg('添加失败');
+                }
+            })
+//            layer.msg('得到了'+val);
+            layer.close(index);
+        });
     }
 
 
