@@ -25,7 +25,7 @@ import java.util.Set;
  * Created by Kevin on 2017/2/16.
  */
 @Controller
-public class CustomerController extends ActionSupport{
+public class CustomerController extends CommonController{
 
     @Autowired
     private CustomerService customerService;

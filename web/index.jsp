@@ -93,7 +93,7 @@
                     <li><a data-href="customer-info/allocation.action" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
                     <li><a data-href="article-list.html" data-title="客户关怀" href="javascript:void(0)">客户关怀</a></li>
                     <li><a data-href="customer-type/list.action" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
-                    <li><a data-href="customer-info/condition.action" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>
+                    <li><a data-href="customer-condition/list.action" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>
                     <li><a data-href="customer-info/source.action" data-title="客户来源" href="javascript:void(0)">客户来源</a></li>
                     <li><a data-href="article-list.html" data-title="联系记录" href="javascript:void(0)">联系记录</a></li>
                     <li><a data-href="article-list.html" data-title="联系人" href="javascript:void(0)">联系人</a></li>

@@ -1,6 +1,8 @@
 package com.oaec.housecrm.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.oaec.housecrm.service.CustomerConditionService;
 import com.oaec.housecrm.service.CustomerTypeService;
 import com.oaec.housecrm.util.ParameterUtil;
 import com.opensymphony.xwork2.ActionContext;
@@ -18,35 +20,44 @@ import java.util.Map;
 /**
  * Created by Kevin on 2017/3/12.
  */
-@Controller("customerTypeController")
-public class CustomerTypeController extends CommonController {
+@Controller("customerConditionController")
+public class CustomerConditionController extends CommonController {
 
     @Autowired
-    private CustomerTypeService customerTypeService;
+    private CustomerConditionService customerConditionService;
 
     public String queryAll(){
-        List<Map<String, Object>> types = customerTypeService.queryAll();
+        List<Map<String, Object>> types = customerConditionService.queryAll();
         HttpServletRequest request = ServletActionContext.getRequest();
-        request.setAttribute("types",types);
+        request.setAttribute("conditions",types);
         return SUCCESS;
     }
 
     public void update() throws IOException {
         Map<String, Object> parameters = ActionContext.getContext().getParameters();
         ParameterUtil.convert(parameters);
-        int update = customerTypeService.update(parameters);
+        int update = customerConditionService.update(parameters);
         write(update > 0);
+
     }
 
     public void delete() throws IOException {
         String type_id = ServletActionContext.getRequest().getParameter("type_id");
-        int delete = customerTypeService.delete(type_id);
+        int delete = customerConditionService.delete(type_id);
         write(delete > 0);
     }
 
     public void add() throws IOException {
-        String type_name = ServletActionContext.getRequest().getParameter("type_name");
-        int add = customerTypeService.add(type_name);
+        Map<String, Object> parameters = ActionContext.getContext().getParameters();
+        ParameterUtil.convert(parameters);
+        int add = customerConditionService.add(parameters);
         write(add > 0);
+    }
+
+    public void getById(){
+        String condition_id = ServletActionContext.getRequest().getParameter("condition_id");
+        Map<String, Object> stringObjectMap = customerConditionService.queryById(condition_id);
+        String jsonString = JSON.toJSONString(stringObjectMap);
+        write(jsonString);
     }
 }

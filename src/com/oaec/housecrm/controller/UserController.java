@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by Kevin on 2017/2/21.
  */
 @Controller
-public class UserController extends ActionSupport {
+public class UserController extends CommonController {
 
     @Autowired
     private UserService userService;

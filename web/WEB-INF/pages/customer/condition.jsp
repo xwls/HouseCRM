@@ -35,7 +35,7 @@
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
                                                                class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-            class="btn btn-primary radius" data-title="添加状态" onclick=""
+            class="btn btn-primary radius" data-title="添加状态" onclick="showModal('add',0)"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加状态</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.conditions)}</strong> 条</span></div>
     <div class="mt-20">
@@ -57,7 +57,7 @@
                     <td>${condition.condition_name}</td>
                     <td>${condition.condition_explain}</td>
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                                  onClick=""
+                                                  onClick="showModal('edit',${condition.condition_id})"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
@@ -69,7 +69,28 @@
             </tbody>
         </table>
     </div>
-
+    <div id="modal-detail" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content radius" style="width: 500px;">
+                <div class="modal-header">
+                    <h3 class="modal-title">编辑客户状态</h3>
+                    <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
+                </div>
+                <div class="modal-body skin-minimal">
+                    <form id="customer_form" name="customer_form" method="post" action="#">
+                        <input type="hidden" id="condition_id" name="condition_id">
+                        <label for="condition_name">类型名称</label><input type="text" id="condition_name" name="condition_name" class=" input-text radius" placeholder="状态名称">
+                        <label for="condition_explain">类名描述</label><input type="text" id="condition_explain" name="condition_explain" class=" input-text radius" placeholder="状态描述">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-submit" onclick="" class="btn btn-primary">确定</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!--_footer 作为公共模版分离出去-->
 <jsp:include page="../footer.jsp"/>
@@ -100,8 +121,23 @@
 
     })
 
-    function search() {
-
+    function showModal(action,condition_id) {
+        if (action == 'add'){
+            $(".modal-title").text("添加客户状态");
+            $("#condition_id").val('');
+            $("#condition_name").val('');
+            $("#condition_explain").val('');
+        }else if(action == 'edit'){
+            $(".modal-title").text("编辑客户状态");
+            layer.load();
+            $.getJSON('<%=path%>/customer-condition/getById.action?condition_id='+condition_id,function (result) {
+                $("#condition_id").val(result.condition_id);
+                $("#condition_name").val(result.condition_name);
+                $("#condition_explain").val(result.condition_explain);
+                layer.closeAll('loading');
+            })
+        }
+        $("#modal-detail").modal("show");
     }
 
 
