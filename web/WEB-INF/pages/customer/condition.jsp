@@ -16,7 +16,18 @@
     <link rel="stylesheet" type="text/css" href="<%=path%>/lib/iCheck/1.0.2/skins/all.css"/>
     <title>客户状态</title>
     <style type="text/css">
-
+        label.error {
+            position: relative;
+            left: 330px;
+            top: -27px;
+            color: #ef392b;
+            font-size: 12px;
+            text-align: right;
+            width: 128px;
+        }
+        label{
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -78,14 +89,14 @@
                     <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
                 </div>
                 <div class="modal-body skin-minimal">
-                    <form id="customer_form" name="customer_form" method="post" action="#">
+                    <form id="dondition_form" name="condition_form" method="post" action="#">
                         <input type="hidden" id="condition_id" name="condition_id">
-                        <label for="condition_name">类型名称</label><input type="text" id="condition_name" name="condition_name" class=" input-text radius" placeholder="状态名称">
-                        <label for="condition_explain">类名描述</label><input type="text" id="condition_explain" name="condition_explain" class=" input-text radius" placeholder="状态描述">
+                        <label for="condition_name">类型名称</label><input type="text" id="condition_name" name="condition_name" class=" input-text" placeholder="状态名称">
+                        <label for="condition_explain">类名描述</label><input type="text" id="condition_explain" name="condition_explain" class=" input-text" placeholder="状态描述">
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-submit" onclick="" class="btn btn-primary">确定</button>
+                    <button id="btn-submit" onclick="modalSubmit()" class="btn btn-primary">确定</button>
                     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>
@@ -118,10 +129,56 @@
 
 
     $(function () {
-
+        validate();
     })
 
+    function validate() {
+        return $('#dondition_form').validate({
+            rules:{
+                condition_name:{
+                    required:true,
+                    minlength:2,
+                    maxlength:8,
+                },
+                condition_explain:{
+                    required:true,
+                    minlength:2,
+                    maxlength:12,
+                },
+                onsubmit:true,// 是否在提交是验证
+                onfocusout:true,// 是否在获取焦点时验证
+                onkeyup :true,// 是否在敲击键盘时验证
+            },
+            message:{
+                condition_name:{
+                    required:'必须填写',
+                    minlength:'至少2个字符',
+                    maxlength:'最多8个字符',
+                },
+                condition_explain:{
+                    required:'必须填写',
+                    minlength:'至少2个字符',
+                    maxlength:'最多12个字符',
+                }
+            }
+        })
+    }
+
+    function modalSubmit() {
+        var validate = $('#dondition_form').validate();
+        if(!validate.form()){
+            layer.msg('数据格式有误，请修改后再试',{icon: 2})
+            return;
+        }
+        var form = $('#dondition_form').serialize();
+
+    }
+
     function showModal(action,condition_id) {
+        var validate = $('#dondition_form').validate();
+        validate.resetForm();
+        $("#condition_name").removeClass('error');
+        $("#condition_explain").removeClass('error');
         if (action == 'add'){
             $(".modal-title").text("添加客户状态");
             $("#condition_id").val('');
