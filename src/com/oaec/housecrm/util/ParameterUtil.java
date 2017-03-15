@@ -18,7 +18,7 @@ public class ParameterUtil {
             if (o instanceof String []){
                 String[] strs = (String[]) o;
                 String value = strs[0];
-//                System.out.println(value);
+                System.out.println(value);
 //                try {
 //                    value = new String(value.getBytes("ISO-8859-1"),"UTF-8");
 //                } catch (UnsupportedEncodingException e) {

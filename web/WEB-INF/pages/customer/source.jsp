@@ -54,7 +54,7 @@
                     <td>${source.source_id}</td>
                     <td>${source.source_name}</td>
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                                  onClick=""
+                                                  onClick="edit(${source.source_id},'${source.source_name}')"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
@@ -89,9 +89,45 @@
         ]
     });
 
+    function edit(source_id,source_name) {
+        //formType：输入框类型，支持0（文本）默认1（密码）2（多行文本）
+        layer.prompt({title: '修改类型名称',value:source_name, formType: 0},function(val, index){
+            if(source_name == val){
+                layer.msg('内容未修改');
+            }else{
+                $.getJSON('<%=path%>/customer-source/update.action?source_id='+source_id+'&source_name='+val,function (result) {
+//                    console.log(result)
+                    if (result.success == true){
+                        layer.msg('修改成功');
+                        refresh();
+                    }else{
+                        layer.msg('修改失败');
+                    }
+                })
 
+            }
+//            layer.msg('得到了'+val);
+            layer.close(index);
+        });
+    }
 
-
+    function refresh() {
+        window.location.replace('<%=path%>/customer-source/list.action');
+    }
+    function del(source_id,source_name) {
+        layer.confirm('删除类型\"'+source_name+'\"？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.getJSON('<%=path%>/customer-source/delete.action?source_id='+source_id,function (result) {
+                if (result.success == true) {
+                    layer.msg('删除成功', {icon: 1});
+                    refresh();
+                }else{
+                    layer.msg('删除成功', {icon: 2});
+                }
+            })
+        });
+    }
 
     $(function () {
 

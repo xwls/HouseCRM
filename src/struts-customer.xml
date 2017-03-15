@@ -20,9 +20,6 @@
         <action name="search" class="customerController" method="search">
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
-        <action name="source" class="customerController" method="source">
-            <result name="success">/WEB-INF/pages/customer/source.jsp</result>
-        </action>
     </package>
     <package name="type" namespace="/customer-type" extends="myDefault">
         <action name="list" class="customerTypeController" method="queryAll">
@@ -37,5 +34,13 @@
             <result name="success">/WEB-INF/pages/customer/condition.jsp</result>
         </action>
         <action name="getById" class="customerConditionController" method="getById"/>
+    </package>
+    <package name="source" namespace="/customer-source" extends="myDefault">
+        <action name="list" class="customerSourceController" method="queryAll">
+            <result name="success">/WEB-INF/pages/customer/source.jsp</result>
+        </action>
+        <action name="update" class="customerSourceController" method="update"/>
+        <action name="delete" class="customerSourceController" method="delete"/>
+        <action name="add" class="customerSourceController" method="add"/>
     </package>
 </struts>
