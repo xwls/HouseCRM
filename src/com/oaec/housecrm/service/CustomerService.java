@@ -21,7 +21,13 @@ public interface CustomerService {
     List<Map<String, Object>> queryAllNotAllocation();
 
 
-
+    /**
+     * 分配客户
+     * @param customer_id
+     * @param user_id
+     * @return
+     */
+    int allocate(String customer_id, String user_id);
     /**
      * 根据ID查询客户详细信息
      * @param id
@@ -33,13 +39,13 @@ public interface CustomerService {
      * 查询所有的客户Condition
      * @return
      */
-    List<Map<String, Object>> queryConditions();
+//    List<Map<String, Object>> queryConditions();
 
     /**
      * 查询所有的客户Source
      * @return
      */
-    List<Map<String, Object>> querySources();
+//    List<Map<String, Object>> querySources();
 
     /**
      * 添加新客户

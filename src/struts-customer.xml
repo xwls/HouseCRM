@@ -12,14 +12,15 @@
         <action name="detail" class="customerController" method="detail"/>
         <action name="update" class="customerController" method="update"/>
         <action name="allocation" class="customerController" method="queryAllNotAllocation">
-            <result name="success">/WEB-INF/pages/customer/customer-allocation.jsp</result>
+            <result name="success">/WEB-INF/pages/customer/allocation.jsp</result>
         </action>
         <action name="allocation-dialog" class="customerController" method="allocation">
-            <result name="success">/WEB-INF/pages/customer/customer-allocation-dialog.jsp</result>
+            <result name="success">/WEB-INF/pages/customer/allocation-dialog.jsp</result>
         </action>
         <action name="search" class="customerController" method="search">
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
+        <action name="allocate" class="customerController" method="allocate"/>
     </package>
     <package name="type" namespace="/customer-type" extends="myDefault">
         <action name="list" class="customerTypeController" method="queryAll">

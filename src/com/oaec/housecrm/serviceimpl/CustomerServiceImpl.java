@@ -27,6 +27,10 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
+    @Override
+    public int allocate(String customer_id, String user_id) {
+        return customerDao.update(customer_id,user_id);
+    }
 
 
     @Override
@@ -35,17 +39,17 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-    @Override
-    public List<Map<String,Object>> queryConditions() {
-        List<Map<String,Object>> conditions = customerDao.queryConditions();
-        return conditions;
-    }
+//    @Override
+//    public List<Map<String,Object>> queryConditions() {
+//        List<Map<String,Object>> conditions = customerDao.queryConditions();
+//        return conditions;
+//    }
 
-    @Override
-    public List<Map<String,Object>> querySources() {
-        List<Map<String,Object>> sources = customerDao.querySources();
-        return sources;
-    }
+//    @Override
+//    public List<Map<String,Object>> querySources() {
+//        List<Map<String,Object>> sources = customerDao.querySources();
+//        return sources;
+//    }
 
     @Override
     public int add(Map<String, Object> map) {

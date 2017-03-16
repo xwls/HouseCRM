@@ -85,7 +85,7 @@
         ]
     });
     function allocation(customer_id) {
-        layer_show("客户分配","<%=path%>/customer/allocation-dialog.action?ids="+customer_id,"600","400")
+        layer_show("客户分配","<%=path%>/customer-info/allocation-dialog.action?ids="+customer_id,"300","220")
     }
 </script>
 </body>

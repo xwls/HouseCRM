@@ -18,13 +18,13 @@ public interface CustomerDao {
      * 查询所有客户的Condition
      * @return
      */
-    List<Map<String,Object>> queryConditions();
+//    List<Map<String,Object>> queryConditions();
 
     /**
      * 查询所有客户的Source
      * @return
      */
-    List<Map<String,Object>> querySources();
+//    List<Map<String,Object>> querySources();
 
     /**
      * 根据客户ID查询客户信息
@@ -46,6 +46,14 @@ public interface CustomerDao {
      * @return
      */
     int update(Map<String,Object> map);
+
+    /**
+     * 分配客户
+     * @param customer_id
+     * @param user_id
+     * @return
+     */
+    int update(String customer_id,String user_id);
 
     List<Map<String,Object>> query(Map<String,Object> map);
 

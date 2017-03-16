@@ -2,9 +2,7 @@ package com.oaec.housecrm.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.oaec.housecrm.service.CustomerService;
-import com.oaec.housecrm.service.CustomerTypeService;
-import com.oaec.housecrm.service.UserService;
+import com.oaec.housecrm.service.*;
 import com.oaec.housecrm.util.ParameterUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -34,6 +32,12 @@ public class CustomerController extends CommonController{
     private CustomerTypeService customerTypeService;
 
     @Autowired
+    private CustomerConditionService customerConditionService;
+
+    @Autowired
+    private CustomerSourceService customerSourceService;
+
+    @Autowired
     private UserService userService;
 
     private int id;
@@ -53,8 +57,8 @@ public class CustomerController extends CommonController{
     public String queryAllUsed(){
         List<Map<String, Object>> customers = customerService.queryAllUsed(true);
         List<Map<String,Object>> types = customerTypeService.queryAll();
-        List<Map<String,Object>> conditions = customerService.queryConditions();
-        List<Map<String,Object>> sources = customerService.querySources();
+        List<Map<String,Object>> conditions = customerConditionService.queryAll();
+        List<Map<String,Object>> sources = customerSourceService.queryAll();
         HttpServletRequest request = ServletActionContext.getRequest();
         request.setAttribute("customers",customers);
         request.setAttribute("types",types);
@@ -99,16 +103,7 @@ public class CustomerController extends CommonController{
             }
         }
         String json = JSON.toJSONString(customer);
-        try {
-            HttpServletResponse response = ServletActionContext.getResponse();
-            response.setCharacterEncoding("utf-8");
-            PrintWriter writer = response.getWriter();
-            writer.print(json);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        System.out.println(json);
+        write(json);
     }
 
     /**
@@ -140,19 +135,7 @@ public class CustomerController extends CommonController{
         }
 //        int add = 1;
         response.setCharacterEncoding("utf-8");
-        JSONObject json = new JSONObject();
-        if(result > 0){
-            json.put("success",true);
-        }else{
-            json.put("success",false);
-        }
-        try {
-            PrintWriter writer = response.getWriter();
-            writer.write(json.toJSONString());
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        write(result > 0);
     }
 
     public String allocation(){
@@ -177,8 +160,8 @@ public class CustomerController extends CommonController{
         System.out.println(parameters);
         List<Map<String, Object>> customers = customerService.query(parameters);
         List<Map<String,Object>> types = customerTypeService.queryAll();
-        List<Map<String,Object>> conditions = customerService.queryConditions();
-        List<Map<String,Object>> sources = customerService.querySources();
+        List<Map<String,Object>> conditions = customerConditionService.queryAll();
+        List<Map<String,Object>> sources = customerSourceService.queryAll();
         HttpServletRequest request = ServletActionContext.getRequest();
         request.setAttribute("customers",customers);
         request.setAttribute("types",types);
@@ -187,30 +170,11 @@ public class CustomerController extends CommonController{
         return SUCCESS;
     }
 
-
-
-//    public String type(){
-//        List<Map<String, Object>> types = customerTypeService.queryAll();
-//        HttpServletRequest request = ServletActionContext.getRequest();
-//        request.setAttribute("types",types);
-//        return SUCCESS;
-//    }
-
-    public String source(){
-        List<Map<String, Object>> sources = customerService.querySources();
+    public void allocate(){
         HttpServletRequest request = ServletActionContext.getRequest();
-        request.setAttribute("sources",sources);
-        return SUCCESS;
+        String customer_id = request.getParameter("customer_id");
+        String user_id = request.getParameter("user_id");
+        System.out.println(customer_id+"---"+user_id);
     }
-
-    public String condition(){
-        List<Map<String, Object>> conditions = customerService.queryConditions();
-        HttpServletRequest request = ServletActionContext.getRequest();
-        request.setAttribute("conditions",conditions);
-        return SUCCESS;
-    }
-
-
-
 
 }

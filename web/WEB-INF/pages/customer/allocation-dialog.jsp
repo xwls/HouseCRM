@@ -18,13 +18,17 @@
             width: auto;
         }
         .select{
-            width: auto;
             margin-top: 10px;
+            height: 30px;
+            width: 160px;
         }
         label{
             width: 60px;
             display: inline-block;
             text-align: right;
+        }
+        .center-horizontally{
+            text-align: center;
         }
     </style>
 </head>
@@ -33,11 +37,9 @@
 
 <div class="page-container">
 
-    <h4>请分配客户</h4>
-
     <c:forEach items="${customers}" var="customer" varStatus="status">
         <input type="hidden" value="${customer.customer_id}" name="ids">
-        <label>客户${status.count}：</label><input class="input-text" type="text" readonly="readonly" name="customer_name" value="${customer.customer_name}">
+        <label>客户${status.count}：</label><input class="input-text" style="width: 160px;" type="text" readonly="readonly" name="customer_name" value="${customer.customer_name}">
     </c:forEach>
     <br>
     <label>分配给：</label><select class="select" name="user">
@@ -45,6 +47,12 @@
             <option value="${user.user_id}">${user.user_name}</option>
         </s:iterator>
     </select>
+
+    <br><br>
+    <div class="center-horizontally">
+        <button id="btn-submit" style="width: 80px;" onclick="allocate()" class="btn btn-primary">确定</button>
+    </div>
+
 
 </div>
 
@@ -56,7 +64,22 @@
 <script type="text/javascript" src="<%=path%>/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="<%=path%>/lib/iCheck/1.0.2/icheck.min.js"></script>
 <script type="text/javascript">
-
+    function allocate() {
+        var customer_id = $("input[name='ids']").val();
+        var user_id = $("select[name='user']").val();
+        console.log(customer_id+"---"+user_id);
+        $.getJSON('<%=path%>/customer-info/allocate?customer_id='+customer_id+'&user_id='+user_id,function (result) {
+            if (result.success == true){
+                layer.msg('修改成功');
+                refresh();
+            }else{
+                layer.msg('修改失败');
+            }
+        })
+    }
+    function refresh() {
+        window.location.replace('<%=path%>/customer-source/list.action');
+    }
 </script>
 </body>
 </html>
