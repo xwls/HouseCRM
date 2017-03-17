@@ -380,13 +380,13 @@
     function search() {
         var key = $("#queryBy").val();
         var value = $("#queryBy-input").val();
-        var url = "<%=path%>/customer/search.action?"+key+"="+value;
+        var url = "<%=path%>/customer-info/search.action?"+key+"="+value;
         window.location.replace(url);
     }
 
     function getCustomerDetail(customer_id) {
         layer.load();
-        $.getJSON("<%=path%>/customer/detail.action?id=" + customer_id, function (result) {
+        $.getJSON("<%=path%>/customer-info/detail.action?id=" + customer_id, function (result) {
 //            $.Huimodalalert(result,2000);
             console.log(result);
             if (result.customer_sex == '男') {
@@ -427,7 +427,7 @@
             var sex = $('#male').is(':checked')?'男':'女';
             $("input[name='customer_sex']").val(sex);
             var form = $("#customer_form").serialize();
-            $.post("<%=path%>/customer/update.action",form,function (result) {
+            $.post("<%=path%>/customer-info/update.action",form,function (result) {
                 layer.msg(result,{icon: 1, time: 1000})
                 location.reload()
             })

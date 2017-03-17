@@ -68,18 +68,22 @@
         var customer_id = $("input[name='ids']").val();
         var user_id = $("select[name='user']").val();
         console.log(customer_id+"---"+user_id);
-        $.getJSON('<%=path%>/customer-info/allocate?customer_id='+customer_id+'&user_id='+user_id,function (result) {
+        var index = parent.layer.getFrameIndex(window.name);
+
+        $.getJSON('<%=path%>/customer-info/allocate.action?customer_id='+customer_id+'&user_id='+user_id,function (result) {
+            console.log(result);
             if (result.success == true){
-                layer.msg('修改成功');
-                refresh();
+                layer.msg('分配成功');
+                parent.refresh();
+                parent.layer.close(index);
             }else{
-                layer.msg('修改失败');
+                layer.msg('分配失败');
             }
         })
     }
-    function refresh() {
-        window.location.replace('<%=path%>/customer-source/list.action');
-    }
+    <%--function refresh() {--%>
+        <%--window.location.replace('<%=path%>/customer-source/list.action');--%>
+    <%--}--%>
 </script>
 </body>
 </html>

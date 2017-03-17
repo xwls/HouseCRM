@@ -87,6 +87,9 @@
     function allocation(customer_id) {
         layer_show("客户分配","<%=path%>/customer-info/allocation-dialog.action?ids="+customer_id,"300","220")
     }
+    function refresh() {
+        window.location.replace('<%=path%>/customer-info/allocation.action');
+    }
 </script>
 </body>
 </html>

@@ -175,6 +175,8 @@ public class CustomerController extends CommonController{
         String customer_id = request.getParameter("customer_id");
         String user_id = request.getParameter("user_id");
         System.out.println(customer_id+"---"+user_id);
+        int allocate = customerService.allocate(customer_id, user_id);
+        write(allocate > 0);
     }
 
 }
