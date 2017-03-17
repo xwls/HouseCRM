@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <%@include file="../header.jsp" %>
@@ -41,29 +42,30 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${requestScope.customers}" var="customer">
+        <s:iterator value="#request.customers">
             <tr class="text-c">
                 <td><input type="checkbox" value="" name=""></td>
-                <td>${customer.customer_id}</td>
+                <td>${customer_id }</td>
                 <td class="text-l"><u style="cursor:pointer" class="text-primary"
-                                      onClick="showDetail('name',${customer.customer_id})"
-                                      title="详细信息">${customer.customer_name}</u></td>
-                <td>${customer.customer_sex}</td>
-                <td>${customer.condition_name}</td>
-                <td>${customer.source_name}</td>
-                <td>${customer.type_name}</td>
-                <td>${customer.customer_addtime}</td>
-                <td>${customer.customer_mobile}</td>
-                <td><a href="mailto:${customer.customer_email}">${customer.customer_email}</a></td>
+                                      onClick="showDetail('name',${customer_id})"
+                                      title="详细信息">${customer_name}</u></td>
+                <td>${customer_sex}</td>
+                <td>${condition_name}</td>
+                <td>${source_name}</td>
+                <td>${type_name}</td>
+                <td>${customer_addtime}</td>
+                <td>${customer_mobile}</td>
+                <td><a href="mailto:${customer_email}">${customer_email}</a></td>
                 <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                              onClick="allocation(${customer.customer_id})"
+                                              onClick="allocation(${customer_id})"
                                               href="javascript:;" title="分配"><i class="Hui-iconfont">
                     &#xe634;</i></a> <a
                         style="text-decoration:none" class="ml-5"
-                        onClick="article_del(this,'${customer.customer_id}')"
+                        onClick="article_del(this,'${customer_id}')"
                         href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
-        </c:forEach>
+        </s:iterator>
+
 
         </tbody>
     </table>

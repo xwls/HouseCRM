@@ -122,6 +122,7 @@
                 </ul>
             </dd>
         </dl>
+        <s:if test="#session.userInfo.role_id == 1">
         <dl id="menu-admin">
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -132,6 +133,7 @@
                 </ul>
             </dd>
         </dl>
+        </s:if>
         <dl id="menu-tongji">
             <dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>

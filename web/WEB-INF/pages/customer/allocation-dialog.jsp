@@ -81,9 +81,6 @@
             }
         })
     }
-    <%--function refresh() {--%>
-        <%--window.location.replace('<%=path%>/customer-source/list.action');--%>
-    <%--}--%>
 </script>
 </body>
 </html>
