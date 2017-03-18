@@ -44,4 +44,9 @@
         <action name="delete" class="customerSourceController" method="delete"/>
         <action name="add" class="customerSourceController" method="add"/>
     </package>
+    <package name="care" namespace="/customer-care" extends="myDefault">
+        <action name="list" class="customerCareController" method="queryAll">
+            <result name="success">/WEB-INF/pages/customer/care.jsp</result>
+        </action>
+    </package>
 </struts>

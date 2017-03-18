@@ -3,6 +3,7 @@ package com.oaec.housecrm.test;
 import com.oaec.housecrm.dao.CustomerDao;
 import com.oaec.housecrm.daoimpl.CustomerDaoImpl;
 import com.oaec.housecrm.service.CustomerService;
+import com.alibaba.druid.util.StringUtils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

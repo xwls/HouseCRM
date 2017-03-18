@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import java.io.PrintWriter;
  * Created by Kevin on 2017/3/13.
  */
 public class CommonController extends ActionSupport {
+
 
     protected void write(boolean success){
         JSONObject jsonObject = new JSONObject();

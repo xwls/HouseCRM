@@ -29,10 +29,6 @@ public class CustomerDaoImpl implements CustomerDao {
                 "customer_type ON customer_info.type_id = customer_type.type_id WHERE customer_info.is_used != 0 AND  " +
                 "user_info.user_name "+str+" ORDER BY customer_info.customer_id";
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
-        for (Map<String, Object> map : maps) {
-            Object customer_addtime = map.get("customer_addtime");
-            System.out.println(customer_addtime);
-        }
         return maps;
     }
 
