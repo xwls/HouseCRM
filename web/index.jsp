@@ -95,8 +95,8 @@
                     <li><a data-href="customer-type/list.action" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
                     <li><a data-href="customer-condition/list.action" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>
                     <li><a data-href="customer-source/list.action" data-title="客户来源" href="javascript:void(0)">客户来源</a></li>
-                    <li><a data-href="article-list.html" data-title="联系记录" href="javascript:void(0)">联系记录</a></li>
-                    <li><a data-href="article-list.html" data-title="联系人" href="javascript:void(0)">联系人</a></li>
+                    <li><a data-href="customer-link-record/list.action" data-title="联系记录" href="javascript:void(0)">联系记录</a></li>
+                    <li><a data-href="customer-link-man/list.action" data-title="联系人" href="javascript:void(0)">联系人</a></li>
                 </ul>
             </dd>
         </dl>

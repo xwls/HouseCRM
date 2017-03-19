@@ -16,40 +16,40 @@
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 客户相关 <span
-        class="c-gray en">&gt;</span> 客户关怀 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+        class="c-gray en">&gt;</span> 联系记录 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
-        class="btn btn-primary radius" data-title="添加关怀" onclick=""
-        href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加关怀</a></span> <span
-        class="r">共有数据：<strong>${fn:length(requestScope.cares)}</strong> 条</span></div>
+        class="btn btn-primary radius" data-title="添加记录" onclick=""
+        href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加记录</a></span> <span
+        class="r">共有数据：<strong>${fn:length(requestScope.linkRecords)}</strong> 条</span></div>
 <div class="mt-20">
     <table class="table table-border table-bordered table-bg table-hover table-sort">
         <thead>
         <tr class="text-c">
             <th width="50">ID</th>
-            <th width="70">客户</th>
-            <th width="100">关怀主题</th>
-            <th width="100">关怀方式</th>
-            <th width="70">关怀时间</th>
-            <th width="60">下次关怀时间</th>
-            <th width="100">备注</th>
-            <th width="100">关怀人</th>
+            <th width="70">客户姓名</th>
+            <th width="100">联系时间</th>
+            <th width="100">下次联系时间</th>
+            <th width="70">联系类型</th>
+            <th width="60">是谁联系的</th>
+            <th width="100">联系主题</th>
+            <th width="100">联系备注</th>
             <th width="80">操作</th>
         </tr>
         </thead>
         <tbody>
-        <s:iterator value="#request.cares">
+        <s:iterator value="#request.linkRecords">
             <tr class="text-c">
-                <td>${care_id }</td>
+                <td>${record_id }</td>
                 <td>${customer_name}</td>
-                <td>${care_theme}</td>
-                <td>${care_way}</td>
-                <td>${care_time}</td>
-                <td>${care_nexttime}</td>
-                <td>${care_remark}</td>
-                <td>${care_people}</td>
+                <td>${link_time}</td>
+                <td>${link_nexttime}</td>
+                <td>${link_type}</td>
+                <td>${who_link}</td>
+                <td>${link_theme}</td>
+                <td>${link_remark}</td>
                 <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
                                               onClick="allocation(${care_id})"
                                               href="javascript:;" title="分配"><i class="Hui-iconfont">

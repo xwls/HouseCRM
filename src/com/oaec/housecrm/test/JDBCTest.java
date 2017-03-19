@@ -3,8 +3,8 @@ package com.oaec.housecrm.test;
 import com.oaec.housecrm.dao.CustomerDao;
 import com.oaec.housecrm.daoimpl.CustomerDaoImpl;
 import com.oaec.housecrm.service.CustomerService;
-import com.alibaba.druid.util.StringUtils;
 import org.junit.Test;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,7 +31,8 @@ public class JDBCTest {
     }
     @Test
     public void test2(){
-
+        System.out.println(StringUtils.isNotBlank(null));
+        System.out.println(StringUtils.isNotBlank(" "));
     }
 
 
