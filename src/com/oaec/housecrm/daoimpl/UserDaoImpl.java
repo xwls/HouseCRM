@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<Map<String, Object>> queryAllUsed() {
-        String sql = "SELECT * FROM user_info WHERE is_used != 0";
+        String sql = "select  a.*,b.department_name,c.role_name from user_info  a, department_info b,user_role c where  a.department_id = b.department_id and a.role_id=c.role_id and a.is_used=1";
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
         return maps;
     }

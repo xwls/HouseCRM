@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <%@ include file="../header.jsp"%>
@@ -41,21 +42,47 @@
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
-                <th width="50">ID</th>
+                <th width="30">ID</th>
                 <th width="70">姓名</th>
-                <th width="50">性别</th>
-                <th width="80">状态</th>
-                <th width="70">来源</th>
-                <th width="70">所属员工</th>
-                <th width="60">类型</th>
-                <th width="100">手机</th>
-                <th width="160">邮箱</th>
+                <th width="40">性别</th>
+                <th width="40">年龄</th>
+                <th width="40">民族</th>
+                <th width="70">部门</th>
+                <th width="60">角色</th>
+                <th width="40">学历</th>
+                <th width="40">婚姻</th>
+                <th width="80">家庭住址</th>
+                <th width="80">手机</th>
+                <th width="80">电话</th>
+                <th width="120">邮箱</th>
                 <th width="80">操作</th>
             </tr>
             </thead>
             <tbody>
-
+            <s:iterator value="#request.users">
+                <tr class="text-c">
+                    <td>${user_id }</td>
+                    <td>${user_name}</td>
+                    <td>${user_sex}</td>
+                    <td>${user_age}</td>
+                    <td>${user_nation}</td>
+                    <td>${department_name}</td>
+                    <td>${role_name}</td>
+                    <td>${user_diploma}</td>
+                    <td>${is_married}</td>
+                    <td>${user_address}</td>
+                    <td>${user_mobile}</td>
+                    <td>${user_tel}</td>
+                    <td>${user_email}</td>
+                    <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
+                                                  onClick="allocation(${care_id})"
+                                                  href="javascript:;" title="编辑"><i class="Hui-iconfont">
+                        &#xe6df;</i></a> <a
+                            style="text-decoration:none" class="ml-5"
+                            onClick="article_del(this,'${care_id}')"
+                            href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+            </s:iterator>
 
             </tbody>
         </table>
@@ -72,7 +99,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 10]}// 不参与排序的列
+            {"orderable": false, "aTargets": [0, 13]}// 不参与排序的列
         ]
     });
 

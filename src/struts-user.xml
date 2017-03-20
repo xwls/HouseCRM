@@ -18,7 +18,7 @@
         <action name="logout" class="userController" method="logout">
             <result name="success" type="redirect">/login.jsp</result>
         </action>
-        <action name="list" class="userController" method="list">
+        <action name="list" class="userController" method="queryAll">
             <result name="success">/WEB-INF/pages/user/list.jsp</result>
         </action>
     </package>
