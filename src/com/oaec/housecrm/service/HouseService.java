@@ -1,4 +1,4 @@
-package com.oaec.housecrm.dao;
+package com.oaec.housecrm.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by Kevin on 2017/3/20.
  */
-public interface HouseDao {
+public interface HouseService {
     /**
      * 添加
      *

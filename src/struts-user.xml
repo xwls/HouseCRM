@@ -22,4 +22,12 @@
             <result name="success">/WEB-INF/pages/user/list.jsp</result>
         </action>
     </package>
+    <package name="house" namespace="/house" extends="myDefault">
+        <action name="list" class="houseController" method="queryAll">
+            <result name="success">/WEB-INF/pages/user/house.jsp</result>
+        </action>
+        <action name="type" class="houseTypeController" method="query">
+            <result name="success">/WEB-INF/pages/user/type.jsp</result>
+        </action>
+    </package>
 </struts>
