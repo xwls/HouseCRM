@@ -31,8 +31,7 @@ public class JDBCTest {
     }
     @Test
     public void test2(){
-        System.out.println(StringUtils.isNotBlank(null));
-        System.out.println(StringUtils.isNotBlank(" "));
+
     }
 
 

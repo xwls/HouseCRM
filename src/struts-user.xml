@@ -30,4 +30,14 @@
             <result name="success">/WEB-INF/pages/user/type.jsp</result>
         </action>
     </package>
+    <package name="department" namespace="/department" extends="myDefault">
+        <action name="list" class="departmentController" method="queryAll">
+            <result name="success">/WEB-INF/pages/user/department.jsp</result>
+        </action>
+    </package>
+    <package name="notice" namespace="/notice" extends="myDefault">
+        <action name="list" class="noticeController" method="queryAll">
+            <result name="success" >/WEB-INF/pages/user/notice.jsp</result>
+        </action>
+    </package>
 </struts>
