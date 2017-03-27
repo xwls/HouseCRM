@@ -72,12 +72,7 @@
         <span class="select-box inline">
 		<select id="queryBy" name="queryBy" class="select">
 			<option value="customer_name">客户姓名</option>
-			<option value="user_name">所属员工</option>
 			<option value="customer_company">客户公司</option>
-			<%--<option value="condition_name">客户状态</option>--%>
-			<%--<option value="source_name">客户来源</option>--%>
-			<%--<option value="type_name">客户类型</option>--%>
-			<%--<option value="queryByDate">日期范围</option>--%>
 		</select>
 		</span>&nbsp;&nbsp;&nbsp;&nbsp;
         <div id="addTime" class="inline" style="display: none;">
@@ -110,7 +105,9 @@
                 <th width="60">类型</th>
                 <th width="100">手机</th>
                 <th width="160">邮箱</th>
-                <th width="80">操作</th>
+                <s:if test="#session.userInfo.role_id == 1">
+                    <th width="80">操作</th>
+                </s:if>
             </tr>
             </thead>
             <tbody>
@@ -128,6 +125,7 @@
                     <td>${customer.type_name}</td>
                     <td>${customer.customer_mobile}</td>
                     <td><a href="mailto:${customer.customer_email}">${customer.customer_email}</a></td>
+                    <s:if test="#session.userInfo.role_id == 1">
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
                                                   onClick="showDetail('edit',${customer.customer_id})"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
@@ -135,6 +133,7 @@
                             style="text-decoration:none" class="ml-5"
                             onClick="article_del(this,'${customer.customer_id}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    </s:if>
                 </tr>
             </c:forEach>
 
@@ -244,7 +243,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 10]}// 不参与排序的列
+            {"orderable": false, "aTargets": [0<s:if test="#session.userInfo.role_id == 1">, 10</s:if>]}// 不参与排序的列
         ]
     });
 
@@ -360,19 +359,8 @@
             $("#addTime").hide();
             if(queryBy == "customer_name"){
                 $("#queryBy-input").attr('placeholder',' 姓名');
-            }else if(queryBy == "condition_name"){
-                $("#queryBy-input").attr('placeholder',' 状态');
-            }else if(queryBy == "source_name"){
-                $("#queryBy-input").attr('placeholder',' 来源');
-            }else if(queryBy == "type_name"){
-                $("#queryBy-input").attr('placeholder',' 类型');
-            }else if(queryBy == "user_name"){
-                $("#queryBy-input").attr('placeholder',' 所属员工');
             }else if(queryBy == "customer_company"){
                 $("#queryBy-input").attr('placeholder',' 客户公司');
-            }else if(queryBy == "queryByDate"){
-                $("#queryBy-input").hide();
-                $("#addTime").show();
             }
         })
     })
@@ -380,7 +368,7 @@
     function search() {
         var key = $("#queryBy").val();
         var value = $("#queryBy-input").val();
-        var url = "<%=path%>/customer-info/search.action?"+key+"="+value;
+        var url = "<%=path%>/customer-info/search.action?user_id=<s:property value="#session.userInfo.user_id"/>&role_id=<s:property value="#session.userInfo.role_id"/>&"+key+"="+value;
         window.location.replace(url);
     }
 

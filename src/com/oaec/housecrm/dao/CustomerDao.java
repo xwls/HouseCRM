@@ -15,18 +15,6 @@ public interface CustomerDao {
     List<Map<String,Object>> queryAllUsed(boolean isAllocation);
 
     /**
-     * 查询所有客户的Condition
-     * @return
-     */
-//    List<Map<String,Object>> queryConditions();
-
-    /**
-     * 查询所有客户的Source
-     * @return
-     */
-//    List<Map<String,Object>> querySources();
-
-    /**
      * 根据客户ID查询客户信息
      * @param id
      * @return
