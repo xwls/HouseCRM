@@ -56,4 +56,11 @@ public class NoticeDaoImpl implements NoticeDao {
 		int update = jdbcTemplate.update(sql, noticeInfo.get("user_id"), noticeInfo.get("notice_item"), noticeInfo.get("notice_content"), noticeInfo.get("notice_time"), noticeInfo.get("notice_endtime"), noticeInfo.get("notice_id"));
 		return update;
 	}
+
+	@Override
+	public List<Map<String, Object>> getNotice() {
+		String sql = "select a.*,b.user_name from notice_info  a,user_info  b where a.user_id=b.user_id and  a.is_used='1'  and  TO_DAYS(a.notice_endtime) - TO_DAYS(now())>0 ";
+		List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+		return maps;
+	}
 }

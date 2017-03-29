@@ -23,7 +23,7 @@
     </package>
 
     <package name="welcome" namespace="/" extends="myDefault">
-        <action name="welcome">
+        <action name="welcome" class="welcomeController">
             <result >/WEB-INF/pages/welcome.jsp</result>
         </action>
     </package>

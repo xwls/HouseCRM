@@ -33,4 +33,10 @@ public interface NoticeService {
 	 * @return
 	 */
 	int update(Map<String, Object> noticeInfo);
+
+	/**
+	 * 获取公告
+	 * @return
+	 */
+	List<Map<String, Object>> getNotice();
 }

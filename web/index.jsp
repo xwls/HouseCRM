@@ -90,7 +90,9 @@
             <dd style="display: block;">
                 <ul>
                     <li><a data-href="customer-info/search.action?user_id=<s:property value="#session.userInfo.user_id"/>&role_id=<s:property value="#session.userInfo.role_id"/>"+ data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
+                    <s:if test="#session.userInfo.role_id == 1">
                     <li><a data-href="customer-info/allocation.action" data-title="客户分配" href="javascript:void(0)">客户分配</a></li>
+                    </s:if>
                     <li><a data-href="customer-care/list.action" data-title="客户关怀" href="javascript:void(0)">客户关怀</a></li>
                     <li><a data-href="customer-type/list.action" data-title="客户类型" href="javascript:void(0)">客户类型</a></li>
                     <li><a data-href="customer-condition/list.action" data-title="客户状态" href="javascript:void(0)">客户状态</a></li>

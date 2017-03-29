@@ -36,4 +36,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public int update(Map<String, Object> noticeInfo) {
 		return noticeDao.update(noticeInfo);
 	}
+
+	@Override
+	public List<Map<String, Object>> getNotice() {
+		return noticeDao.getNotice();
+	}
 }
