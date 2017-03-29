@@ -105,9 +105,7 @@
                 <th width="60">类型</th>
                 <th width="100">手机</th>
                 <th width="160">邮箱</th>
-                <s:if test="#session.userInfo.role_id == 1">
                     <th width="80">操作</th>
-                </s:if>
             </tr>
             </thead>
             <tbody>
@@ -125,7 +123,6 @@
                     <td>${customer.type_name}</td>
                     <td>${customer.customer_mobile}</td>
                     <td><a href="mailto:${customer.customer_email}">${customer.customer_email}</a></td>
-                    <s:if test="#session.userInfo.role_id == 1">
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
                                                   onClick="showDetail('edit',${customer.customer_id})"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
@@ -133,7 +130,6 @@
                             style="text-decoration:none" class="ml-5"
                             onClick="article_del(this,'${customer.customer_id}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-                    </s:if>
                 </tr>
             </c:forEach>
 
@@ -243,7 +239,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0<s:if test="#session.userInfo.role_id == 1">, 10</s:if>]}// 不参与排序的列
+            {"orderable": false, "aTargets": [0, 10]}// 不参与排序的列
         ]
     });
 

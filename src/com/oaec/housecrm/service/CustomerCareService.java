@@ -38,4 +38,11 @@ public interface CustomerCareService {
 	 * @return 
 	 */
 	int update(Map<String,Object> careInfo);
+
+	/**
+	 * 关怀提醒
+	 * @param days
+	 * @return
+	 */
+	List<Map<String, Object>> getCustomerCare(String days);
 }

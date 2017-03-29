@@ -1,4 +1,4 @@
-package com.oaec.housecrm.daoimpl;
+package com.oaec.housecrm.dao.impl;
 
 import com.oaec.housecrm.dao.CustomerDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +120,13 @@ public class CustomerDaoImpl implements CustomerDao {
 		String sql = sb.substring(0, sb.length() - 1);
 		sql += ")";
 		List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, ids);
+		return maps;
+	}
+
+	@Override
+	public List<Map<String, Object>> getBirthday(String days) {
+		String sql = "select a.customer_name,FROM_UNIXTIME(UNIX_TIMESTAMP(a.birth_day), '%Y-%m-%d') birth_day,a.customer_mobile  , b.condition_name  from  customer_info a ,customer_condition  b  where    a.condition_id  =b.condition_id   and   a.is_used='1' and   TO_DAYS(birth_day) - TO_DAYS(now()) >=0  and  TO_DAYS(birth_day) - TO_DAYS(now())<= ?";
+		List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, days);
 		return maps;
 	}
 

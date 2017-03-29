@@ -47,5 +47,6 @@ public interface CustomerDao {
 
     List<Map<String,Object>> queryNameById(String[] ids);
 
+    List<Map<String,Object>> getBirthday(String days);
 
 }

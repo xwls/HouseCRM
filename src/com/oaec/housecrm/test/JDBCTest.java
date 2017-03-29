@@ -1,17 +1,10 @@
 package com.oaec.housecrm.test;
 
-import com.oaec.housecrm.dao.CustomerDao;
-import com.oaec.housecrm.daoimpl.CustomerDaoImpl;
-import com.oaec.housecrm.service.CustomerService;
 import org.junit.Test;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
 
 /**
  * Created by Kevin on 2017/2/16.

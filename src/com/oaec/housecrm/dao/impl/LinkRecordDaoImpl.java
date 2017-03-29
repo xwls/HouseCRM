@@ -1,4 +1,4 @@
-package com.oaec.housecrm.daoimpl;
+package com.oaec.housecrm.dao.impl;
 
 import com.oaec.housecrm.dao.LinkRecordDao;
 import org.apache.commons.lang3.StringUtils;
@@ -49,5 +49,12 @@ public class LinkRecordDaoImpl implements LinkRecordDao {
         String sql = "update customer_linkrecord SET  is_used = '0' WHERE record_id = ?";
         int update = jdbcTemplate.update(sql, record_id);
         return update;
+    }
+
+    @Override
+    public List<Map<String, Object>> getLinkRecord(String days) {
+        String sql = "select a.*,b.customer_name from customer_linkreord  a,customer_info b where a.customer_id=b.customer_id and  a.is_used='1' and TO_DAYS(a.link_nexttime) - TO_DAYS(now())>0     and  TO_DAYS(a.link_nexttime) - TO_DAYS(now())<= ?";
+	    List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, days);
+	    return maps;
     }
 }

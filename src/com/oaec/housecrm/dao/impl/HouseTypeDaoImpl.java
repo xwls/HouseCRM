@@ -1,4 +1,4 @@
-package com.oaec.housecrm.daoimpl;
+package com.oaec.housecrm.dao.impl;
 
 import com.oaec.housecrm.dao.HouseTypeDao;
 import org.apache.commons.lang3.StringUtils;

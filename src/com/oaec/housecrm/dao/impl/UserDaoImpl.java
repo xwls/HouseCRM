@@ -1,4 +1,4 @@
-package com.oaec.housecrm.daoimpl;
+package com.oaec.housecrm.dao.impl;
 
 import com.oaec.housecrm.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;

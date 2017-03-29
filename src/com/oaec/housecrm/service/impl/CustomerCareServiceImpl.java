@@ -1,4 +1,4 @@
-package com.oaec.housecrm.serviceimpl;
+package com.oaec.housecrm.service.impl;
 
 import com.oaec.housecrm.dao.CustomerCareDao;
 import com.oaec.housecrm.service.CustomerCareService;
@@ -38,5 +38,10 @@ public class CustomerCareServiceImpl implements CustomerCareService {
     @Override
     public int update(Map<String, Object> careInfo) {
         return customerCareDao.update(careInfo);
+    }
+
+    @Override
+    public List<Map<String, Object>> getCustomerCare(String days) {
+        return customerCareDao.getCustomerCare(days);
     }
 }

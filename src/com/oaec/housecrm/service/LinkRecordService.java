@@ -33,4 +33,6 @@ public interface LinkRecordService {
      * @param record_id
      */
     int delete(String record_id);
+
+    List<Map<String, Object>> getLinkRecord(String days);
 }

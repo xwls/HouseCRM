@@ -33,11 +33,15 @@
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
-                                                               class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-            class="btn btn-primary radius" data-title="添加员工" onclick=""
-            href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a></span> <span
-            class="r">共有数据：11 条</span></div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <s:if test="#session.userInfo.role_id == 1">
+            <span class="l">
+            <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+            <a class="btn btn-primary radius" data-title="添加员工" onclick="" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
+        </span>
+        </s:if>
+
+        <span class="r">共有数据：11 条</span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -55,7 +59,9 @@
                 <th width="80">手机</th>
                 <th width="80">电话</th>
                 <th width="120">邮箱</th>
+                <s:if test="#session.userInfo.role_id == 1">
                 <th width="80">操作</th>
+                </s:if>
             </tr>
             </thead>
             <tbody>
@@ -74,6 +80,7 @@
                     <td>${user_mobile}</td>
                     <td>${user_tel}</td>
                     <td>${user_email}</td>
+                    <s:if test="#session.userInfo.role_id == 1">
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
                                                   onClick="allocation(${care_id})"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
@@ -81,6 +88,7 @@
                             style="text-decoration:none" class="ml-5"
                             onClick="article_del(this,'${care_id}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    </s:if>
                 </tr>
             </s:iterator>
 
@@ -99,7 +107,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 13]}// 不参与排序的列
+            {"orderable": false, "aTargets": [0<s:if test="#session.userInfo.role_id == 1">, 13</s:if>]}// 不参与排序的列
         ]
     });
 

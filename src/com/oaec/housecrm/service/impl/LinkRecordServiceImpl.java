@@ -1,4 +1,4 @@
-package com.oaec.housecrm.serviceimpl;
+package com.oaec.housecrm.service.impl;
 
 import com.oaec.housecrm.dao.LinkRecordDao;
 import com.oaec.housecrm.service.LinkRecordService;
@@ -30,5 +30,10 @@ public class LinkRecordServiceImpl implements LinkRecordService {
     @Override
     public int delete(String record_id) {
         return linkRecordDao.delete(record_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getLinkRecord(String days) {
+        return linkRecordDao.getLinkRecord(days);
     }
 }

@@ -1,4 +1,4 @@
-package com.oaec.housecrm.serviceimpl;
+package com.oaec.housecrm.service.impl;
 
 import com.oaec.housecrm.dao.CustomerConditionDao;
 import com.oaec.housecrm.dao.CustomerTypeDao;

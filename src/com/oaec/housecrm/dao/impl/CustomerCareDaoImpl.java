@@ -1,4 +1,4 @@
-package com.oaec.housecrm.daoimpl;
+package com.oaec.housecrm.dao.impl;
 
 import com.oaec.housecrm.dao.CustomerCareDao;
 import org.apache.commons.lang3.StringUtils;
@@ -63,5 +63,12 @@ public class CustomerCareDaoImpl implements CustomerCareDao {
         int update = jdbcTemplate.update(sql, map.get("care_theme"), map.get("care_way"), map.get("customer_id"),
                 map.get("care_time"), map.get("care_nexttime"), map.get("care_remark"), map.get("care_people"), map.get("care_id"));
         return update;
+    }
+
+    @Override
+    public List<Map<String, Object>> getCustomerCare(String days) {
+        String sql = "select a.*,b.customer_name from customer_care  a,customer_info b where a.customer_id=b.customer_id and  a.is_used='1'  and TO_DAYS(a.care_nexttime) - TO_DAYS(now())>0  and  TO_DAYS(a.care_nexttime) - TO_DAYS(now())<= ?";
+	    List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, days);
+	    return maps;
     }
 }

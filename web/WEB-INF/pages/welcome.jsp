@@ -26,11 +26,51 @@
     <p class="f-20 text-success">欢迎您：<s:property value="#session.userInfo.user_name"/> </p>
     <div class="panel panel-default f-l ml-10" style="width: 48%">
         <div class="panel-header">关怀提醒</div>
-        <div class="panel-body">面板内容</div>
+        <div class="panel-body">
+            <table class="table table-border table-bordered table-hover">
+                <thead>
+                <tr class="text-c">
+                    <th width="50">关怀对象</th>
+                    <th width="70">关怀主题</th>
+                    <th width="100">关怀时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <s:iterator value="#request.customerCares">
+                    <tr>
+                        <td>${customer_name}</td>
+                        <td>${care_theme}</td>
+                        <td>${care_nexttime}</td>
+                    </tr>
+                </s:iterator>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="panel panel-default f-l ml-10" style="width: 48%">
         <div class="panel-header">联系提醒</div>
-        <div class="panel-body">面板内容</div>
+        <div class="panel-body">
+            <table class="table table-border table-bordered table-hover">
+                <thead>
+                <tr class="text-c">
+                    <th width="50">联系对象</th>
+                    <th width="80">联系主题</th>
+                    <th width="80">联系方式</th>
+                    <th width="100">应联系时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <s:iterator value="#request.linkRecords">
+                    <tr>
+                        <td>${customer_name}</td>
+                        <td>${link_theme}</td>
+                        <td>${link_type}</td>
+                        <td>${link_nexttime}</td>
+                    </tr>
+                </s:iterator>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="panel panel-default f-l ml-10 mt-10" style="width: 48%">
         <div class="panel-header">有效公告</div>
@@ -59,7 +99,28 @@
     </div>
     <div class="panel panel-default f-l ml-10 mt-10" style="width: 48%">
         <div class="panel-header">生日提醒</div>
-        <div class="panel-body">面板内容</div>
+        <div class="panel-body">
+            <table class="table table-border table-bordered table-hover">
+                <thead>
+                <tr class="text-c">
+                    <th width="50">客户姓名</th>
+                    <th width="100">生日</th>
+                    <th width="70">手机号</th>
+                    <th width="50">客户状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <s:iterator value="#request.birthdays">
+                    <tr>
+                        <td>${customer_name}</td>
+                        <td>${birth_day}</td>
+                        <td>${customer_mobile}</td>
+                        <td>${condition_name}</td>
+                    </tr>
+                </s:iterator>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>

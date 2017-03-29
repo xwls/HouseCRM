@@ -42,4 +42,11 @@ public interface CustomerCareDao {
      * @return
      */
     int update(Map<String,Object> map);
+
+    /**
+     * 提醒关怀
+     * @param days 最近几天
+     * @return
+     */
+    List<Map<String,Object>> getCustomerCare(String days);
 }

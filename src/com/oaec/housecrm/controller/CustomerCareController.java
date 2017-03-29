@@ -21,4 +21,5 @@ public class CustomerCareController extends CommonController {
         ServletActionContext.getRequest().setAttribute("cares",cares);
         return SUCCESS;
     }
+
 }

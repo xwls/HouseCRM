@@ -1,4 +1,4 @@
-package com.oaec.housecrm.serviceimpl;
+package com.oaec.housecrm.service.impl;
 
 import com.oaec.housecrm.dao.CustomerDao;
 import com.oaec.housecrm.service.CustomerService;
@@ -39,17 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customer;
     }
 
-//    @Override
-//    public List<Map<String,Object>> queryConditions() {
-//        List<Map<String,Object>> conditions = customerDao.queryConditions();
-//        return conditions;
-//    }
-
-//    @Override
-//    public List<Map<String,Object>> querySources() {
-//        List<Map<String,Object>> sources = customerDao.querySources();
-//        return sources;
-//    }
 
     @Override
     public int add(Map<String, Object> map) {
@@ -69,5 +58,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Map<String, Object>> queryNameById(String[] ids) {
         return customerDao.queryNameById(ids);
+    }
+
+    @Override
+    public List<Map<String, Object>> getBirthday(String days) {
+        return customerDao.getBirthday(days);
     }
 }

@@ -1,4 +1,4 @@
-package com.oaec.housecrm.serviceimpl;
+package com.oaec.housecrm.service.impl;
 
 import com.oaec.housecrm.dao.LinkManDao;
 import com.oaec.housecrm.service.LinkManService;
