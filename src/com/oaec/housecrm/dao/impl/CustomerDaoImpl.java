@@ -125,7 +125,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public List<Map<String, Object>> getBirthday(String days) {
-		String sql = "select a.customer_name,FROM_UNIXTIME(UNIX_TIMESTAMP(a.birth_day), '%Y-%m-%d') birth_day,a.customer_mobile  , b.condition_name  from  customer_info a ,customer_condition  b  where    a.condition_id  =b.condition_id   and   a.is_used='1' and   TO_DAYS(birth_day) - TO_DAYS(now()) >=0  and  TO_DAYS(birth_day) - TO_DAYS(now())<= ?";
+		String sql = "SELECT a.customer_name, a.customer_mobile, b.condition_name, DATE_FORMAT(a.birth_day, '%c-%e') AS birth_day FROM customer_info a, customer_condition b WHERE a.condition_id = b.condition_id AND DATEDIFF(DATE_FORMAT(birth_day, concat(YEAR(now()), '-%m-%d')), date(now())) < ? AND DATEDIFF(DATE_FORMAT(birth_day, concat(YEAR(now()), '-%m-%d')), date(now())) >= 0 ORDER BY birth_day ASC";
 		List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, days);
 		return maps;
 	}

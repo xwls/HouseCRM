@@ -1,5 +1,40 @@
 # HouseCRM
 
+> 项目托管到GitHub：[https://github.com/Kevin-OAEC/HouseCRM](https://github.com/Kevin-OAEC/HouseCRM)
+
+## 3月30日
+
+MySQL实现生日提醒
+
+```sql
+SELECT
+	a.customer_name,
+	a.customer_mobile,
+	b.condition_name,
+	DATE_FORMAT(a.birth_day, '%c-%e') AS birth_day
+FROM
+	customer_info a,
+	customer_condition b
+WHERE
+	a.condition_id = b.condition_id
+AND DATEDIFF(
+	DATE_FORMAT(
+		birth_day,
+		concat(YEAR(now()), '-%m-%d')
+	),
+	date(now())
+) < 7
+AND DATEDIFF(
+	DATE_FORMAT(
+		birth_day,
+		concat(YEAR(now()), '-%m-%d')
+	),
+	date(now())
+) >= 0
+ORDER BY
+	birth_day ASC;
+```
+
 ## 3月16日
 
 MySQL日期格式化函数
