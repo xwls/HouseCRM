@@ -21,7 +21,7 @@
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
-        class="btn btn-primary radius" data-title="添加关怀" onclick=""
+        class="btn btn-primary radius" data-title="添加关怀" onclick="add()"
         href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加关怀</a></span> <span
         class="r">共有数据：<strong>${fn:length(requestScope.cares)}</strong> 条</span></div>
 <div class="mt-20">
@@ -80,9 +80,9 @@
             {"orderable": false, "aTargets": [8]}// 不参与排序的列
         ]
     });
-    function allocation(care_id) {
-        <%--layer_show("客户分配","<%=path%>/customer-info/allocation-dialog.action?ids="+customer_id,"300","220")--%>
-        layer.alert('编辑'+care_id);
+    function add() {
+        layer_show("添加关怀","<%=path%>/customer-care/care-dialog.action","450","400")
+//        layer.alert('编辑'+care_id);
     }
     function refresh() {
         window.location.replace('<%=path%>/customer-info/allocation.action');

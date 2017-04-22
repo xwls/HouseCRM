@@ -48,6 +48,9 @@
         <action name="list" class="customerCareController" method="queryAll">
             <result name="success">/WEB-INF/pages/customer/care.jsp</result>
         </action>
+        <action name="care-dialog" class="customerCareController">
+            <result name="success">/WEB-INF/pages/customer/care-dialog.jsp</result>
+        </action>
     </package>
     <package name="linkRecord" namespace="/customer-link-record" extends="myDefault">
         <action name="list" class="linkRecordController" method="queryAll">
