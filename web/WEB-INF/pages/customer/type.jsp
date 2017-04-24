@@ -33,8 +33,7 @@
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="dataDel()"
-                                                               class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"> <a
             class="btn btn-primary radius" data-title="添加类型" onclick="add()"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加类型</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.types)}</strong> 条</span></div>
@@ -42,7 +41,6 @@
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
                 <th width="50">ID</th>
                 <th width="70">类型名称</th>
                 <th width="50">操作</th>
@@ -51,7 +49,6 @@
             <tbody>
             <c:forEach items="${requestScope.types}" var="type">
                 <tr class="text-c">
-                    <td><input type="checkbox" value="${type.type_id}" name="type_id"></td>
                     <td>${type.type_id}</td>
                     <td>${type.type_name}</td>
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
@@ -63,7 +60,6 @@
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
-
             </tbody>
         </table>
     </div>
@@ -86,7 +82,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 3]}// 不参与排序的列
+            {"orderable": false, "aTargets": [2]}// 不参与排序的列
         ]
     });
 

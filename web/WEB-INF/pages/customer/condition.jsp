@@ -44,8 +44,7 @@
         <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
         </button>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:;" onclick="datadel()"
-                                                               class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
+    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"> <a
             class="btn btn-primary radius" data-title="添加状态" onclick="showModal('add',0)"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加状态</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.conditions)}</strong> 条</span></div>
@@ -53,7 +52,6 @@
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
             <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
                 <th width="50">ID</th>
                 <th width="70">状态名称</th>
                 <th width="50">状态说明</th>
@@ -63,7 +61,6 @@
             <tbody>
             <c:forEach items="${requestScope.conditions}" var="condition">
                 <tr class="text-c">
-                    <td><input type="checkbox" value="" name=""></td>
                     <td>${condition.condition_id}</td>
                     <td>${condition.condition_name}</td>
                     <td>${condition.condition_explain}</td>
@@ -120,7 +117,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0, 4]}// 不参与排序的列
+            {"orderable": false, "aTargets": [3]}// 不参与排序的列
         ]
     });
 

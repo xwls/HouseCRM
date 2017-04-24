@@ -7,14 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%
-    String localName = request.getLocalName();
-    String localAddr = request.getLocalAddr();
-    String remoteHost = request.getRemoteHost();
-    String remoteAddr = request.getRemoteAddr();
-    String serverName = request.getServerName();
-    System.out.println(localName+"--"+localAddr+"--"+remoteAddr+"--"+remoteHost+"--"+serverName);
-%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -125,6 +117,6 @@
 
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
-
+</div>
 </body>
 </html>

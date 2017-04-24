@@ -31,4 +31,5 @@
     <include file="struts-customer.xml"/>
     <include file="struts-user.xml"/>
     <include file="struts-email.xml"/>
+    <include file="struts-chart.xml"/>
 </struts>

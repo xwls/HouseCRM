@@ -7,8 +7,16 @@
 <struts>
 
     <package name="email" namespace="/email" extends="myDefault">
-        <action name="add" >
+        <action name="add" class="emailController" method="add">
             <result name="success">/WEB-INF/pages/email/add.jsp</result>
+        </action>
+        <action name="send" class="emailController" method="send"/>
+        <action name="save" class="emailController" method="save"/>
+        <action name="draft" class="emailController" method="queryEmails">
+            <result name="success">/WEB-INF/pages/email/no-send.jsp</result>
+        </action>
+        <action name="outbox" class="emailController" method="queryEmails">
+            <result name="success">/WEB-INF/pages/email/outbox.jsp</result>
         </action>
     </package>
 </struts>
