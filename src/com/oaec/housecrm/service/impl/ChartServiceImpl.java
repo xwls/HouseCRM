@@ -41,4 +41,14 @@ public class ChartServiceImpl implements ChartService {
     public List<Map<String, Object>> querySource() {
         return chartDao.querySource();
     }
+
+    @Override
+    public List<Map<String, Object>> queryUsers() {
+        return chartDao.queryUsers();
+    }
+
+    @Override
+    public List<Map<String, Object>> queryDiploma() {
+        return chartDao.queryDiploma();
+    }
 }

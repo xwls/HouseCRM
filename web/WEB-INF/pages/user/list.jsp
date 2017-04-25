@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <%@ include file="../header.jsp"%>
@@ -18,30 +19,16 @@
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span>选择查询方式：</span>
-        <span class="select-box inline">
-		<select id="queryBy" name="queryBy" class="select">
-			<option value="customer_name">客户姓名</option>
-			<option value="user_name">所属员工</option>
-			<option value="customer_company">客户公司</option>
-		</select>
-		</span>&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 姓名" style="width:200px" class="input-text">
-        <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
-        </button>
-    </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <s:if test="#session.userInfo.role_id == 1">
             <span class="l">
-            <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+
             <a class="btn btn-primary radius" data-title="添加员工" onclick="" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
         </span>
         </s:if>
 
-        <span class="r">共有数据：11 条</span></div>
+        <span class="r">共有数据：<strong>${fn:length(requestScope.users)}</strong> 条</span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>

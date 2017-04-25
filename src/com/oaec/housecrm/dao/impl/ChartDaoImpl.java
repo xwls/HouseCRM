@@ -51,4 +51,18 @@ public class ChartDaoImpl implements ChartDao {
         List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
         return maps;
     }
+
+    @Override
+    public List<Map<String, Object>> queryUsers() {
+        String sql = "SELECT count(user_info.user_name) count,user_info.user_name FROM customer_info LEFT JOIN user_info ON customer_info.user_id = user_info.user_id GROUP BY user_info.user_name";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+        return maps;
+    }
+
+    @Override
+    public List<Map<String, Object>> queryDiploma() {
+        String sql = "SELECT count(user_diploma) count, user_diploma FROM user_info GROUP BY user_diploma";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+        return maps;
+    }
 }

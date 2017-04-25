@@ -43,4 +43,16 @@ public class ChartController extends CommonController{
         List<Map<String, Object>> maps = chartService.querySource();
         write(JSON.toJSONString(maps));
     }
+
+    public void user(){
+        List<Map<String, Object>> maps = chartService.queryUsers();
+        write(JSON.toJSONString(maps));
+    }
+
+    public void diploma(){
+        List<Map<String, Object>> maps = chartService.queryDiploma();
+        write(JSON.toJSONString(maps));
+    }
+
+
 }

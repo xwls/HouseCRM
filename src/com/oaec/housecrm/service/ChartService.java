@@ -12,4 +12,6 @@ public interface ChartService {
     List<Map<String, Object>> queryType();
     List<Map<String, Object>> queryCondition();
     List<Map<String, Object>> querySource();
+    List<Map<String, Object>> queryUsers();
+    List<Map<String, Object>> queryDiploma();
 }

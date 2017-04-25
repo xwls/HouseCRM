@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>客户相关统计</title>
     <%@include file="../header.jsp"%>
 </head>
 <body>

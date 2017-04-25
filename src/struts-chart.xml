@@ -15,5 +15,10 @@
         <action name="type" class="chartController" method="type"/>
         <action name="condition" class="chartController" method="condition"/>
         <action name="source" class="chartController" method="source"/>
+        <action name="user">
+            <result>/WEB-INF/pages/chart/user.jsp</result>
+        </action>
+        <action name="users" class="chartController" method="user"/>
+        <action name="diploma" class="chartController" method="diploma"/>
     </package>
 </struts>

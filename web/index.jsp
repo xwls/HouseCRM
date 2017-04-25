@@ -141,6 +141,7 @@
             <dd>
                 <ul>
                     <li><a data-href="chart/customer.action" data-title="客户信息" href="javascript:void(0)">客户信息</a></li>
+                    <li><a data-href="chart/user.action" data-title="用户信息" href="javascript:void(0)">用户信息</a></li>
                 </ul>
             </dd>
         </dl>
