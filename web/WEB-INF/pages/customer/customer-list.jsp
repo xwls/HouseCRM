@@ -92,7 +92,10 @@
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"> <a
             class="btn btn-primary radius" data-title="添加客户" onclick="showDetail('add',0)"
-            href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加客户</a></span> <span
+            href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加客户</a></span>
+        <span class="l ml-10"> <a
+            class="btn btn-secondary radius" data-title="导出" onclick=""
+            href="<%=path%>/customer-info/export.action?user_id=<s:property value="#session.userInfo.user_id"/>&role_id=<s:property value="#session.userInfo.role_id"/>"><i class="Hui-iconfont">&#xe644;</i> 导出</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.customers)}</strong> 条</span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">

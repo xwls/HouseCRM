@@ -21,6 +21,7 @@
             <result name="success">/WEB-INF/pages/customer/customer-list.jsp</result>
         </action>
         <action name="allocate" class="customerController" method="allocate"/>
+        <action name="export" class="customerController" method="export"/>
     </package>
     <package name="type" namespace="/customer-type" extends="myDefault">
         <action name="list" class="customerTypeController" method="queryAll">

@@ -32,4 +32,5 @@
     <include file="struts-user.xml"/>
     <include file="struts-email.xml"/>
     <include file="struts-chart.xml"/>
+    <include file="struts-export.xml"/>
 </struts>

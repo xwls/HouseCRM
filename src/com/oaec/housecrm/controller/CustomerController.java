@@ -6,18 +6,19 @@ import com.oaec.housecrm.service.*;
 import com.oaec.housecrm.util.ParameterUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created by Kevin on 2017/2/16.
@@ -177,6 +178,56 @@ public class CustomerController extends CommonController{
         System.out.println(customer_id+"---"+user_id);
         int allocate = customerService.allocate(customer_id, user_id);
         write(allocate > 0);
+    }
+
+    public void export(){
+        String path = ServletActionContext.getRequest().getServletContext().getRealPath("/static/tempFile");
+        File temp= new File(path+"/"+"customerExpTemp.xls");
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = new HSSFWorkbook();
+            HSSFSheet sheet0 = workbook.createSheet("客户信息");
+            //查询客户信息
+            Map<String, Object> parameters = ActionContext.getContext().getParameters();
+            ParameterUtil.convert(parameters);
+            System.out.println(parameters);
+            List<Map<String, Object>> customers = customerService.query(parameters);
+
+            HSSFRow row = sheet0.createRow(0);
+            Map<String, Object> map = customers.get(0);
+            Set<Map.Entry<String, Object>> entries = map.entrySet();
+            List<String> headers = new ArrayList<>();
+            for (Map.Entry<String, Object> entry : entries) {
+                headers.add(entry.getKey());
+            }
+            for (int i = 0; i < headers.size(); i++){
+                HSSFCell cell = row.createCell(i);
+                cell.setCellValue(headers.get(i));
+            }
+            for (int i = 0; i < customers.size(); i++){
+                HSSFRow row1 = sheet0.createRow(i+1);
+                Map<String, Object> map1 = customers.get(i);
+                for (int j = 0; j < headers.size(); j++){
+                    HSSFCell cell = row1.createCell(j);
+                    cell.setCellValue(map1.get(headers.get(j)).toString());
+                }
+            }
+            workbook.write(new FileOutputStream(temp));
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("content-disposition", "attachment;filename=" +new String("客户信息.xls".getBytes("UTF-8"),"ISO8859-1"));
+            ServletOutputStream os = response.getOutputStream();
+            FileInputStream is = new FileInputStream(temp);
+            byte[] buf = new byte[512];
+            int len = 0;
+            while ((len = is.read(buf)) != -1){
+                os.write(buf,0,len);
+            }
+            is.close();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
