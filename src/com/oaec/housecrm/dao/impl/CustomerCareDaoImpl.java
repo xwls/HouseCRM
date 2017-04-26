@@ -20,7 +20,7 @@ public class CustomerCareDaoImpl implements CustomerCareDao {
 
     @Override
     public List<Map<String, Object>> getList(String customerInput, String queryType) {
-        StringBuilder sql = new StringBuilder("select a.*,b.customer_name from customer_care a,customer_info b where  a.customer_id = b.customer_id  and  a.is_used=1 ");
+        StringBuilder sql = new StringBuilder("select a.care_id,a.customer_id,a.care_theme,a.care_way,from_unixtime(UNIX_TIMESTAMP(a.care_time), '%Y-%m-%d') care_time,a.care_remark,from_unixtime(UNIX_TIMESTAMP(a.care_nexttime), '%Y-%m-%d') care_nexttime,a.care_people,a.is_used,b.customer_name from customer_care a,customer_info b where  a.customer_id = b.customer_id  and  a.is_used=1 ");
         if (StringUtils.isNotEmpty(queryType.trim())) {
             if ("1".equals(queryType)){
                 sql.append(" and  b.customer_name  like ? ");
@@ -38,7 +38,7 @@ public class CustomerCareDaoImpl implements CustomerCareDao {
 
     @Override
     public Map<String, Object> getCare(String care_id) {
-        String sql = "select a.*,b.customer_name from customer_care a,customer_info b where a.customer_id=b.customer_id and care_id=? and a.is_used=1";
+        String sql = "select a.care_id,a.customer_id,a.care_theme,a.care_way,from_unixtime(UNIX_TIMESTAMP(a.care_time), '%Y-%m-%d') care_time,a.care_remark,from_unixtime(UNIX_TIMESTAMP(a.care_nexttime), '%Y-%m-%d') care_nexttime,a.care_people,a.is_used,b.customer_name from customer_care a,customer_info b where a.customer_id=b.customer_id and care_id=? and a.is_used=1";
         Map<String, Object> map = jdbcTemplate.queryForMap(sql, care_id);
         return map;
     }

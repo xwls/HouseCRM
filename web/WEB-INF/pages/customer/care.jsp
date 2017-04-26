@@ -51,8 +51,8 @@
                 <td>${care_remark}</td>
                 <td>${care_people}</td>
                 <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                              onClick="allocation(${care_id})"
-                                              href="javascript:;" title="分配"><i class="Hui-iconfont">
+                                              onClick="edit(${care_id})"
+                                              href="javascript:;" title="编辑"><i class="Hui-iconfont">
                     &#xe6df;</i></a> <a
                         style="text-decoration:none" class="ml-5"
                         onClick="article_del(this,'${care_id}')"
@@ -84,8 +84,12 @@
         layer_show("添加关怀","<%=path%>/customer-care/care-dialog.action","450","400")
 //        layer.alert('编辑'+care_id);
     }
+
+    function edit(care_id) {
+        layer_show("编辑关怀","<%=path%>/customer-care/care-dialog.action?care_id="+care_id,"450","400")
+    }
     function refresh() {
-        window.location.replace('<%=path%>/customer-info/allocation.action');
+        window.location.replace('<%=path%>/customer-care/list.action');
     }
 </script>
 </body>

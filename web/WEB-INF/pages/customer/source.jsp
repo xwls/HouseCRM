@@ -25,17 +25,11 @@
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span>输入客户来源：</span>
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 客户来源" style="width:200px" class="input-text">
-        <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
-        </button>
-    </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"> <a
-            class="btn btn-primary radius" data-title="添加来源" onclick=""
+
+    <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
+            class="btn btn-primary radius" data-title="添加来源" onclick="add()"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加来源</a></span> <span
-            class="r">共有数据：<strong>12</strong> 条</span></div>
+            class="r">共有数据：<strong>${fn:length(requestScope.sources)}</strong> 条</span></div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort">
             <thead>
@@ -55,7 +49,7 @@
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
-                            onClick=""
+                            onClick="del(${source.source_id},'${source.source_name}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
@@ -120,7 +114,7 @@
                     layer.msg('删除成功', {icon: 1});
                     refresh();
                 }else{
-                    layer.msg('删除成功', {icon: 2});
+                    layer.msg('删除失败', {icon: 2});
                 }
             })
         });
@@ -130,10 +124,36 @@
 
     })
 
-    function search() {
-
+    function add() {
+        layer.prompt({title: '添加新来源', formType: 0},function(val, index){
+            $.getJSON('<%=path%>/customer-source/add.action?source_name='+val,function (result) {
+//                    console.log(result)
+                if (result.success == true){
+                    layer.msg('添加成功');
+                    refresh();
+                }else{
+                    layer.msg('添加失败');
+                }
+            })
+//            layer.msg('得到了'+val);
+            layer.close(index);
+        });
     }
 
+    function del(source_id,source_name) {
+        layer.confirm('删除类型\"'+source_name+'\"？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.getJSON('<%=path%>/customer-source/delete.action?source_id='+source_id,function (result) {
+                if (result.success == true) {
+                    layer.msg('删除成功', {icon: 1});
+                    refresh();
+                }else{
+                    layer.msg('删除成功', {icon: 2});
+                }
+            })
+        });
+    }
 
 </script>
 </body>

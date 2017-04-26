@@ -36,15 +36,8 @@
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>
-        <span>输入客户状态：</span>
 
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 客户状态" style="width:200px" class="input-text">
-        <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
-        </button>
-    </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"> <a
+    <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
             class="btn btn-primary radius" data-title="添加状态" onclick="showModal('add',0)"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加状态</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.conditions)}</strong> 条</span></div>
@@ -168,7 +161,18 @@
             return;
         }
         var form = $('#dondition_form').serialize();
-
+        var condition_id = $("#condition_id").val();
+        var url;
+        if (condition_id == ''){
+            url = "<%=path%>/customer-condition/add.action";
+        }else{
+            url = "<%=path%>/customer-condition/update.action";
+        }
+        $.getJSON(url,form,function (result) {
+            console.log(result.success);
+            $("#modal-detail").modal("hide");
+            location.reload();
+        })
     }
 
     function showModal(action,condition_id) {

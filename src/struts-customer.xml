@@ -36,6 +36,9 @@
             <result name="success">/WEB-INF/pages/customer/condition.jsp</result>
         </action>
         <action name="getById" class="customerConditionController" method="getById"/>
+        <action name="add" class="customerConditionController" method="add"/>
+        <action name="delete" class="customerConditionController" method="delete"/>
+        <action name="update" class="customerConditionController" method="update"/>
     </package>
     <package name="source" namespace="/customer-source" extends="myDefault">
         <action name="list" class="customerSourceController" method="queryAll">
@@ -49,9 +52,10 @@
         <action name="list" class="customerCareController" method="queryAll">
             <result name="success">/WEB-INF/pages/customer/care.jsp</result>
         </action>
-        <action name="care-dialog" class="customerCareController">
+        <action name="care-dialog" class="customerCareController" method="careDialog">
             <result name="success">/WEB-INF/pages/customer/care-dialog.jsp</result>
         </action>
+        <action name="add" class="customerCareController" method="add"/>
     </package>
     <package name="linkRecord" namespace="/customer-link-record" extends="myDefault">
         <action name="list" class="linkRecordController" method="queryAll">

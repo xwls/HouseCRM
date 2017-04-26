@@ -25,15 +25,8 @@
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-    <div class="text-c">
-        <button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button>&nbsp;&nbsp;&nbsp;
-        <span>输入客户类型：</span>
 
-        <input type="text" name="queryBy-input" id="queryBy-input" placeholder=" 客户类型" style="width:200px" class="input-text">
-        <button name="search" id="search"onclick="search()" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
-        </button>
-    </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"> <a
+    <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
             class="btn btn-primary radius" data-title="添加类型" onclick="add()"
             href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加类型</a></span> <span
             class="r">共有数据：<strong>${fn:length(requestScope.types)}</strong> 条</span></div>

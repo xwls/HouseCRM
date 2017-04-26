@@ -38,70 +38,69 @@
 
 <div class="page-container">
 
-    <form id="care_form">
+    <form id="care_form" name="care_form">
+        <input type="hidden" name="care_id" value="<s:property value="#request.care.care_id"/> ">
         <div class="row">
-            <label for="care_theme">关怀主题：</label> <input id="care_theme" name="care_theme" type="text" placeholder="关怀主题" class="input-text radius size-M">
+            <label for="care_theme">关怀主题：</label>
+            <input id="care_theme" value="<s:property value="#request.care.care_theme"/>" name="care_theme" type="text" placeholder="关怀主题" class="input-text radius size-M">
         </div>
         <div class="row">
-            <label for="care_people">关怀对象：</label> <span class="select-box">
-          <select id="care_people" class="select" size="1" name="demo1">
-            <option value="" selected>默认select</option>
-            <option value="1">菜单一</option>
-            <option value="2">菜单二</option>
-            <option value="3">菜单三</option>
+            <label for="customer_id">关怀对象：</label> <span class="select-box">
+          <select id="customer_id" class="select" size="1" name="customer_id">
+            <s:iterator value="#request.customers" var="customer">
+              <option <s:if test="#request.care.customer_id == #customer.customer_id"> selected="selected"</s:if> value="${customer_id}">${customer_name}</option>
+            </s:iterator>
           </select>
         </span>
         </div>
         <div class="row">
-            <label for="care_nexttime">下次关怀时间：</label> <input id="care_nexttime" name="care_nexttime" type="text" placeholder="下次关怀时间：" class="input-text radius size-M">
+            <label for="care_nexttime">下次关怀时间：</label>
+            <input id="care_nexttime" value="<s:property value="#request.care.care_nexttime"/>" name="care_nexttime" type="text" placeholder="下次关怀时间：" onfocus="WdatePicker({ minDate:'%y-%M-%d' })" class="input-text Wdate radius size-M">
         </div>
         <div class="row">
             <label for="care_way">关怀方式：</label> <span class="select-box">
-          <select id="care_way" class="select" size="1" name="demo1">
-            <option value="" selected>默认select</option>
-            <option value="1">菜单一</option>
-            <option value="2">菜单二</option>
-            <option value="3">菜单三</option>
+          <select id="care_way" class="select" size="1" name="care_way">
+            <option <s:if test="#request.care.care_way == '发短信'"> selected="selected"</s:if> value="发短信">发短信</option>
+            <option <s:if test="#request.care.care_way == '送礼品'"> selected="selected"</s:if> value="送礼品">送礼品</option>
+            <option <s:if test="#request.care.care_way == '电话问候'"> selected="selected"</s:if> value="电话问候">电话问候</option>
+            <option <s:if test="#request.care.care_way == '上门拜访'"> selected="selected"</s:if> value="上门拜访">上门拜访</option>
+            <option <s:if test="#request.care.care_way == '其他'"> selected="selected"</s:if> value="其他">其他</option>
           </select>
         </span>
         </div>
         <div class="row">
             <label for="care_remark">关怀备注：</label>
             <%--<div class="col-xs-8">--%>
-                <textarea id="care_remark" class="textarea" placeholder="备注" rows="" cols="" name=""></textarea>
+                <textarea id="care_remark" class="textarea" placeholder="备注" rows="" cols="" name="care_remark"><s:property value="#request.care.care_remark"/></textarea>
             <%--</div>--%>
         </div>
     </form>
 
     <div class="center-horizontally">
-        <button id="btn-submit" style="width: 80px;" onclick="allocate()" class="btn btn-primary">确定</button>
+        <button id="btn-submit" style="width: 80px;" onclick="care_submit()" class="btn btn-primary">确定</button>
     </div>
 
 
 </div>
 
 
-<jsp:include page="../footer.jsp"/>
-
+<%@include file="../footer.jsp"%>
+<script type="text/javascript" src="<%=path%>/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript"
         src="<%=path%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<%=path%>/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript" src="<%=path%>/lib/iCheck/1.0.2/icheck.min.js"></script>
 <script type="text/javascript">
-    function allocate() {
-        var customer_id = $("input[name='ids']").val();
-        var user_id = $("select[name='user']").val();
-        console.log(customer_id+"---"+user_id);
+    function care_submit() {
+        var form = $("#care_form").serialize();
         var index = parent.layer.getFrameIndex(window.name);
-
-        $.getJSON('<%=path%>/customer-info/allocate.action?customer_id='+customer_id+'&user_id='+user_id,function (result) {
-            console.log(result);
-            if (result.success == true){
-                layer.msg('分配成功');
+        $.getJSON("<%=path%>/customer-care/add.action",form,function (result) {
+            if(result.success == true){
+                layer.msg('成功');
                 parent.refresh();
                 parent.layer.close(index);
             }else{
-                layer.msg('分配失败');
+                layer.msg('失败');
             }
         })
     }
