@@ -21,7 +21,7 @@
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
-        class="btn btn-primary radius" data-title="添加联系人" onclick=""
+        class="btn btn-primary radius" data-title="添加联系人" onclick="add()"
         href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加联系人</a></span> <span
         class="r">共有数据：<strong>${fn:length(requestScope.linkMans)}</strong> 条</span></div>
 <div class="mt-20">
@@ -51,11 +51,11 @@
                 <td>${linkman_mobile}</td>
                 <td>${linkman_relation}</td>
                 <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                              onClick="allocation(${care_id})"
+                                              onClick="edit(${linkman_id })"
                                               href="javascript:;" title="编辑"><i class="Hui-iconfont">
                     &#xe6df;</i></a> <a
                         style="text-decoration:none" class="ml-5"
-                        onClick="article_del(this,'${care_id}')"
+                        onClick="del(${linkman_id })"
                         href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </s:iterator>
@@ -80,12 +80,26 @@
             {"orderable": false, "aTargets": [8]}// 不参与排序的列
         ]
     });
-    function allocation(care_id) {
-        <%--layer_show("客户分配","<%=path%>/customer-info/allocation-dialog.action?ids="+customer_id,"300","220")--%>
-        layer.alert('编辑'+care_id);
+    function add() {
+        layer_show("添加联系人","<%=path%>/customer-link-man/link-man-dialog.action","450","420")
+    }
+    function edit(linkman_id) {
+        layer_show("编辑联系人","<%=path%>/customer-link-man/link-man-dialog.action?linkman_id="+linkman_id,"450","420")
+    }
+    function del(linkman_id) {
+        layer.confirm("确认删除吗？",{btn:['确定','取消']},function () {
+            $.getJSON("<%=path%>/customer-link-man/delete.action?linkman_id=" + linkman_id, function (result) {
+                if(result.success == true){
+                    layer.msg('成功');
+                    location.reload();
+                }else{
+                    layer.msg('失败');
+                }
+            })
+        })
     }
     function refresh() {
-        window.location.replace('<%=path%>/customer-info/allocation.action');
+        window.location.replace('<%=path%>/customer-link-man/list.action');
     }
 </script>
 </body>

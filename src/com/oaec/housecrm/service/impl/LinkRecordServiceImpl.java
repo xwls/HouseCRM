@@ -28,12 +28,22 @@ public class LinkRecordServiceImpl implements LinkRecordService {
     }
 
     @Override
+    public int update(Map<String, Object> linkRecordInfo) {
+        return linkRecordDao.update(linkRecordInfo);
+    }
+
+    @Override
     public int delete(String record_id) {
         return linkRecordDao.delete(record_id);
     }
 
     @Override
-    public List<Map<String, Object>> getLinkRecord(String days) {
-        return linkRecordDao.getLinkRecord(days);
+    public List<Map<String, Object>> getLinkRecords(String days) {
+        return linkRecordDao.getLinkRecords(days);
+    }
+
+    @Override
+    public Map<String, Object> getLinkRecord(String record_id) {
+        return linkRecordDao.getLinkRecord(record_id);
     }
 }

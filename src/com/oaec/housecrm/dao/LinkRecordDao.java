@@ -34,5 +34,15 @@ public interface LinkRecordDao {
      */
     int delete(String record_id);
 
-    List<Map<String,Object>> getLinkRecord(String time);
+    /**
+     * 修改
+     * @param linkRecordInfo
+     * @return
+     */
+    int update(Map<String, Object> linkRecordInfo);
+
+    List<Map<String,Object>> getLinkRecords(String time);
+
+    Map<String,Object> getLinkRecord(String record_id);
+
 }

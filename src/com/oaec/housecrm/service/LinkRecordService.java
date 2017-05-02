@@ -27,6 +27,8 @@ public interface LinkRecordService {
      */
     int add(Map<String, Object> linkRecordInfo);
 
+    int update(Map<String, Object> linkRecordInfo);
+
     /**
      * 删除联系记录信息
      *
@@ -34,5 +36,7 @@ public interface LinkRecordService {
      */
     int delete(String record_id);
 
-    List<Map<String, Object>> getLinkRecord(String days);
+    List<Map<String, Object>> getLinkRecords(String days);
+
+    Map<String,Object> getLinkRecord(String record_id);
 }

@@ -35,7 +35,7 @@ public class WelcomeController extends CommonController implements RequestAware{
     public String execute() throws Exception {
         List<Map<String, Object>> notices = noticeService.getNotice();
         List<Map<String, Object>> customerCares = customerCareService.getCustomerCare("7");
-        List<Map<String, Object>> linkRecords = linkRecordService.getLinkRecord("7");
+        List<Map<String, Object>> linkRecords = linkRecordService.getLinkRecords("7");
         List<Map<String, Object>> birthdays = customerService.getBirthday("7");
         requestMap.put("notices",notices);
         requestMap.put("customerCares",customerCares);

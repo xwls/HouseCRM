@@ -1,5 +1,6 @@
 package com.oaec.housecrm.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;

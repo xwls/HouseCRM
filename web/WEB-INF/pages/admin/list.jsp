@@ -23,8 +23,7 @@
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <s:if test="#session.userInfo.role_id == 1">
             <span class="l">
-
-            <a class="btn btn-primary radius" data-title="添加员工" onclick="" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
+            <a class="btn btn-primary radius" data-title="添加员工" onclick="add()" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加员工</a>
         </span>
         </s:if>
 
@@ -37,11 +36,9 @@
                 <th width="70">姓名</th>
                 <th width="40">性别</th>
                 <th width="40">年龄</th>
-                <th width="40">民族</th>
                 <th width="70">部门</th>
                 <th width="60">角色</th>
                 <th width="40">学历</th>
-                <th width="40">婚姻</th>
                 <th width="80">家庭住址</th>
                 <th width="80">手机</th>
                 <th width="80">电话</th>
@@ -58,22 +55,20 @@
                     <td>${user_name}</td>
                     <td>${user_sex}</td>
                     <td>${user_age}</td>
-                    <td>${user_nation}</td>
                     <td>${department_name}</td>
                     <td>${role_name}</td>
                     <td>${user_diploma}</td>
-                    <td>${is_married}</td>
                     <td>${user_address}</td>
                     <td>${user_mobile}</td>
                     <td>${user_tel}</td>
                     <td>${user_email}</td>
                     <s:if test="#session.userInfo.role_id == 1">
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                                  onClick="allocation(${care_id})"
+                                                  onClick="edit('${user_id}')"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
-                            onClick="article_del(this,'${care_id}')"
+                            onClick="del('${user_id}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                     </s:if>
                 </tr>
@@ -94,7 +89,7 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [0<s:if test="#session.userInfo.role_id == 1">, 13</s:if>]}// 不参与排序的列
+            {"orderable": false, "aTargets": [0, 11]}// 不参与排序的列
         ]
     });
 
@@ -106,8 +101,29 @@
 
     })
 
-    function search() {
+    function add() {
+        layer_show("添加用户","<%=path%>/user/dialog.action","450","600")
+    }
 
+    function edit(user_id) {
+        layer_show("编辑用户","<%=path%>/user/dialog.action?user_id="+user_id,"450","600")
+    }
+
+    function del(user_id) {
+        layer.confirm("确认删除吗？",{btn:['确定','取消']},function () {
+            $.getJSON("<%=path%>/user/delete.action?user_id=" + user_id, function (result) {
+                if(result.success == true){
+                    layer.msg('成功');
+                    location.reload();
+                }else{
+                    layer.msg('失败');
+                }
+            })
+        })
+    }
+
+    function refresh() {
+        window.location.replace('<%=path%>/user/list.action');
     }
 
 

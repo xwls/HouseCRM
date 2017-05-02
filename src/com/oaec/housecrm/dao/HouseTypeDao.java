@@ -16,10 +16,9 @@ public interface HouseTypeDao {
 
     /**
      * 添加房屋类型的信息
-     * @param houseTypeInfo
      * @return
      */
-    int add(Map<String,Object> houseTypeInfo);
+    int add(String houseTypeName);
 
     /**
      * 删除房屋类型信息

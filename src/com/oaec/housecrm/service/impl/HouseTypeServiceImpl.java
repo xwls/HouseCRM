@@ -23,8 +23,8 @@ public class HouseTypeServiceImpl implements HouseTypeService {
     }
 
     @Override
-    public int add(Map<String, Object> houseTypeInfo) {
-        return houseTypeDao.add(houseTypeInfo);
+    public int add(String houseTypeName) {
+        return houseTypeDao.add(houseTypeName);
     }
 
     @Override

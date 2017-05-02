@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="house" namespace="/house" extends="myDefault">
+        <action name="list" class="houseController" method="queryAll">
+            <result name="success">/WEB-INF/pages/house/list.jsp</result>
+        </action>
+        <action name="type" class="houseTypeController" method="query">
+            <result name="success">/WEB-INF/pages/house/type.jsp</result>
+        </action>
+        <action name="dialog" class="houseController" method="dialog">
+            <result name="success">/WEB-INF/pages/house/house-dialog.jsp</result>
+        </action>
+        <action name="add" class="houseController" method="add"/>
+        <action name="update" class="houseController" method="update"/>
+        <action name="delete" class="houseController" method="delete"/>
+    </package>
+</struts>

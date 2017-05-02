@@ -42,8 +42,8 @@ public class CustomerConditionController extends CommonController {
     }
 
     public void delete() throws IOException {
-        String type_id = ServletActionContext.getRequest().getParameter("type_id");
-        int delete = customerConditionService.delete(type_id);
+        String condition_id = ServletActionContext.getRequest().getParameter("condition_id");
+        int delete = customerConditionService.delete(condition_id);
         write(delete > 0);
     }
 

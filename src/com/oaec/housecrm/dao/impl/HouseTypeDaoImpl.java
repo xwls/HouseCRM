@@ -27,9 +27,9 @@ public class HouseTypeDaoImpl implements HouseTypeDao {
     }
 
     @Override
-    public int add(Map<String, Object> houseTypeInfo) {
+    public int add(String houseTypeName) {
         String sql = "insert into house_type (type_name)  values(?)";
-        int update = jdbcTemplate.update(sql, houseTypeInfo);
+        int update = jdbcTemplate.update(sql, houseTypeName);
         return update;
     }
 

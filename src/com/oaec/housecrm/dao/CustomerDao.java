@@ -43,6 +43,8 @@ public interface CustomerDao {
      */
     int update(String customer_id,String user_id);
 
+    int delete(String customer_id);
+
     List<Map<String,Object>> query(Map<String,Object> map);
 
     List<Map<String,Object>> queryNameById(String[] ids);

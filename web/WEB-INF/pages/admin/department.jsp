@@ -12,46 +12,40 @@
 <html>
 <head>
     <%@include file="../header.jsp" %>
-    <title>房屋信息</title>
+    <title>部门信息</title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 员工相关 <span
-        class="c-gray en">&gt;</span> 房屋信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+        class="c-gray en">&gt;</span> 部门信息 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
                                               href="javascript:location.replace(location.href);" title="刷新"><i
         class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
-        class="btn btn-primary radius" data-title="添加" onclick=""
+        class="btn btn-primary radius" data-title="添加" onclick="add()"
         href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加</a></span> <span
-        class="r">共有数据：<strong>${fn:length(requestScope.houses)}</strong> 条</span></div>
+        class="r">共有数据：<strong>${fn:length(requestScope.departments)}</strong> 条</span></div>
 <div class="mt-20">
     <table class="table table-border table-bordered table-bg table-hover table-sort">
         <thead>
         <tr class="text-c">
             <th width="50">ID</th>
-            <th width="70">户型</th>
-            <th width="100">管理员工</th>
-            <th width="100">房屋地址</th>
-            <th width="120">房屋价格（平米）</th>
-            <th width="60">房屋环境</th>
+            <th width="70">部门名称</th>
+            <th width="100">部门描述</th>
             <th width="80">操作</th>
         </tr>
         </thead>
         <tbody>
-        <s:iterator value="#request.houses">
+        <s:iterator value="#request.departments">
             <tr class="text-c">
-                <td>${house_id }</td>
-                <td>${type_name}</td>
-                <td>${user_name}</td>
-                <td>${house_address}</td>
-                <td>${house_price}</td>
-                <td>${house_ambient}</td>
+                <td>${department_id }</td>
+                <td>${department_name}</td>
+                <td>${department_desc}</td>
                 <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                              onClick="allocation(${care_id})"
+                                              onClick="edit('${department_id }')"
                                               href="javascript:;" title="编辑"><i class="Hui-iconfont">
                     &#xe6df;</i></a> <a
                         style="text-decoration:none" class="ml-5"
-                        onClick="article_del(this,'${care_id}')"
+                        onClick="del('${department_id }')"
                         href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </s:iterator>
@@ -73,15 +67,33 @@
         "bStateSave": true,//状态保存
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable": false, "aTargets": [6]}// 不参与排序的列
+            {"orderable": false, "aTargets": [3]}// 不参与排序的列
         ]
     });
-    function allocation(care_id) {
-        <%--layer_show("客户分配","<%=path%>/customer-info/allocation-dialog.action?ids="+customer_id,"300","220")--%>
-        layer.alert('编辑'+care_id);
+
+    function add() {
+        layer_show("添加部门","<%=path%>/department/dialog.action","450","210")
     }
+
+    function edit(department_id) {
+        layer_show("添加部门","<%=path%>/department/dialog.action?department_id="+department_id,"450","210")
+    }
+
+    function del(department_id) {
+        layer.confirm("确认删除吗？",{btn:['确定','取消']},function () {
+            $.getJSON("<%=path%>/department/delete.action?department_id=" + department_id, function (result) {
+                if(result.success == true){
+                    layer.msg('成功');
+                    location.reload();
+                }else{
+                    layer.msg('失败');
+                }
+            })
+        })
+    }
+
     function refresh() {
-        window.location.replace('<%=path%>/customer-info/allocation.action');
+        window.location.replace('<%=path%>/department/list.action');
     }
 </script>
 </body>

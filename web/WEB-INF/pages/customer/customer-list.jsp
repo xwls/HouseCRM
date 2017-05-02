@@ -132,7 +132,7 @@
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
-                            onClick="article_del(this,'${customer.customer_id}')"
+                            onClick="del('${customer.customer_id}','${customer.customer_name}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
@@ -370,6 +370,20 @@
         var value = $("#queryBy-input").val();
         var url = "<%=path%>/customer-info/search.action?user_id=<s:property value="#session.userInfo.user_id"/>&role_id=<s:property value="#session.userInfo.role_id"/>&"+key+"="+value;
         window.location.replace(url);
+    }
+
+    function del(customer_id,customer_name) {
+        layer.confirm("确认删除客户\""+customer_name+"\"吗？",{btn:['确定','取消']},function () {
+            $.getJSON("<%=path%>/customer-info/delete.action?customer_id=" + customer_id, function (result) {
+                if(result.success == true){
+                    layer.msg('成功');
+                    location.reload();
+                }else{
+                    layer.msg('失败');
+                }
+            })
+        })
+
     }
 
     function getCustomerDetail(customer_id) {

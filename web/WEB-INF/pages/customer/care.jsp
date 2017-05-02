@@ -55,7 +55,7 @@
                                               href="javascript:;" title="编辑"><i class="Hui-iconfont">
                     &#xe6df;</i></a> <a
                         style="text-decoration:none" class="ml-5"
-                        onClick="article_del(this,'${care_id}')"
+                        onClick="del('${care_id}')"
                         href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
             </tr>
         </s:iterator>
@@ -88,6 +88,20 @@
     function edit(care_id) {
         layer_show("编辑关怀","<%=path%>/customer-care/care-dialog.action?care_id="+care_id,"450","400")
     }
+
+    function del(care_id) {
+        layer.confirm("确认删除吗？",{btn:['确定','取消']},function () {
+            $.getJSON("<%=path%>/customer-care/delete.action?care_id=" + care_id, function (result) {
+                if(result.success == true){
+                    layer.msg('成功');
+                    location.reload();
+                }else{
+                    layer.msg('失败');
+                }
+            })
+        })
+    }
+
     function refresh() {
         window.location.replace('<%=path%>/customer-care/list.action');
     }

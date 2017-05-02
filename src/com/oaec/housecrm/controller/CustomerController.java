@@ -171,6 +171,13 @@ public class CustomerController extends CommonController{
         return SUCCESS;
     }
 
+    public void delete(){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String customer_id = request.getParameter("customer_id");
+        int delete = customerService.delete(customer_id);
+        write(delete > 0);
+    }
+
     public void allocate(){
         HttpServletRequest request = ServletActionContext.getRequest();
         String customer_id = request.getParameter("customer_id");

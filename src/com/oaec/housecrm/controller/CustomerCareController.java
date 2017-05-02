@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +63,13 @@ public class CustomerCareController extends CommonController implements RequestA
             result = customerCareService.update(parameters);
         }
         write(result > 0);
+    }
+
+    public void delete(){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String care_id = request.getParameter("care_id");
+        int delete = customerCareService.delete(care_id);
+        write(delete > 0);
     }
 
     @Override

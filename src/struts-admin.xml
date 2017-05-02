@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <package name="user" namespace="/user" extends="myDefault">
+        <action name="toLogin">
+            <result>login.jsp</result>
+        </action>
+        <action name="login" class="userController" method="login">
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="redirect">../index.jsp</result>
+            <result name="error" type="redirectAction">toLogin</result>
+        </action>
+        <action name="logout" class="userController" method="logout">
+            <result name="success" type="redirect">/login.jsp</result>
+        </action>
+        <action name="list" class="userController" method="queryAll">
+            <result name="success">/WEB-INF/pages/admin/list.jsp</result>
+        </action>
+        <action name="dialog" class="userController" method="dialog">
+            <result name="success">/WEB-INF/pages/admin/user-dialog.jsp</result>
+        </action>
+        <action name="add" class="userController" method="add"/>
+        <action name="delete" class="userController" method="delete"/>
+    </package>
+
+    <package name="department" namespace="/department" extends="myDefault">
+        <action name="list" class="departmentController" method="queryAll">
+            <result name="success">/WEB-INF/pages/admin/department.jsp</result>
+        </action>
+        <action name="dialog" class="departmentController" method="dialog">
+            <result name="success">/WEB-INF/pages/admin/dept-dialog.jsp</result>
+        </action>
+        <action name="add" class="departmentController" method="add"/>
+        <action name="delete" class="departmentController" method="delete"/>
+    </package>
+    <package name="notice" namespace="/notice" extends="myDefault">
+        <action name="list" class="noticeController" method="queryAll">
+            <result name="success" >/WEB-INF/pages/admin/notice.jsp</result>
+        </action>
+        <action name="dialog" class="noticeController" method="dialog">
+            <result name="success" >/WEB-INF/pages/admin/notice-dialog.jsp</result>
+        </action>
+        <action name="add" class="noticeController" method="add"/>
+        <action name="delete" class="noticeController" method="delete"/>
+    </package>
+    <package name="role" namespace="/role" extends="myDefault">
+        <action name="list" class="roleController" method="queryAll">
+            <result name="success">/WEB-INF/pages/admin/role.jsp</result>
+        </action>
+    </package>
+</struts>

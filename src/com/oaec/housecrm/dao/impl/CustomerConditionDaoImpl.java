@@ -19,7 +19,6 @@ public class CustomerConditionDaoImpl implements CustomerConditionDao {
 
     @Override
     public List<Map<String, Object>> queryAll() {
-//        String sql = "SELECT DISTINCT customer_type.type_id,customer_type.type_name FROM customer_info RIGHT JOIN customer_type ON customer_info.type_id = customer_type.type_id;";
         String sql = "select *  from customer_condition  where is_used=1";
         List<Map<String, Object>> types = jdbcTemplate.queryForList(sql);
         return types;
@@ -35,7 +34,6 @@ public class CustomerConditionDaoImpl implements CustomerConditionDao {
 
     @Override
     public int update(Map<String,Object> parameters) {
-//        System.out.println(parameters);
         String sql = "update customer_condition set  condition_name=?,condition_explain=?  where condition_id =?";
         int update = jdbcTemplate.update(sql, parameters.get("condition_name"), parameters.get("condition_explain"),parameters.get("condition_id"));
         return update;
@@ -51,7 +49,7 @@ public class CustomerConditionDaoImpl implements CustomerConditionDao {
     @Override
     public int add(Map<String,Object> parameters) {
         String sql = "insert into customer_condition (condition_name,condition_explain)  values(?,?)";
-        int update = jdbcTemplate.update(sql, parameters.get("condition_name"),parameters.get("condition_name"));
+        int update = jdbcTemplate.update(sql, parameters.get("condition_name"),parameters.get("condition_explain"));
         return update;
     }
 }

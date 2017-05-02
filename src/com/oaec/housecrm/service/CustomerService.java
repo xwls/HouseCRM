@@ -61,6 +61,8 @@ public interface CustomerService {
      */
     int update(Map<String, Object> map);
 
+    int delete(String customer_id);
+
     List<Map<String,Object>> query(Map<String,Object> map);
 
     List<Map<String,Object>> queryNameById(String[] ids);

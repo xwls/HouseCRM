@@ -29,8 +29,9 @@
     </package>
 
     <include file="struts-customer.xml"/>
-    <include file="struts-user.xml"/>
+    <include file="struts-admin.xml"/>
     <include file="struts-email.xml"/>
     <include file="struts-chart.xml"/>
     <include file="struts-export.xml"/>
+    <include file="struts-house.xml"/>
 </struts>

@@ -62,7 +62,7 @@
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
-                            onClick=""
+                            onClick="del(${condition.condition_id},'${condition.condition_name}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </c:forEach>
@@ -79,7 +79,7 @@
                     <a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void(0);">×</a>
                 </div>
                 <div class="modal-body skin-minimal">
-                    <form id="dondition_form" name="condition_form" method="post" action="#">
+                    <form id="condition_form" name="condition_form" method="post" action="#">
                         <input type="hidden" id="condition_id" name="condition_id">
                         <label for="condition_name">类型名称</label><input type="text" id="condition_name" name="condition_name" class=" input-text" placeholder="状态名称">
                         <label for="condition_explain">类名描述</label><input type="text" id="condition_explain" name="condition_explain" class=" input-text" placeholder="状态描述">
@@ -114,16 +114,12 @@
         ]
     });
 
-
-
-
-
     $(function () {
         validate();
     })
 
     function validate() {
-        return $('#dondition_form').validate({
+        return $('#condition_form').validate({
             rules:{
                 condition_name:{
                     required:true,
@@ -155,12 +151,12 @@
     }
 
     function modalSubmit() {
-        var validate = $('#dondition_form').validate();
+        var validate = $('#condition_form').validate();
         if(!validate.form()){
             layer.msg('数据格式有误，请修改后再试',{icon: 2})
             return;
         }
-        var form = $('#dondition_form').serialize();
+        var form = $('#condition_form').serialize();
         var condition_id = $("#condition_id").val();
         var url;
         if (condition_id == ''){
@@ -169,14 +165,14 @@
             url = "<%=path%>/customer-condition/update.action";
         }
         $.getJSON(url,form,function (result) {
-            console.log(result.success);
+//            console.log(result.success);
             $("#modal-detail").modal("hide");
             location.reload();
         })
     }
 
     function showModal(action,condition_id) {
-        var validate = $('#dondition_form').validate();
+        var validate = $('#condition_form').validate();
         validate.resetForm();
         $("#condition_name").removeClass('error');
         $("#condition_explain").removeClass('error');
@@ -198,6 +194,25 @@
         $("#modal-detail").modal("show");
     }
 
+    function refresh() {
+        window.location.replace('<%=path%>/customer-condition/list.action');
+    }
+
+    function del(condition_id,condition_name) {
+//        console.log(condition_id+'--'+condition_name)
+        layer.confirm('删除类型\"'+condition_name+'\"？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.getJSON('<%=path%>/customer-condition/delete.action?condition_id='+condition_id,function (result) {
+                if (result.success == true) {
+                    layer.msg('删除成功', {icon: 1});
+                    refresh();
+                }else{
+                    layer.msg('删除失败', {icon: 2});
+                }
+            })
+        });
+    }
 
 </script>
 </body>

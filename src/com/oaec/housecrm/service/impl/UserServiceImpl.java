@@ -27,4 +27,24 @@ public class UserServiceImpl implements UserService {
         return userDao.queryAllUsed();
     }
 
+    @Override
+    public int add(Map<String, Object> user) {
+        return userDao.add(user);
+    }
+
+    @Override
+    public int update(Map<String, Object> user) {
+        return userDao.update(user);
+    }
+
+    @Override
+    public int delete(String user_id) {
+        return userDao.delete(user_id);
+    }
+
+    @Override
+    public Map<String, Object> queryById(String user_id) {
+        return userDao.queryById(user_id);
+    }
+
 }

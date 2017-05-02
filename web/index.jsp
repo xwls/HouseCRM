@@ -103,14 +103,11 @@
             </dd>
         </dl>
         <dl id="menu-user">
-            <dt><i class="Hui-iconfont">&#xe613;</i> 员工相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+            <dt><i class="Hui-iconfont">&#xe613;</i> 房屋相关<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="user/list.action" data-title="员工信息" href="javascript:void(0)">员工信息</a></li>
                     <li><a data-href="house/list.action?user_id=<s:property value="#session.userInfo.user_id"/> " data-title="房屋信息" href="javascript:void(0)">房屋信息</a></li>
                     <li><a data-href="house/type.action" data-title="房屋类型" href="javascript:void(0)">房屋类型</a></li>
-                    <li><a data-href="department/list.action" data-title="部门信息" href="javascript:void(0)">部门信息</a></li>
-                    <li><a data-href="notice/list.action" data-title="公   告" href="javascript:void(0)">公   告</a></li>
                 </ul>
             </dd>
         </dl>
@@ -129,9 +126,10 @@
             <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="admin-role.html" data-title="添加员工" href="javascript:void(0)">添加员工</a></li>
-                    <li><a data-href="admin-permission.html" data-title="添加部门" href="javascript:void(0)">添加部门</a></li>
-                    <li><a data-href="admin-list.html" data-title="添加角色" href="javascript:void(0)">添加角色</a></li>
+                    <li><a data-href="user/list.action" data-title="员工" href="javascript:void(0)">员工</a></li>
+                    <li><a data-href="department/list.action" data-title="部门" href="javascript:void(0)">部门</a></li>
+                    <%--<li><a data-href="role/list.action" data-title="角色" href="javascript:void(0)">角色</a></li>--%>
+                    <li><a data-href="notice/list.action" data-title="公告" href="javascript:void(0)">公告</a></li>
                 </ul>
             </dd>
         </dl>

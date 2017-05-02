@@ -20,7 +20,7 @@ public class LinkRecordDaoImpl implements LinkRecordDao {
 
     @Override
     public List<Map<String, Object>> getWhoLink(String whoLinkInput, String queryType) {
-        StringBuilder sql = new StringBuilder("select a.record_id,a.customer_id,from_unixtime(unix_timestamp(a.link_time),'%Y-%m-%d') as link_time,a.who_link,a.link_type,a.link_theme,from_unixtime(unix_timestamp(a.link_nexttime),'%Y-%m-%d') as link_nexttime,a.link_remark,a.is_used,b.customer_name from customer_linkreord a ,customer_info b where  a.customer_id = b.customer_id ");
+        StringBuilder sql = new StringBuilder("select a.record_id,a.customer_id,from_unixtime(unix_timestamp(a.link_time),'%Y-%m-%d') as link_time,a.who_link,a.link_type,a.link_theme,from_unixtime(unix_timestamp(a.link_nexttime),'%Y-%m-%d') as link_nexttime,a.link_remark,a.is_used,b.customer_name from customer_linkreord a ,customer_info b where  a.customer_id = b.customer_id and a.is_used = '1'");
         if (StringUtils.isNotBlank(whoLinkInput)){
             if ("1".equals(queryType)){
                 sql.append(" and  b.customer_name  like ? ");
@@ -46,15 +46,29 @@ public class LinkRecordDaoImpl implements LinkRecordDao {
 
     @Override
     public int delete(String record_id) {
-        String sql = "update customer_linkrecord SET  is_used = '0' WHERE record_id = ?";
+        String sql = "update customer_linkreord SET  is_used = '0' WHERE record_id = ?";
         int update = jdbcTemplate.update(sql, record_id);
         return update;
     }
 
     @Override
-    public List<Map<String, Object>> getLinkRecord(String days) {
+    public int update(Map<String, Object> linkRecordInfo) {
+        String sql = "UPDATE customer_linkreord SET customer_id = ?,who_link = ?,link_type = ?,link_theme = ?,link_nexttime = ?,link_remark = ? WHERE record_id = ?";
+        int update = jdbcTemplate.update(sql, linkRecordInfo.get("customer_id"), linkRecordInfo.get("who_link"), linkRecordInfo.get("link_type"), linkRecordInfo.get("link_theme"), linkRecordInfo.get("link_nexttime"), linkRecordInfo.get("link_remark"), linkRecordInfo.get("record_id"));
+        return update;
+    }
+
+    @Override
+    public List<Map<String, Object>> getLinkRecords(String days) {
         String sql = "select a.*,b.customer_name from customer_linkreord  a,customer_info b where a.customer_id=b.customer_id and  a.is_used='1' and TO_DAYS(a.link_nexttime) - TO_DAYS(now())>0     and  TO_DAYS(a.link_nexttime) - TO_DAYS(now())<= ?";
 	    List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, days);
 	    return maps;
+    }
+
+    @Override
+    public Map<String, Object> getLinkRecord(String record_id) {
+        String sql = "SELECT record_id,customer_id,who_link,link_type,link_theme,link_remark,from_unixtime(UNIX_TIMESTAMP(link_nexttime), '%Y-%m-%d') link_nexttime FROM customer_linkreord WHERE record_id = ?";
+        Map<String, Object> record = jdbcTemplate.queryForMap(sql, record_id);
+        return record;
     }
 }

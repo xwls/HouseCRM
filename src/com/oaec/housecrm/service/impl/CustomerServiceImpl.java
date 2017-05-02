@@ -51,6 +51,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public int delete(String customer_id) {
+        return customerDao.delete(customer_id);
+    }
+
+    @Override
     public List<Map<String, Object>> query(Map<String, Object> map) {
         return customerDao.query(map);
     }

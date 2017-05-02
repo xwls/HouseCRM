@@ -72,6 +72,13 @@ public class CustomerDaoImpl implements CustomerDao {
 	}
 
 	@Override
+	public int delete(String customer_id) {
+		String sql = "UPDATE customer_info SET is_used = '0' WHERE customer_id = ?";
+        int update = jdbcTemplate.update(sql, customer_id);
+        return update;
+	}
+
+	@Override
 	public List<Map<String, Object>> query(Map<String, Object> map) {
 		StringBuilder sb = new StringBuilder("SELECT customer_info.customer_id, customer_info.customer_name, customer_info.customer_sex, customer_condition.condition_name, customer_source.source_name, user_info.user_name, customer_type.type_name,customer_info.customer_addtime, customer_info.customer_mobile, customer_info.customer_email FROM customer_info LEFT JOIN customer_condition ON (customer_info.condition_id = customer_condition.condition_id) LEFT JOIN customer_source ON customer_info.source_id = customer_source.source_id LEFT JOIN user_info ON customer_info.user_id = user_info.user_id LEFT JOIN customer_type ON customer_info.type_id = customer_type.type_id WHERE customer_info.is_used != 0 AND user_info.user_name IS NOT NULL");
 		List<Object> params = new ArrayList<Object>();

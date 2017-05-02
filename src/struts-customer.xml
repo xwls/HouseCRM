@@ -11,6 +11,7 @@
         </action>
         <action name="detail" class="customerController" method="detail"/>
         <action name="update" class="customerController" method="update"/>
+        <action name="delete" class="customerController" method="delete"/>
         <action name="allocation" class="customerController" method="queryAllNotAllocation">
             <result name="success">/WEB-INF/pages/customer/allocation.jsp</result>
         </action>
@@ -56,15 +57,26 @@
             <result name="success">/WEB-INF/pages/customer/care-dialog.jsp</result>
         </action>
         <action name="add" class="customerCareController" method="add"/>
+        <action name="delete" class="customerCareController" method="delete"/>
     </package>
     <package name="linkRecord" namespace="/customer-link-record" extends="myDefault">
         <action name="list" class="linkRecordController" method="queryAll">
             <result name="success">/WEB-INF/pages/customer/link-record.jsp</result>
         </action>
+        <action name="link-record-dialog" class="linkRecordController" method="linkRecordDialog">
+            <result name="success">/WEB-INF/pages/customer/link-record-dialog.jsp</result>
+        </action>
+        <action name="add" class="linkRecordController" method="add"/>
+        <action name="delete" class="linkRecordController" method="delete"/>
     </package>
     <package name="linkMan" namespace="/customer-link-man" extends="myDefault">
         <action name="list" class="linkManController" method="queryAll">
             <result name="success">/WEB-INF/pages/customer/link-man.jsp</result>
         </action>
+        <action name="link-man-dialog" class="linkManController" method="linkManDialog">
+            <result name="success">/WEB-INF/pages/customer/link-man-dialog.jsp</result>
+        </action>
+        <action name="add" class="linkManController" method="add"/>
+        <action name="delete" class="linkManController" method="delete"/>
     </package>
 </struts>

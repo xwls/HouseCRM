@@ -52,11 +52,11 @@
                     <td>${type_id}</td>
                     <td>${type_name}</td>
                     <td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5"
-                                                  onClick=""
+                                                  onClick="edit('${type_id}','${type_name}')"
                                                   href="javascript:;" title="编辑"><i class="Hui-iconfont">
                         &#xe6df;</i></a> <a
                             style="text-decoration:none" class="ml-5"
-                            onClick=""
+                            onClick="del('${type_id}','${type_name}')"
                             href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                 </tr>
             </s:iterator>
@@ -93,7 +93,7 @@
             if(type_name == val){
                 layer.msg('内容未修改');
             }else{
-                $.getJSON('<%=path%>/customer-type/update.action?type_id='+type_id+'&type_name='+val,function (result) {
+                $.getJSON('<%=path%>/house/update.action?type_id='+type_id+'&type_name='+val,function (result) {
 //                    console.log(result)
                     if (result.success == true){
                         layer.msg('修改成功');
@@ -117,14 +117,14 @@
     })
 
     function refresh() {
-        window.location.replace('<%=path%>/customer-type/list.action');
+        window.location.replace('<%=path%>/house/type.action');
     }
 
     function del(type_id,type_name) {
         layer.confirm('删除类型\"'+type_name+'\"？', {
             btn: ['确定','取消'] //按钮
         }, function(){
-            $.getJSON('<%=path%>/customer-type/delete.action?type_id='+type_id,function (result) {
+            $.getJSON('<%=path%>/house/delete.action?type_id='+type_id,function (result) {
                 if (result.success == true) {
                     layer.msg('删除成功', {icon: 1});
                     refresh();
@@ -146,7 +146,7 @@
 
     function add() {
         layer.prompt({title: '添加新类型', formType: 0},function(val, index){
-            $.getJSON('<%=path%>/customer-type/add.action?type_name='+val,function (result) {
+            $.getJSON('<%=path%>/house/add.action?type_name='+val,function (result) {
 //                    console.log(result)
                 if (result.success == true){
                     layer.msg('添加成功');
