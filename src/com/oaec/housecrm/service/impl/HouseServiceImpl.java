@@ -38,7 +38,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<Map<String, Object>> query(String houseInput, String queryType, String userId) {
-        return houseDao.query(houseInput, queryType, userId);
+    public List<Map<String, Object>> query(String houseInput, String queryType/*, String userId*/) {
+        return houseDao.query(houseInput, queryType/*, userId*/);
     }
 }

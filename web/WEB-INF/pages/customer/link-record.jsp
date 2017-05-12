@@ -22,7 +22,10 @@
 <div class="page-container">
 <div class="cl pd-5 bg-1 bk-gray"><span class="l"> <a
         class="btn btn-primary radius" data-title="添加记录" onclick="add()"
-        href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加记录</a></span> <span
+        href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加记录</a></span>
+    <span class="l ml-10"> <a
+            class="btn btn-secondary radius" data-title="导出" onclick=""
+            href="<%=path%>/customer-link-record/export.action"><i class="Hui-iconfont">&#xe644;</i> 导出</a></span><span
         class="r">共有数据：<strong>${fn:length(requestScope.linkRecords)}</strong> 条</span></div>
 <div class="mt-20">
     <table class="table table-border table-bordered table-bg table-hover table-sort">

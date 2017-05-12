@@ -44,5 +44,5 @@ public interface HouseDao {
      *
      * @return
      */
-    List<Map<String, Object>> query(String houseInput, String queryType, String userId);
+    List<Map<String, Object>> query(String houseInput, String queryType/*, String userId*/);
 }

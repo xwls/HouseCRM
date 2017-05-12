@@ -18,5 +18,6 @@
         <action name="add" class="houseController" method="add"/>
         <action name="update" class="houseController" method="update"/>
         <action name="delete" class="houseController" method="delete"/>
+        <action name="export" class="houseController" method="export"/>
     </package>
 </struts>

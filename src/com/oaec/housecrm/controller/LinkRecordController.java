@@ -75,6 +75,11 @@ public class LinkRecordController extends CommonController implements RequestAwa
         write(delete > 0);
     }
 
+    public void export(){
+        List<Map<String, Object>> linkRecords = linkRecordService.getWhoLink(null, null);
+        export("联系记录",linkRecords);
+    }
+
     @Override
     public void setRequest(Map<String, Object> map) {
         this.requestMap = map;

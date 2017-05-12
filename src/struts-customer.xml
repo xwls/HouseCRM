@@ -68,6 +68,7 @@
         </action>
         <action name="add" class="linkRecordController" method="add"/>
         <action name="delete" class="linkRecordController" method="delete"/>
+        <action name="export" class="linkRecordController" method="export"/>
     </package>
     <package name="linkMan" namespace="/customer-link-man" extends="myDefault">
         <action name="list" class="linkManController" method="queryAll">

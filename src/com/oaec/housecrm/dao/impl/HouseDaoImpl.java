@@ -48,14 +48,14 @@ public class HouseDaoImpl implements HouseDao {
     }
 
     @Override
-    public List<Map<String, Object>> query(String houseInput, String queryType, String userId) {
+    public List<Map<String, Object>> query(String houseInput, String queryType/*, String userId*/) {
         StringBuilder sql = new StringBuilder("select a.*,b.type_name,c.user_name from house_info a ,house_type b , user_info c  where  a.type_id = b.type_id  and  a.user_id = c.user_id and a.is_used =1 ");
         List<Map<String, Object>> maps = null;
         List<String> parameters = new ArrayList<String>();
-        if (!"1".equals(userId)){
+        /*if (!"1".equals(userId)){
             sql.append(" and a.user_id = ? ");
             parameters.add(userId);
-        }
+        }*/
         if (StringUtils.isNotBlank(houseInput)){
             if ("1".equals(queryType)){
                 sql.append(" and  b.type_name  like ? ");

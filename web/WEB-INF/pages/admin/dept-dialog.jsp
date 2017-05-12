@@ -34,10 +34,7 @@
     </style>
 </head>
 <body>
-
-
 <div class="page-container">
-
     <form id="dept_form" name="dept_form">
         <input type="hidden" name="department_id" value="<s:property value="#request.dept.department_id"/> ">
         <div class="row">
@@ -49,18 +46,12 @@
             <input id="department_desc" value="<s:property value="#request.dept.department_desc"/>" name="department_desc" type="text" placeholder="部门描述" class="input-text radius size-M">
         </div>
     </form>
-
     <div class="center-horizontally">
         <button id="btn-submit" style="width: 80px;" onclick="dept_submit()" class="btn btn-primary">确定</button>
     </div>
-
-
 </div>
-
-
 <%@include file="../footer.jsp"%>
-<script type="text/javascript"
-        src="<%=path%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<%=path%>/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<%=path%>/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
     function dept_submit() {

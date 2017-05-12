@@ -28,10 +28,15 @@ public class HouseController extends CommonController implements RequestAware {
     private Map<String, Object> requestMap;
 
     public String queryAll(){
-        String user_id = ServletActionContext.getRequest().getParameter("user_id");
-        List<Map<String, Object>> houses = houseService.query("", "", user_id);
+//        String user_id = ServletActionContext.getRequest().getParameter("user_id");
+        List<Map<String, Object>> houses = houseService.query("", ""/*, user_id*/);
         requestMap.put("houses",houses);
         return SUCCESS;
+    }
+
+    public void export(){
+        List<Map<String, Object>> houses = houseService.query("", "");
+        export("房屋信息",houses);
     }
 
     public String dialog(){
